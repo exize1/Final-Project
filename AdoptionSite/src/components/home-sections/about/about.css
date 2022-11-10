@@ -1,0 +1,77 @@
+.about-container{
+  background-color: white;
+}
+
+.heart-icon{
+    height: 6vh;
+    margin-top: 3vh;
+}
+
+.hand-icon{
+    height: 6vh;
+}
+
+.dog-icon{
+    height: 6vh;
+}
+
+.about-text{
+    margin-top: 5vh;
+    font-size: x-large;
+    line-height: 8vh;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    font-weight: bold;
+    color: #336cc2;
+}
+
+.about-title{
+    color:#336cc2 ;
+    font-weight: bold;
+    font-size: 8vh;
+    margin-top: 5vh;    
+  }
+  
+.animation {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.running-line {
+  width: 100vw;
+  height: 100%;
+  position: relative;
+}
+.one {
+  position: absolute;
+  min-width: 100%;
+}
+
+.one span {
+  display: inline-block;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: animationOne 15s linear infinite;
+}
+
+.two span {
+  animation-delay: 7.5s;
+}
+
+.imges {
+  margin: 3vw;
+  width: 10vw;
+}
+
+  @keyframes animationOne {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }

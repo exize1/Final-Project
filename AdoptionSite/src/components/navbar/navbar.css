@@ -1,0 +1,53 @@
+ 
+.main-nav{
+    position: fixed;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    z-index: 2;
+    box-shadow: 0px 0px 10px 0px rgb(4 17 29 / 25%);
+}
+ .logoimg{
+    height: 4rem;
+    margin-top: -3vh;
+    width: fit-content;
+ }
+ .nav-items {
+    display: flex ;
+    flex-wrap: inherit ;
+    align-items: center ;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.right-side-container{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 22.5%;
+}
+
+.nav-phone-number{
+    align-self: center;
+    color: #f06292;
+    font-family: sans-serif;
+    font-size: 30px;
+    margin-bottom: 4%;
+    
+}
+
+.nav-btn{
+    height: 5vh;
+    width: 8vw;
+    background-color: transparent;
+    border-color: transparent;
+    font-weight: bold;
+}
+
+.nav-btn:hover{color:  #f06293;
+    transition: 0.50s ease-out;
+}
+
+
+
+

@@ -1,0 +1,132 @@
+.right-to-left{
+    direction: rtl;
+}
+
+.modal-background{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 100vh;
+    width: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.modal-fade-container{
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 13px;
+    height: fit-content;
+    width: 40%;
+}
+@media only screen and (max-width: 850px){
+    .modal-fade-container{
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 550px){
+    .modal-fade-container{
+        width: 80%;
+    }
+}
+
+
+.add-overflow{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.modal-title-contianer{
+    padding: 20px 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.modal-body-contianer{
+    margin-top: 20px;
+    max-height: 64vh;
+    padding: 0px 30px;
+}
+
+.modal-dog-img{
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgb(4 17 29 / 25%);
+    max-width: 300px;
+    max-height: 200px;
+}
+
+.modal-footer-contianer{
+    padding: 2% 3%;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+    height: fit-content;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
+}
+
+.close-btn{
+    margin-right: 3% ;
+}
+
+.on-me-btn{
+    background-color: #336dc3;
+    border:6px 6px;
+    margin:2vh;
+    width: 8vw;
+}
+
+.on-me-btn:hover{
+    background-color: #75c333 !important;
+    border-color: transparent !important;
+}
+
+
+.error-message{
+    color: red;
+}
+
+.adopted{
+    background-color: #75c333;
+    border: transparent;
+    margin: 4vh;
+}
+
+.adopted:hover{
+    background-color: #75c333 !important;
+}
+
+.modal-details-container{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #6fa1ea;
+    font-size: large;
+    border-radius: 30px;
+    height: 60px;
+    margin-bottom: 10%;
+}
+
+.modal-dropdown{
+    height: 80%;
+    align-self: center;
+    border-radius: 10px;
+}
+
+.no-resoult-btn{
+    margin-bottom: 40%;
+}
+
+
+.alert-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.save-spot-alert{
+    position: absolute;
+    z-index: 100 !important;
+    top: 15%;
+}

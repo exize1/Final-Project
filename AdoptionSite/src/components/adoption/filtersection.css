@@ -1,0 +1,21 @@
+.filter-section-container{
+    
+}
+
+
+
+.filter-btn{
+    background-color: #beb8b7;
+    border: transparent;
+    filter: drop-shadow(2px 4px 6px black);
+    margin: 10vh;
+    width: 10vw;
+    color: black;
+    font-size: larger;
+    font-weight: 900;
+}
+.filter-btn:hover{
+    background-color:black !important;
+    transition: 0.45s ease-in-out;
+    color: white;
+}

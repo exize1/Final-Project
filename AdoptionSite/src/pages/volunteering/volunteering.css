@@ -1,0 +1,76 @@
+
+.explaination-contianer{
+    background-color: white;
+    direction: rtl;
+}
+
+.explaination{
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 1% 0;
+}
+
+.explaination-title{
+    font-size: 600%;
+    margin: 3% 0;
+    color: #336ec3;
+}
+
+.explaination-sub-title{
+    font-size: 200%;
+    margin: 3% 0;
+}
+
+.volunteering-text{
+    font-size: 130%;
+    margin: 3% 0;
+    
+}
+
+.vulonteertitle{
+    color: #336ec3;
+    font-size: 7vh;
+}
+
+.hole{
+    height: 80vh;
+}
+
+.background-img-container{
+    position: fixed;
+    z-index: -1;
+}
+
+.background-img{
+    object-fit: cover;
+    width: 100vw;
+    
+}
+
+.volunteering-details-container{
+    display: flex;
+    justify-content: center;
+    text-align: start;
+}
+
+.volunteering-details{
+    width: 50%;
+}
+
+.volunteering-descriptopn{
+    width: 80%;
+}
+
+.hand-logo{
+    margin-right: -15vw;
+    margin-top: 10vh;
+    height: 8vh;
+    margin-bottom: -10vh;
+}
+.main-hand{
+    height: 15vh;
+    margin-top: 5vh;
+}
+.hours{
+    margin-top: 10vh;
+}
