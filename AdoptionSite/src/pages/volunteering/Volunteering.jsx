@@ -1,6 +1,6 @@
 import "./volunteering.css"
 import hand from './handlogo.png'
-// import backgroundvideo from '../../components/home-sections/hero/dogvideobg2.mp4'
+import backgroundvideo from '../../components/home-sections/hero/dogvideobg2.mp4'
 
 const Volunteering = () => {
 
@@ -50,9 +50,9 @@ const Volunteering = () => {
     return(
         <div>
             <div className="background-img-container">
-                {/* <video autoPlay loop muted id="backgroundvideo">
+                <video autoPlay loop muted id="backgroundvideo">
                     <source src={backgroundvideo}  type="video/mp4"/>
-                </video> */}
+                </video>
             </div>
             <div className="explaination-contianer">
                 <div className="explaination">
