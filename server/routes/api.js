@@ -3,6 +3,8 @@ const router = express.Router()
 const Dog = require('../models/dogs')
 const Former = require('../models/formers')
 const DogRequest = require('../models/dogRequests')
+const Users = require('../models/User')
+const UsersPostValidation = require('../middelewares/validation');
 
 router.get('/dogs/', ( req, res, next ) => {
     Dog.find({})
@@ -85,8 +87,77 @@ router.delete('/dogRequests/', ( req, res, next ) => {
     }))
     .catch(next)
 })
-
-
+router.post('/login', async function (req, res, next) {
+    const { email, password } = req.body
+  
+    const user = await Users.findOne({ email })
+    if (user) {
+      const result = await bcrypt.compare(password, user.password)
+      console.log(user);
+      if (result) {
+        const accessToken = generateAccessToken(user)
+        // const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+  
+        res.json({
+          "error": false,
+          "message": "login successfully",
+          userData: user,
+          accessToken: accessToken
+        })
+      } else {
+        res.json({
+          "error": true,
+          "message": "email or password is wrong"
+        })
+      }
+    } else return res.json({
+      "error": true,
+      "message": "email or password is wrong"
+    })
+  });
+  
+  function generateAccessToken(user) {
+    return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET)
+    // return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
+  }
+  router.post('/register', UsersPostValidation, async function (req, res, next) {
+    const { email, firstName, lastName, avatar, phone } = req.body
+    let { password } = req.body
+    const userExist = await Users.findOne({ email })
+  
+    if (!userExist) {
+      password = await bcrypt.hash(password, 10)
+      const user = {
+        firstName,
+        lastName,
+        password,
+        email,
+        avatar,
+        phone
+      }
+      Users.create(user).then(async(newUser) => {
+        const accessToken = generateAccessToken(newUser)
+        res.json(
+          {
+          "error": false,
+          "message": "user registered successfully",
+          userData: newUser,
+          accessToken: accessToken
+        })
+      }).catch(err => {
+        res.json({
+          "error": true,
+          "message": `couldn't register user ${err}`,
+          "err": err
+        })
+      })
+    } else {
+      res.json({
+        "error": true,
+        "message": "user already registered"
+      })
+    }
+  })
 
 
 module.exports = router
