@@ -5,8 +5,8 @@ import { useState } from "react";
 import { AiFillEye ,AiFillEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { loginFailure, loginStart, selectFetching, updateUserData } from "../../redux/slicers/UserSlice";
-// import { publicRequest } from "../../requestMethods";
+import { loginFailure, loginStart, selectFetching, updateUserData } from "../../redux/slicer/UserSlice";
+import { publicRequest } from "../../requestMethods";
 
 
 const Login = () => {
@@ -24,7 +24,7 @@ const Login = () => {
     const [message, setMessage] = useState("")
     const [passwordType, setPasswordType] = useState("password");
 
-    // const { isFetching } = useSelector(selectFetching)
+    const { isFetching } = useSelector(selectFetching)
 
     const navigate = useNavigate();
     
@@ -37,36 +37,36 @@ const Login = () => {
     }
 
     const login = (value) => {
-        // dispatch(loginStart())
-        // publicRequest.post('/api/login', value)
-        //     .then((res) => {
-        //         const data = res.data
-        //         data && 
-        //         setError(data.error)
-        //         setMessage(data.message)
-        //         if(!data.error){
-        //             const {avatar, email, firstName, lastName, password, CreditCard, _id, } = data.userData
-        //             const accessToken = data.accessToken
-        //             const values = {
-        //                 avatar,
-        //                 email,
-        //                 firstName,
-        //                 lastName,
-        //                 password,
-        //                 _id,
-        //                 accessToken,
-        //                 CreditCard,
-        //                 loggedIn: true
-        //             }
-        //             console.log(values);
-        //             dispatch(updateUserData(values));
-        //             return navigate("/")
-        //         }else if (data.error){
-        //             dispatch(loginFailure())
-        //             console.log("im in error");
-        //         }
-        //     })
-        //     .catch((err) => {console.log(err)});
+        dispatch(loginStart())
+        publicRequest.post('/api/login', value)
+            .then((res) => {
+                const data = res.data
+                data && 
+                setError(data.error)
+                setMessage(data.message)
+                if(!data.error){
+                    const {avatar, email, firstName, lastName, password, CreditCard, _id, } = data.userData
+                    const accessToken = data.accessToken
+                    const values = {
+                        avatar,
+                        email,
+                        firstName,
+                        lastName,
+                        password,
+                        _id,
+                        accessToken,
+                        CreditCard,
+                        loggedIn: true
+                    }
+                    console.log(values);
+                    dispatch(updateUserData(values));
+                    return navigate("/")
+                }else if (data.error){
+                    dispatch(loginFailure())
+                    console.log("im in error");
+                }
+            })
+            .catch((err) => {console.log(err)});
     }
     const dispatch = useDispatch();
 
@@ -118,7 +118,7 @@ const Login = () => {
                                         </div>
                                             <p className="error-message">{errors.password && touched.password && errors.password}</p>
                                         <button type="submit"  
-                                        // disabled={isFetching} 
+                                        disabled={isFetching} 
                                         className="btn btn-primary mb-3">כניסה</button>
                                         <div className="forgot-password-contianer">
                                             <p className="mb-0">שכחתי סיסמה </p>
