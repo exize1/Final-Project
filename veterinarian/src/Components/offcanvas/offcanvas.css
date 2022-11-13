@@ -1,0 +1,8 @@
+.offcanvas-icon{
+    font-size: 2rem;
+    transition: color ease-in-out 0.2s;
+}
+
+.offcanvas-icon:hover{
+    color: rgba(0, 0, 0, 0.52);
+}

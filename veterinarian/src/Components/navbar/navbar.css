@@ -1,0 +1,141 @@
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar-contianer{
+    box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    flex-wrap: wrap;
+}
+
+.navabr-fluid{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 2%;
+}
+
+.navbar-title{
+    font-size: 2rem;
+    font-weight: 500;
+    margin-right: 10%;
+}
+
+.title-button{
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+}
+
+.title-links-search{
+    display: flex;
+    width: 100%;
+}
+
+.link-and-search-container{
+    display: flex;
+}
+
+.navbar-button{
+    padding: var(--bs-navbar-toggler-padding-y) var(--bs-navbar-toggler-padding-x);
+    font-size: var(--bs-navbar-toggler-font-size);
+    line-height: 1;
+    color: var(--bs-navbar-color);
+    background-color: transparent;
+    border: var(--bs-border-width) solid var(--bs-navbar-toggler-border-color);
+    border-radius: var(--bs-navbar-toggler-border-radius);
+    transition: var(--bs-navbar-toggler-transition);
+}
+
+.navbar-nav-close{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.navbar-nav-open{
+    flex-direction: column;
+    width: 100%;
+}
+
+.remove-underline{
+    text-decoration: none;
+}
+
+.add-width{
+    width: 80px;
+}
+
+.search-input-container{
+    display: flex;
+    align-items: center;
+}
+
+.search-input{
+    max-height: 70%;
+    width: 30vw;
+    max-width: 200px;
+}
+
+.avatar{
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    max-height: 55px;
+    min-height: 55px;
+}
+
+.add-product-container{
+    margin-right: 3%;
+}
+
+.search-dropdown-title{
+    margin-left: 3% ;
+}
+
+.search-dropdown-list{
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+.unfound-dropdown-item{
+    margin-left: 6% ;
+} 
+ 
+.right-side{
+    display: flex;
+    align-items: center;
+}
+
+.login-signup{
+    width: 800px;
+    justify-content: end;
+}
+
+.logout-add-product-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout-btn{
+    margin-left: 2% !important;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.add-product-btn-size{
+    font-size: 0.8rem;
+    padding: 5px 7px;
+}
+
+
+
+
+
+
+
+

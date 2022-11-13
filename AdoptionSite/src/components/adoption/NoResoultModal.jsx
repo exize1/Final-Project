@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import emailjs from '@emailjs/browser';
 import * as Yup from "yup";
 import axios from 'axios'
+import Alert from "../alert/Alert";
 
 
 
@@ -24,6 +25,9 @@ const NoResoultModal = ({age, size, gender, name}) => {
     });
 
     const [alert, setAlert] = useState(false)
+    const [disableButton, setDisableButton] = useState(false)
+    const [error, setError] = useState(false)
+    const [message, setMessage] = useState("")
     const [dogsOpenForAdoption, setDogsOpenForAdoption] = useState("")
       
     const {REACT_APP_SERVER_URL} = process.env;
@@ -53,6 +57,14 @@ const NoResoultModal = ({age, size, gender, name}) => {
         };
           axios
             .post(`${REACT_APP_SERVER_URL}/api/dogRequests`, data)
+            .then((res) => {
+                console.log(res.data);
+                setMessage(res.data.message)
+                setError(res.data.error)
+                setAlert(true)
+                setDisableButton(true)
+                sendEmail()
+            })
             .catch((err) => console.log(err));
       };
 
@@ -100,7 +112,11 @@ const NoResoultModal = ({age, size, gender, name}) => {
     const handleSubmition = (values) => {
         sendData(values.fullName, values.email, values.phone)
         getDogs()
-        setAlert(true)
+        
+        setTimeout(() => {
+            setAlert(false);
+            setDisableButton(false);
+          }, 2000);
         }
   
       const [open, setOpen] = useState(false)
@@ -110,17 +126,17 @@ const NoResoultModal = ({age, size, gender, name}) => {
       return(
           <div className='modal-container '>
               <button onClick={() => handleOpen()} type="button" className="btn btn-primary">
-              {name}
+                {name}
               </button>
           { open &&
               <div className='modal-background '>
                   <div className='modal-fade-container'>
-                      <div className='modal-title-contianer modal-header'>
+                      <div className='modal-title-container modal-header'>
                           <h5 className="modal-title left-to-right" id="exampleModalLabel">הזינו את פרטיכם</h5>
                           <button onClick={() => handleClose()} type="button" className="btn-close"/>
                       </div>
                       <div className='add-overflow'>
-                          <div className='modal-body-contianer'>
+                          <div className='modal-body-container'>
                             <div className="modal-details-container ">
                                 <button className="btn btn-secondary dropdown-toggle modal-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {reqGender ? reqGender: "מין" }
@@ -158,8 +174,7 @@ const NoResoultModal = ({age, size, gender, name}) => {
                                     phone: ""
                                 }}
                                 onSubmit={(values) => {
-                                    handleSubmition(values)
-                                    sendEmail()
+                                    handleSubmition(values)                                    
                                 }}
                                 validationSchema={schema}
                               >
@@ -191,25 +206,22 @@ const NoResoultModal = ({age, size, gender, name}) => {
                                           <textarea type="text" className="form-control" id="floatingInput" placeholder="הודעה אישית*"/>
                                           <label for="floatingInput">הודעה אישית*</label>
                                       </div>
-                                      <button type="submit" className="btn btn-primary mb-4 right-to-left">שליחה</button>
+                                      <button type="submit" disabled={disableButton} className="btn btn-primary mb-4 right-to-left">שליחה</button>
                                   </form>
                                   )}
                               </Formik>
                                 {dogsOpenForAdoption === "0" ? 
-                                    <div className="alert-container">
-                                        <div class="alert alert-success right-to-left save-spot-alert"  role="alert" hidden={!alert}>
-                                            <p className="m-0">{"הנתונים נקלטו במאגר שלנו, נחזור אליך ברגע שנמצא התאמה"}  </p>
-                                        </div> 
-                                    </div> :
-                                    <div className="alert-container"> 
-                                        <div class="alert alert-danger save-spot-alert" role="alert" hidden={!alert}>
-                                            <p className="m-0">{"נמצאו " + dogsOpenForAdoption + " התאמות"}  </p>
-                                        </div>
-                                    </div>
+                                    <Alert alertType={error ? 'danger' : "success"} alert={alert}>
+                                        {error ? message: <p className="m-0">{"הנתונים נקלטו במאגר שלנו, נחזור אליך ברגע שנמצא התאמה"}  </p>}
+                                    </Alert>
+                                    :
+                                    <Alert alertType={"danger"} alert={alert}>
+                                        {error ? message: <p className="m-0">{"נמצאו " + dogsOpenForAdoption + " התאמות"}  </p>}
+                                    </Alert>
                                     }
                           </div>
                       </div>
-                      <div className='modal-footer-contianer modal-footer'>
+                      <div className='modal-footer-container modal-footer'>
                           <button onClick={() => handleClose()} type="button" className="btn btn-secondary close-btn right-to-left">סגור</button>
                       </div>
                   </div>

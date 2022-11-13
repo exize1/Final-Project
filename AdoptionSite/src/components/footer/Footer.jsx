@@ -10,7 +10,7 @@ import logo from './logo.png'
 
 
 const Footer = ( {donation} ) => {
-
+  let windowWidth = window.innerWidth;
     const schema = Yup.object().shape({
         fullName: Yup.string()
           .required("Pleasse enter your name"),
@@ -37,6 +37,7 @@ const Footer = ( {donation} ) => {
       
     return(
         <div className={donation ? 'footer-container-without-mt' : "footer-container"}>
+          {windowWidth > 500 &&
           <div className='form-contact-container'>
             <div className="form-container">
               <Formik 
@@ -83,6 +84,7 @@ const Footer = ( {donation} ) => {
               </Formik>
             </div>
           </div>
+          }
           <div className='details-container'>
             <div>
               <img className='logo-footer' src={logo} alt="" />

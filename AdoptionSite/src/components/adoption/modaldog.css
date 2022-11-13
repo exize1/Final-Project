@@ -40,12 +40,12 @@
     overflow-x: hidden;
 }
 
-.modal-title-contianer{
+.modal-title-container{
     padding: 20px 30px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.modal-body-contianer{
+.modal-body-container{
     margin-top: 20px;
     max-height: 64vh;
     padding: 0px 30px;
@@ -58,7 +58,7 @@
     max-height: 200px;
 }
 
-.modal-footer-contianer{
+.modal-footer-container{
     padding: 2% 3%;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     background-color: white;
@@ -74,8 +74,7 @@
 .on-me-btn{
     background-color: #336dc3;
     border:6px 6px;
-    margin:2vh;
-    width: 8vw;
+    margin: 2vh;
 }
 
 .on-me-btn:hover{
@@ -91,7 +90,7 @@
 .adopted{
     background-color: #75c333;
     border: transparent;
-    margin: 4vh;
+    margin: 2vh;
 }
 
 .adopted:hover{
@@ -119,14 +118,3 @@
 }
 
 
-.alert-container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.save-spot-alert{
-    position: absolute;
-    z-index: 100 !important;
-    top: 15%;
-}

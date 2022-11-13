@@ -21,16 +21,17 @@
 }
 
 .form-contact-container{
+    display: flex;
+    justify-content: center;
     margin-top: 2%;
     margin-bottom: 2%;
     width: 100%;
-    padding-left: 5vh;
 }
 
 .form-container{
     width: 80%;
     padding-top: 4vh;
-    padding-left: 5vh;
+    padding-left: 5%;
 }
 
 .form-control{
@@ -38,7 +39,9 @@
 }
 
 .details-container{
-    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     color: white;
     font-weight: 500;
     width: 100%;
@@ -46,6 +49,18 @@
 
 .logo-footer{
     height: 8rem;
+}
+
+@media only screen and (max-width: 800px){
+    .logo-footer{
+        height: 6rem;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .logo-footer{
+        height: 4rem;
+    }
 }
 
 .footer-contact-details{
