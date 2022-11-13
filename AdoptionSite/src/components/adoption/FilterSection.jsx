@@ -3,9 +3,9 @@ import './filtersection.css'
 
 const FilterSection = ({setSearchGender, searchGender, setSearchAge, searchAge, setSearchSize, searchSize}) => {
     return(
-        <div className='filter-section-container container'>
+        <div className='filter-section-container'>
             <div className="row">
-                <div className="col">
+                <div className="col-4">
                 <div className="dropdown">
                     <button className="btn btn-secondary dropdown-toggle filter-btn"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {searchGender ? searchGender : "מין"}
@@ -18,7 +18,7 @@ const FilterSection = ({setSearchGender, searchGender, setSearchAge, searchAge, 
                     </ul>
                 </div>
                 </div>
-                <div className="col">
+                <div className="col-4">
                     <div className="dropdown">
                         <button className="btn btn-secondary dropdown-toggle filter-btn"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {searchAge ? searchAge : "גיל"} 
@@ -31,7 +31,7 @@ const FilterSection = ({setSearchGender, searchGender, setSearchAge, searchAge, 
                         </ul>
                     </div>
                 </div>
-                <div className="col">
+                <div className="col-4">
                     <div className="dropdown">
                         <button className="btn btn-secondary dropdown-toggle filter-btn"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {searchSize ? searchSize : "גודל"}

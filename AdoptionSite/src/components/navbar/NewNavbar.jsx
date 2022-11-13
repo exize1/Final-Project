@@ -70,7 +70,7 @@ const NewNavbar = ({setDonation}) =>{
                     {navLinks.map((link) => {
                         return(
                         link[0] === "donation" ?
-                        <li className="nav-item ">
+                        <li className="nav-item">
                             <Link to={`/${link[0]}`}>
                                 <button className={`nav-btn`} onClick={() => setDonation(true)}>{link[1]}</button> 
                             </Link>

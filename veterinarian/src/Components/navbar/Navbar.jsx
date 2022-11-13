@@ -2,9 +2,10 @@ import "./navbar.css"
 // import { useNavigate } from 'react-router-dom';
 // import { useDispatch } from "react-redux";
 import { useState } from "react";
+import Offcanvas from "../offcanvas/Offcanvas";
 
 
-const NewNavbar = () =>{
+const NewNavbar = ({ setPannel }) =>{
     // const navigate = useNavigate();
     let windoWidth = window.innerWidth;
 
@@ -34,27 +35,27 @@ const NewNavbar = () =>{
                     {windoWidth > 992 && 
                     <div className="link-and-search-container">
                         <ul className="navbar-nav navbar-nav-close">
-                            <li className="nav-item ">
+                            {/* <li className="nav-item "> */}
                             {/* <Link className="remove-underline" to="/"> */}
-                                <span className="nav-link add-width" onClick={() => setOpen(false)}>Home</span>
+                                {/* <span className="nav-link add-width" onClick={() => setOpen(false)}>Home</span> */}
                             {/* </Link> */}
-                            </li>
-                            <li className="nav-item ">
+                            {/* </li> */}
+                            {/* <li className="nav-item "> */}
                             {/* <Link className="remove-underline" to="/auction"> */}
-                                <span className="nav-link add-width" onClick={() => setOpen(false)}>Auction</span>
+                                {/* <span className="nav-link add-width" onClick={() => setOpen(false)}>Auction</span> */}
                             {/* </Link> */}
-                            </li>
-                            <li className="nav-item ">
+                            {/* </li> */}
+                            {/* <li className="nav-item "> */}
                             {/* <Link className="remove-underline" to="/user"> */}
-                                <span className="nav-link add-width" onClick={() => setOpen(false)}>User</span>
+                                {/* <span className="nav-link add-width" onClick={() => setOpen(false)}>User</span> */}
                             {/* </Link> */}
-                            </li>
+                            {/* </li> */}
                         </ul>
-                        <form className="d-flex dropdown search-input-container" role="search">
+                        {/* <form className="d-flex dropdown search-input-container" role="search">
                             <input className="form-control me-2 search-input" data-bs-toggle="dropdown"  onChange={(e) => {setSearchTerm(e.target.value)}} type="search" placeholder="Search" aria-label="Search"/>
-                            <ul className="dropdown-menu search-dropdown-list">
+                            <ul className="dropdown-menu search-dropdown-list"> */}
                                 {/* {filterSearchProducts(searchTerm).length === 0 ? 
-                                <li key="unfoundProducts"><p className="unfound-dropdown-item">Can't found a result</p></li>
+                                // <li key="unfoundProducts"><p className="unfound-dropdown-item">Can't found a result</p></li>
                                 :filterSearchProducts(searchTerm).map((productOption, index) => {
                                 return(
                                     index < 3 &&
@@ -63,8 +64,8 @@ const NewNavbar = () =>{
                                     </Link>
                                 )
                                 })} */}
-                            </ul>
-                        </form>
+                            {/* </ul>
+                        </form> */}
                     </div>}
                     {windoWidth < 992 && 
                     <>
@@ -89,6 +90,8 @@ const NewNavbar = () =>{
                 {windoWidth > 992 && 
                 <>
                 <div className="right-side">
+                    <Offcanvas setPannel={setPannel}/>
+
                     {/* <button className="btn btn-danger me-3" onClick={() => {
                         navigate("/login")
                         dispatch(updateUserData({}))}

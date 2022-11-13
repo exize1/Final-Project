@@ -60,10 +60,10 @@ const Adoption = () => {
             <div className='save-your-spot-btn'>
                 <NoResoultModal name="מיצאו את הכלב עבורכם"/>  
             </div>
-             <div className='adopted-top'> 
+            <div className='adopted-top'> 
                 <img className='dog-hand' src={dog} alt="icon"/>
                 <h1 className='adoption-title'>אמצו כלב עוד היום</h1>
-              </div>
+            </div>
 
             <FilterSection 
                 setSearchGender={setSearchGender} 

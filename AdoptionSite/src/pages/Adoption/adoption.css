@@ -6,13 +6,13 @@
 
 .save-your-spot-btn{
     position: fixed;
-    z-index: 2;
+    z-index: 12;
     right: 30px;
     bottom: 30px;
 }
 
 .dog-hand{
-    margin-top: 10vh;
+    margin-top: 75px;
     align-items: center;
     height: 15vh;
 }
@@ -22,10 +22,19 @@
     font-weight: bold;
     color: #4cb7f1;
     font-family: emoji;
-    margin-bottom: -2vh;
 }
 
-.adopted-top{
-    height: 40vh;
+@media only screen and (max-width: 400px){
+    .adoption-title{
+        font-size: 5vh;
+    }
+
+    .dog-hand{
+        height: 10vh;
+    }
 }
+
+/* .adopted-top{
+    height: 40vh;
+} */
 

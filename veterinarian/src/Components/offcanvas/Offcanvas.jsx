@@ -1,15 +1,21 @@
-const Offcanvas = () => {
+import { BiArrowFromRight } from 'react-icons/bi'
+import "./offcanvas.css"
+
+
+const Offcanvas = ({ setPannel }) => {
     return(
         <>
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Enable both scrolling & backdrop</button>
+        <BiArrowFromRight className="offcanvas-icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"/>
 
-        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <div className="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+            <div className="offcanvas-header">
+                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">תפריט ראשי</h5>
             </div>
-            <div class="offcanvas-body">
-                <p>Try scrolling the rest of the page to see this option in action.</p>
+            <div className="offcanvas-body">
+                <p onClick={() => setPannel("adoption")}>פאנל אימוץ</p>
+                <p onClick={() => setPannel("caring")}>פאנל טיפולים</p>
+                <p onClick={() => setPannel("appointments")}>פאנל תורים</p>
             </div>
         </div>
         </>

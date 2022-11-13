@@ -2,7 +2,7 @@
     box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
     position: fixed;
     width: 100%;
-    z-index: 100;
+    z-index: 10;
     flex-wrap: wrap;
 }
 
@@ -59,8 +59,8 @@
 }
 
 .nav-btn{
-    height: 5vh;
-    width: 8vw;
+    height: 50px;
+    width: 100%;
     background-color: transparent;
     border-color: transparent;
     font-weight: bold;

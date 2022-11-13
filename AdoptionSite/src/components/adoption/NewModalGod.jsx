@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import emailjs from '@emailjs/browser';
 import { useState, useRef } from 'react';
+import Alert from '../alert/Alert';
 
 
 const NewDogModal = ({dog}) => {
@@ -22,6 +23,7 @@ const NewDogModal = ({dog}) => {
 
     const [open, setOpen] = useState(false)
     const [alert, setAlert] = useState(false)
+    const [disableButton, setDisableButton] = useState(false)
 
     const form = useRef();
     const sendEmail = () => {
@@ -35,6 +37,11 @@ const NewDogModal = ({dog}) => {
 
     const handleSubmition = () => {
       setAlert(true)
+      setDisableButton(true)
+      setTimeout(() => {
+        setAlert(false);
+        setDisableButton(false)
+      }, 2000);
   }
 
     const handleOpen = () => {
@@ -55,12 +62,12 @@ const NewDogModal = ({dog}) => {
         { open &&
             <div className='modal-background'>
                 <div className='modal-fade-container'>
-                    <div className='modal-title-contianer modal-header'>
+                    <div className='modal-title-container modal-header'>
                         <h5 className="modal-title" id="exampleModalLabel">הזינו פרטי קשר</h5>
                         <button onClick={() => handleClose()} type="button" className="btn-close"></button>
                     </div>
                     <div className='add-overflow'>
-                        <div className='modal-body-contianer'>
+                        <div className='modal-body-container'>
                             <div className='modal-dog-img-container'>
                                 <img  className='modal-dog-img' src={dog.src} alt="" />
                             </div>
@@ -75,8 +82,8 @@ const NewDogModal = ({dog}) => {
                                     phone: "",
                                 }}
                                 onSubmit={() => {
-                                    handleSubmition()
                                     sendEmail()
+                                    handleSubmition()
                                 }}
                                 validationSchema={schema}
                             >
@@ -110,19 +117,15 @@ const NewDogModal = ({dog}) => {
                                         <textarea type="email" className="form-control" id="floatingInput" placeholder="הודעה אישית*"/>
                                         <label for="floatingInput">הודעה אישית*</label>
                                     </div>
-                                    <button type="submit" className="btn btn-primary right-to-left mb-4">שליחה</button>
-                                    <div className="alert-container"> 
-                                        <div className="alert alert-success save-spot-alert right-to-left mb-4" role="alert" hidden={!alert}>
-                                            תודה שבחרתם לאמץ, נחזור אליכם בהקדם!
-                                        </div>
-                                    </div>
+                                    <button type="submit" disabled={disableButton} className="btn btn-primary right-to-left mb-4">שליחה</button>
+                                    <Alert alertType={"success"} alert={alert}>תודה שבחרתם לאמץ, נחזור אליכם בהקדם!</Alert>
                                 </form>
                                 )}
                             </Formik>
                                   
                         </div>
                     </div>
-                    <div className='modal-footer-contianer modal-footer'>
+                    <div className='modal-footer-container modal-footer'>
                         <button onClick={() => handleClose()} type="button" className="btn btn-secondary close-btn">Close</button>
                     </div>
                 </div>
