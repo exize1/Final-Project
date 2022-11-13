@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 import { useDispatch } from "react-redux";
-import { update } from '../../FormsSlice';
+import { update } from '../../redux/slicer/FormsSlice';
 
 import logo from './logo.png'
 

@@ -5,7 +5,9 @@ import Home from './pages/Home/Home';
 import Volunteering from './pages/volunteering/Volunteering';
 import Footer from './components/footer/Footer';
 import { useState } from 'react';
+import Login from './pages/Login/login';
 import NewNavbar from './components/navbar/NewNavbar';
+
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/adoption" element={<Adoption/>}/>
           <Route path="/volunteering" element={<Volunteering/>}/>
+          <Route path="/login" element ={<Login/> }/>
         </Routes>
       </div>
       <Footer donation={donation}/>

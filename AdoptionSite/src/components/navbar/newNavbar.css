@@ -102,3 +102,23 @@
     font-size: 1.3rem;
     cursor: pointer;
 }
+
+
+.btn-danger {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #336dc3;
+    --bs-btn-border-color: #ffffff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #75c333;
+    --bs-btn-hover-border-color: #ffffff;
+    --bs-btn-focus-shadow-rgb: 225,83,97;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #75c333;
+    --bs-btn-active-border-color: #ffffff;
+    --bs-btn-active-shadow: inset 0 3px 5pxrgb(9 0 0 / 13%);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #336dc3;
+    --bs-btn-disabled-border-color: #ffffff;
+    width: 13vw;
+
+}
