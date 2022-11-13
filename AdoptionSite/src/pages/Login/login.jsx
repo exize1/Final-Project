@@ -3,10 +3,11 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { AiFillEye ,AiFillEyeInvisible } from 'react-icons/ai';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginFailure, loginStart, selectFetching, updateUserData } from "../../redux/slicer/UserSlice";
 import { publicRequest } from "../../requestMethods";
+import Alert from "../../components/alert/Alert";
 
 
 const Login = () => {
@@ -43,6 +44,9 @@ const Login = () => {
                 const data = res.data
                 data && 
                 setError(data.error)
+                setTimeout(() => {
+                    setError(false);
+                  }, 2000);
                 setMessage(data.message)
                 if(!data.error){
                     const {avatar, email, firstName, lastName, password, CreditCard, _id, } = data.userData
@@ -79,9 +83,9 @@ const Login = () => {
         <div className="home-background"/>
         <div className="login-page-container">
             {error && (
-                <div className="alert alert-danger invalid-login-alert" role="alert" hidden={!error}>
+                <Alert alertType={"danger"}  alert={error}>
                     {message}
-                </div>
+                </Alert>
             )}
             <div className="row">
                 {windoWidth > 900 &&
@@ -117,9 +121,7 @@ const Login = () => {
                                             </button>
                                         </div>
                                             <p className="error-message">{errors.password && touched.password && errors.password}</p>
-                                        <button type="submit"  
-                                        disabled={isFetching} 
-                                        className="btn btn-primary mb-3">כניסה</button>
+                                        <button type="submit" disabled={isFetching} className="btn btn-primary mb-3">כניסה</button>
                                         <div className="forgot-password-contianer">
                                             <p className="mb-0">שכחתי סיסמה </p>
                                        </div>

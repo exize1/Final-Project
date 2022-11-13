@@ -5,6 +5,8 @@ const Former = require('../models/formers')
 const DogRequest = require('../models/dogRequests')
 const Users = require('../models/User')
 const UsersPostValidation = require('../middelewares/validation');
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt');
 
 router.get('/dogs/', ( req, res, next ) => {
     Dog.find({})
@@ -100,19 +102,19 @@ router.post('/login', async function (req, res, next) {
   
         res.json({
           "error": false,
-          "message": "login successfully",
+          "message": "התחבר בהצלחה",
           userData: user,
           accessToken: accessToken
         })
       } else {
         res.json({
           "error": true,
-          "message": "email or password is wrong"
+          "message": "אימייל או סיסמה לא נכונים"
         })
       }
     } else return res.json({
       "error": true,
-      "message": "email or password is wrong"
+      "message": "אימייל או סיסמה לא נכונים"
     })
   });
   
@@ -120,6 +122,7 @@ router.post('/login', async function (req, res, next) {
     return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET)
     // return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
   }
+
   router.post('/register', UsersPostValidation, async function (req, res, next) {
     const { email, firstName, lastName, avatar, phone } = req.body
     let { password } = req.body
@@ -132,7 +135,6 @@ router.post('/login', async function (req, res, next) {
         lastName,
         password,
         email,
-        avatar,
         phone
       }
       Users.create(user).then(async(newUser) => {

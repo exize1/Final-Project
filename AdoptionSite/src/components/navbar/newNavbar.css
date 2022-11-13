@@ -104,7 +104,7 @@
 }
 
 
-.btn-danger {
+.login-btn {
     --bs-btn-color: #fff;
     --bs-btn-bg: #336dc3;
     --bs-btn-border-color: #ffffff;
@@ -119,6 +119,5 @@
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #336dc3;
     --bs-btn-disabled-border-color: #ffffff;
-    width: 13vw;
-
+    width: max-content;
 }
