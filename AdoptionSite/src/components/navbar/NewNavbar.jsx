@@ -4,7 +4,6 @@ import "./newNavbar.css"
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "./logo1.png"
-import Login from "../../pages/Login/login";
 
 
 const NewNavbar = ({setDonation}) =>{
@@ -60,7 +59,7 @@ const NewNavbar = ({setDonation}) =>{
                 <>
                 <div className="right-side">
                     <Link to='Login'>
-                    <button className="btn btn-danger me-3" >התחברות לאיזור האישי</button>
+                        <button className="btn login-btn me-3" >התחברות לאיזור האישי</button>
                     </Link>
                     <Link to={"/"} className="navbar-brand">
                         <img className='logoimg' src={logo} alt="logo"/> 

@@ -21,7 +21,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/adoption" element={<Adoption/>}/>
           <Route path="/volunteering" element={<Volunteering/>}/>
-          <Route path="/login" element ={<Login/> }/>
+          <Route path="/login" element ={<Login/>}/>
         </Routes>
       </div>
       <Footer donation={donation}/>
