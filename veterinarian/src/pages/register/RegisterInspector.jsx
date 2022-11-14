@@ -40,18 +40,18 @@ const RegisterInspector = () => {
             .then((res) => {
                     setAlert(res.data.error)
                     setMessage(res.data.message)
-                    const {avatar, email, firstName, lastName, password, _id } = res.data.userData
-                    const accessToken = res.data.accessToken
-                    const values = {
-                            avatar,
-                            email,
-                            firstName,
-                            lastName,
-                            password,
-                            accessToken,
-                            _id,
-                            loggedIn: true
-                        }
+                    // const {avatar, email, firstName, lastName, password, _id } = res.data.userData
+                    // const accessToken = res.data.accessToken
+                    // const values = {
+                    //         avatar,
+                    //         email,
+                    //         firstName,
+                    //         lastName,
+                    //         password,
+                    //         accessToken,
+                    //         _id,
+                    //         loggedIn: true
+                    //     }
                      
                     
                     // return navigate("/");

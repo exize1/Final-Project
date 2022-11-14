@@ -5,6 +5,7 @@ import AdoptionPanel from './pages/adoption/AdoptionPanel';
 import AppointmentsPanel from './pages/appointments/AppointmentsPanel';
 import CaringPanel from './pages/caring/CaringPanel';
 import RegisterInspector from './pages/register/RegisterInspector';
+import Calender from './pages/calender/Calender';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         {pannel === "appointments" && <AppointmentsPanel/>}
         {pannel === "caring" && <CaringPanel/>}
         <RegisterInspector/>
+        <Calender/>
       </div>
     </div>
   );
