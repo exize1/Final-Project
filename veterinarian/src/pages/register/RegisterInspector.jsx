@@ -36,7 +36,7 @@ const RegisterInspector = () => {
             email,
             password
             }
-            axios.post(`${process.env.REACT_APP_SECRET_NAME_BACKEND_URL}/api/registerInspector`, body)
+            axios.post(`${process.env.REACT_APP_SECRET_NAME_BACKEND_URL}/api/registerInspector`, sendbody)
             .then((res) => {
                     setAlert(res.data.error)
                     setMessage(res.data.message)
