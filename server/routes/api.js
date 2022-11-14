@@ -123,7 +123,7 @@ router.post('/login', async function (req, res, next) {
     // return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
   }
 
-  router.post('/register', UsersPostValidation, async function (req, res, next) {
+  router.post('/registerInspector', UsersPostValidation, async function (req, res, next) {
     const { email, firstName, lastName, avatar, phone } = req.body
     let { password } = req.body
     const userExist = await Users.findOne({ email })
