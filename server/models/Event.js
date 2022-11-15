@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 
 
 const EventSchema = new mongoose.Schema({
-    title: {type: String, required: [true, "Please write a title for your event"]},
+    title: {
+      type: String, 
+      required: [true, "Please write a title for your event"]
+    },
     start: {
      type: Date,
      required: [true, "Please Insert The Start of your event" ],
@@ -22,7 +25,9 @@ const EventSchema = new mongoose.Schema({
       return date.setDate(date.getDate()+1)
     },
     },
-    describe: { type: String},
+    describe: { 
+      type: String
+    },
 })
 
 
