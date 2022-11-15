@@ -8,6 +8,8 @@ import AppointmentsPanel from './pages/appointments/AppointmentsPanel';
 import CaringPanel from './pages/caring/CaringPanel';
 import RegisterInspector from './pages/register/RegisterInspector';
 import Calender from './pages/calender/Calender';
+import DogPage from './pages/DogPage/DogPage';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
 
@@ -15,15 +17,17 @@ function App() {
 
   return (
     <div className="App">
-     < Dashboard/>
-      {/* <NewNavbar setPannel={setPannel}/>
+      <NewNavbar setPannel={setPannel}/>
+      <Routes>
+            <Route path="/dogpage" element={<DogPage/>}/>
+      </Routes>
       <div className='pt-4'>
         {pannel === "adoption" && <AdoptionPanel/>}
         {pannel === "appointments" && <AppointmentsPanel/>}
         {pannel === "caring" && <CaringPanel/>}
-      </div>*/}
         <RegisterInspector/>
         <Calender/>
+      </div>
     </div>
   );
 }

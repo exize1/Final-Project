@@ -1,0 +1,41 @@
+.profile-picture-container{
+    width: 180px;
+}
+
+@media only screen and (max-width: 872px){
+    .banner-container{
+        height: 250px !important;
+    }
+    
+    .profile-picture-container{
+        width: 150px;
+    }
+
+    .profile-picture-container:hover .profile-picture-editor-container{
+        width: 150px !important;
+        color: rgba(31, 29, 29, 0.76) !important;
+        background-color: rgba(0, 0, 0, 0.171) !important;
+        height: 100%;
+        border-radius: 1.5%;
+    }
+    
+    .profile-picture-editor{
+        width: 150px !important;
+    }
+}
+
+/* .profile-picture-container:hover {
+    width: 180px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.397);
+    color: rgba(240, 248, 255, 0.774);
+    border-radius: 1.5%;
+    cursor: pointer;
+} */
+
+.profile-picture-editor{
+    position: absolute !important;
+    width: 180px;
+    top: 5%;
+    left: 36%;
+}

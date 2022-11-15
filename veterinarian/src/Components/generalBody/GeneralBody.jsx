@@ -1,10 +1,10 @@
 import './generalBody.css'
 
-const GeneralBody = ({panelTitle, children}) => {
+const GeneralBody = ({panelTitle, addOverFlow, children}) => {
     return(
         <div className='general-body'>
             <h1>{panelTitle}</h1>
-            <div className='children-container'>
+            <div className={addOverFlow ? 'add-overflow children-container' : 'children-container'}>
                 {children}
             </div>
         </div>

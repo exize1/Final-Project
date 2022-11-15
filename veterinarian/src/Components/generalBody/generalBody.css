@@ -7,5 +7,9 @@
 }
 
 .children-container{
+    height: 85%;
+}
 
+.add-overflow{
+    overflow-y: auto;
 }

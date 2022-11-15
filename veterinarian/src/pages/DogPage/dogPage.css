@@ -1,0 +1,6 @@
+.are-you-sure-btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 6% 0;
+}

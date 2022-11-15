@@ -6,8 +6,6 @@ import axios from 'axios'
 import dog from '../../components/home-sections/about/doglogo.png'
 import NoResoultModal from '../../components/adoption/NoResoultModal'
 
-
-
 const Adoption = () => {
     const {REACT_APP_SERVER_URL} = process.env;
 
@@ -55,8 +53,8 @@ const Adoption = () => {
     },[REACT_APP_SERVER_URL])
 
     return(
-      
         <div className="adoption-container container">
+            <PetForm dog={dog}/>
             <div className='save-your-spot-btn'>
                 <NoResoultModal name="מיצאו את הכלב עבורכם"/>  
             </div>
