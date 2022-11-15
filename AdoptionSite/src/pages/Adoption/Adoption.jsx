@@ -5,9 +5,6 @@ import FilterSection from "../../components/adoption/FilterSection"
 import axios from 'axios'
 import dog from '../../components/home-sections/about/doglogo.png'
 import NoResoultModal from '../../components/adoption/NoResoultModal'
-import PetForm from '../../components/test'
-
-
 
 const Adoption = () => {
     const {REACT_APP_SERVER_URL} = process.env;
