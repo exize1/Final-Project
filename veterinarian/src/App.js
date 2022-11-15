@@ -7,7 +7,7 @@ import AdoptionPanel from './pages/adoption/AdoptionPanel';
 import AppointmentsPanel from './pages/appointments/AppointmentsPanel';
 import CaringPanel from './pages/caring/CaringPanel';
 import RegisterInspector from './pages/register/RegisterInspector';
-import Calender from './pages/calender/Calender';
+// import Calender from './pages/calender/Calender';
 import DogPage from './pages/DogPage/DogPage';
 import { Route, Routes } from 'react-router-dom';
 
@@ -18,15 +18,21 @@ function App() {
   return (
     <div className="App">
       <NewNavbar setPannel={setPannel}/>
+      <Dashboard/>
       <Routes>
+            {/* <Route path='/dashboard' element={<Dashboard/>} /> */}
             <Route path="/dogpage" element={<DogPage/>}/>
+            <Route path="/adoption" element={<AdoptionPanel/>}/>
+            <Route path="/appointments" element={<AppointmentsPanel/>}/>
+
       </Routes>
       <div className='pt-4'>
         {pannel === "adoption" && <AdoptionPanel/>}
         {pannel === "appointments" && <AppointmentsPanel/>}
         {pannel === "caring" && <CaringPanel/>}
         <RegisterInspector/>
-        <Calender/>
+        <DogPage/>
+        {/* <Calender/> */}
       </div>
     </div>
   );
