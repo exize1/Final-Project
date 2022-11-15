@@ -1,0 +1,88 @@
+.signup-page-container{
+    display: flex;
+    /* align-items: center; */
+    padding-top: 60px;
+}
+
+.signup-background{
+    /* padding-top: 95px; */
+    position: fixed;
+    width: 100%;
+    z-index: -1;
+    height: 97.5vh;
+    background-image: url("https://www.ndavidsonvet.com/assets/content/content-v3-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.add-another-container{
+    padding-top: 5px;
+    margin: 0 25%;
+    width: 100%;
+}
+
+.sign-up-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #CABCBC
+}
+
+.sign-up{
+    width: 80%;
+}
+
+.align-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.color-white{
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 2px 2px rgba(4, 17, 29, 0.5) ;
+}
+
+.shadow{
+    box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.error-message{
+    color: red;
+}
+
+@media only screen and (max-width: 1000px){
+    .add-another-container{
+        padding-top: 5px;
+        margin: 0 15%;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 700px){
+    .add-another-container{
+        padding-top: 5px;
+        margin: 0 0;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .input-lable{
+        margin-left: 3vw !important;
+        margin-top: 1vw !important;
+        font-size: 3vw;
+    }
+
+    .email-input{
+        height: 60px;
+    }
+}
+.input-register{
+    direction : 'rtl' !important
+}
