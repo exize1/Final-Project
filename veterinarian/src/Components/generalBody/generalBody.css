@@ -13,3 +13,14 @@
 .add-overflow{
     overflow-y: auto;
 }
+
+.new-dog{
+    position: fixed;
+    top: 90%;
+    right: 2%;
+}
+.new-mission{
+    position: fixed;
+    top: 90%;
+    left: 2%;
+}

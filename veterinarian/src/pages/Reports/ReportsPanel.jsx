@@ -1,10 +1,10 @@
 import GeneralBody from '../../Components/generalBody/GeneralBody'
-import './appointmentsPanel.css'
+import './reportsPanel.css'
 
 const AppointmentsPanel = () => {
     return(
         <div className='general-body-container'>
-            <GeneralBody panelTitle={"פאנל תורים"}>
+            <GeneralBody panelTitle={"פאנל דיווחים"}>
 
             </GeneralBody>
         </div>

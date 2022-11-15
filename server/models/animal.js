@@ -1,6 +1,6 @@
-const mongoose= require("mongoose")
+const mongoose = require("mongoose")
 
-const AnimalSchema=mongoose.Schema({
+const AnimalSchema = mongoose.Schema({
    place:{
     type:String,
     required:true
@@ -37,7 +37,7 @@ const AnimalSchema=mongoose.Schema({
    type:{
     type:String,
     required:true
-},
+   },
    phoneNumber:{
     type:String,
     required:true
@@ -56,5 +56,5 @@ const AnimalSchema=mongoose.Schema({
    },
 
 })
-const Animal=mongoose.model('animal',AnimalSchema)
-module.exports=Animal
+const Animal = mongoose.model('animal',AnimalSchema)
+module.exports = Animal
