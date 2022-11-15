@@ -3,6 +3,7 @@ import "./navbar.css"
 // import { useDispatch } from "react-redux";
 import { useState } from "react";
 import Offcanvas from "../offcanvas/Offcanvas";
+import { Link } from "react-router-dom";
 
 
 const NewNavbar = ({ setPannel }) =>{
@@ -35,25 +36,40 @@ const NewNavbar = ({ setPannel }) =>{
                     {windoWidth > 992 && 
                     <div className="link-and-search-container">
                         <ul className="navbar-nav navbar-nav-close">
-                            {/* <li className="nav-item "> */}
-                            {/* <Link className="remove-underline" to="/"> */}
-                                {/* <span className="nav-link add-width" onClick={() => setOpen(false)}>Home</span> */}
-                            {/* </Link> */}
-                            {/* </li> */}
-                            {/* <li className="nav-item "> */}
-                            {/* <Link className="remove-underline" to="/auction"> */}
-                                {/* <span className="nav-link add-width" onClick={() => setOpen(false)}>Auction</span> */}
-                            {/* </Link> */}
-                            {/* </li> */}
-                            {/* <li className="nav-item "> */}
-                            {/* <Link className="remove-underline" to="/user"> */}
-                                {/* <span className="nav-link add-width" onClick={() => setOpen(false)}>User</span> */}
-                            {/* </Link> */}
-                            {/* </li> */}
+                            <li className="nav-item ">
+                                <Link className="remove-underline" to="/">
+                                    <span className="nav-link add-width" onClick={() => setOpen(false)}>בית</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item ">
+                                <Link className="remove-underline" to="/adoption">
+                                    <span className="nav-link add-width" onClick={() => setOpen(false)}>כלבים</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item ">
+                                <Link className="remove-underline" to="/">
+                                    <span className="nav-link add-width" onClick={() => setOpen(false)}>טיפולים</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item ">
+                                <Link className="remove-underline" to="/">
+                                    <span className="nav-link add-width" onClick={() => setOpen(false)}>משימות</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item ">
+                                <Link className="remove-underline" to="/reports">
+                                    <span className="nav-link add-width" onClick={() => setOpen(false)}>דיווחים</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item ">
+                                <Link className="remove-underline" to="/calendar">
+                                    <span className="nav-link add-width" onClick={() => setOpen(false)}>יומן</span>
+                                </Link>
+                            </li>
                         </ul>
-                        {/* <form className="d-flex dropdown search-input-container" role="search">
+                        <form className="d-flex dropdown search-input-container" role="search">
                             <input className="form-control me-2 search-input" data-bs-toggle="dropdown"  onChange={(e) => {setSearchTerm(e.target.value)}} type="search" placeholder="Search" aria-label="Search"/>
-                            <ul className="dropdown-menu search-dropdown-list"> */}
+                            <ul className="dropdown-menu search-dropdown-list">
                                 {/* {filterSearchProducts(searchTerm).length === 0 ? 
                                 // <li key="unfoundProducts"><p className="unfound-dropdown-item">Can't found a result</p></li>
                                 :filterSearchProducts(searchTerm).map((productOption, index) => {
@@ -64,8 +80,8 @@ const NewNavbar = ({ setPannel }) =>{
                                     </Link>
                                 )
                                 })} */}
-                            {/* </ul>
-                        </form> */}
+                            </ul>
+                        </form>
                     </div>}
                     {windoWidth < 992 && 
                     <>
@@ -102,24 +118,39 @@ const NewNavbar = ({ setPannel }) =>{
             </div>
         {open && 
             <ul className="navbar-nav navbar-nav-open">
-                <li className="nav-item">
-                    {/* <Link className="remove-underline" to="/"> */}
-                        <span className="nav-link" onClick={() => setOpen(false)}>Home</span>
-                    {/* </Link> */}
-                    </li>
-                <li className="nav-item">
-                    {/* <Link className="remove-underline" to="/auction"> */}
-                        <span className="nav-link" onClick={() => setOpen(false)}>Auction</span>
-                    {/* </Link> */}
-                    </li>
-                <li className="nav-item">
-                    {/* <Link className="remove-underline" to="/user"> */}
-                        <span className="nav-link" onClick={() => setOpen(false)}>User</span>
-                    {/* </Link> */}
+                <li className="nav-item ">
+                    <Link className="remove-underline" to="/">
+                        <span className="nav-link" onClick={() => setOpen(false)}>בית</span>
+                    </Link>
                 </li>
-                <li className="nav-item logout-add-product-container">
+                <li className="nav-item ">
+                    <Link className="remove-underline" to="/adoption">
+                        <span className="nav-link" onClick={() => setOpen(false)}>כלבים</span>
+                    </Link>
+                </li>
+                <li className="nav-item ">
+                    <Link className="remove-underline" to="/">
+                        <span className="nav-link" onClick={() => setOpen(false)}>טיפולים</span>
+                    </Link>
+                </li>
+                <li className="nav-item ">
+                    <Link className="remove-underline" to="/">
+                        <span className="nav-link" onClick={() => setOpen(false)}>משימות</span>
+                    </Link>
+                </li>
+                <li className="nav-item ">
+                    <Link className="remove-underline" to="/reports">
+                        <span className="nav-link" onClick={() => setOpen(false)}>דיווחים</span>
+                    </Link>
+                </li>
+                <li className="nav-item ">
+                    <Link className="remove-underline" to="/calendar">
+                        <span className="nav-link add-width" onClick={() => setOpen(false)}>יומן</span>
+                    </Link>
+                </li>
+                {/* <li className="nav-item logout-add-product-container"> */}
                     {/* <FontAwesomeIcon icon="fa-right-from-bracket" className="logout-btn" onClick={() => dispatch(updateUserData({}))}/> */}
-                </li>
+                {/* </li> */}
             </ul>
         }
         </nav>

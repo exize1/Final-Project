@@ -1,29 +1,14 @@
-// import React, {Component} from 'react';
+import GeneralBody from '../../Components/generalBody/GeneralBody'
+import './calendar.css'
 
-// DayPilot Lite
-// import {DayPilotCalendar} from "@daypilot/daypilot-lite-react";
+const Calendar = () => {
+    return(
+        <div className='general-body-container'>
+            <GeneralBody panelTitle={"לוח זמנים"}>
 
-// DayPilot Pro
+            </GeneralBody>
+        </div>
+    )
+}
 
-// class Calendar extends Component {
-
-//     constructor(props) {
-//       super(props);
-//       this.calendarRef = React.createRef();
-//     }
-
-//     get calendar() {
-//       return this.calendarRef.current.control;
-//     }
-
-//     render() {
-//         return (
-//             <DayPilotCalendar 
-//               viewType={"Week"}
-//               ref={this.calendarRef}
-//             />
-//         );
-//     }
-// }
-
-// export default Calendar;
+export default Calendar
