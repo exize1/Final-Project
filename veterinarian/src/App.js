@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import './App.css';
-import Dashboard from './Components/Dashboard/Dashboard';
+// import Dashboard from './Components/Dashboard/Dashboard';
 import NewNavbar from './Components/navbar/Navbar';
 import AdoptionPanel from './pages/adoption/AdoptionPanel';
 import AppointmentsPanel from './pages/appointments/AppointmentsPanel';
@@ -31,6 +31,7 @@ function App() {
             <Route path="/events/add" element={<AddEvents/>}/>
             <Route path="/event/:id/update" element={<UpdateEvent/>}/>
       </Routes>
+      {/* <Dashboard/> */}
       <div className='pt-4'>
         {pannel === "adoption" && <AdoptionPanel/>}
         {pannel === "appointments" && <AppointmentsPanel/>}

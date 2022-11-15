@@ -1,0 +1,47 @@
+.scrollspy-example{
+    height: fit-content;
+    max-height: 200px;
+    margin-top: 0.5rem;
+    overflow: auto;  
+    scroll-behavior: smooth;
+}
+
+.title-list-container{
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: white;
+}
+
+.hand-emoji-container{
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.top-list-container{
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-top: 0;
+
+}
+
+.list-container{
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-top: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.bid-details-container{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.bid-details{
+    margin: 15px 0;
+}
+
+.dropdown-menu{
+    max-height: 180px;
+}
