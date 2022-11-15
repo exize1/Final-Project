@@ -1,7 +1,7 @@
 
 
   .dashboard-container{
-    height: 100vh;
+    height: 110vh;
     width: 100vw;
     align-items: center;
     display: flex;
@@ -22,6 +22,7 @@
   }
 
   .dashboard-hero{
+ margin-top: -30px;
     height: 90vh;
     display: flex;
     box-shadow: #385460 0px 0px 18px 16px;

@@ -38,6 +38,9 @@
 .large{
     width: 85%;
 }
+.medium{
+    width: 60%;
+}
 
 .add-overflow{
     overflow-y: scroll;
