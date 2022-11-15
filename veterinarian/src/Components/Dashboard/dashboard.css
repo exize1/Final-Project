@@ -1,0 +1,134 @@
+
+
+  .dashboard-container{
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    background-image: url('https://static.vecteezy.com/system/resources/previews/002/717/062/original/gradient-blue-background-free-vector.jpg');
+  }
+
+  .logo{
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Dimona_COA.svg/1200px-Dimona_COA.svg.png');
+    background-repeat: no-repeat;
+    height: 16vh;
+    background-size: contain;
+    position: absolute;
+    width: 9vw;
+    left: 10%;
+    top: 10%;
+  }
+
+  .dashboard-hero{
+    height: 90vh;
+    display: flex;
+    box-shadow: #385460 0px 0px 18px 16px;
+    background-color: white;
+    width: 90vw;
+    grid: 20px;
+    color: black;
+    border-radius: 30px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
+.teart-pannel{
+background-image: url(https://ww7.io/MxzrWK);
+height:25vh;
+width: 20vw;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+.teart-pannel:hover{
+    height:32vh;
+    width: 28vw;
+    transition: 700ms ease-in-out;
+}
+
+.teart-pannel h1 {
+    margin-top: -80px;
+    font-family: auto;
+
+    
+}
+
+.dog-pannel h1 {
+    margin-top: -80px;
+    font-family: auto
+}
+.report-pannel h1 {
+    margin-top: -80px;
+    font-family: auto
+}
+.tasks-pannel h1 {
+    margin-top: -80px;
+    font-family: auto
+}
+
+.dog-pannel{
+ 
+    height:25vh;
+    width:20vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('http://cdn.shopify.com/s/files/1/0565/7080/6458/collections/Pug-Pattern-Dog-Wallpaper-Mural-Room.jpg?v=1660198980');
+}
+.dog-pannel:hover{
+    height:32vh;
+    width: 28vw;
+    transition: 700ms ease-in-out;
+}
+
+.report-pannel{
+    height:25vh;
+    width: 20vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+background-image: url('https://c0.wallpaperflare.com/preview/34/761/184/smartphone-call-answer-contact.jpg');
+}
+.report-pannel:hover{
+    height:32vh;
+    width: 28vw;
+    transition: 700ms ease-in-out;
+  
+}
+
+.tasks-pannel{
+    height:25vh;
+    width: 20vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+ background-image: url('https://www.icount.co.il/wp-content/uploads/Depositphotos_43411845_l-2015-1-1.jpg');
+}
+.tasks-pannel:hover{
+    height:32vh;
+    width: 28vw;
+    transition: 700ms ease-in-out;
+}
+.title-class{
+    width: fit-content;
+    height: fit-content;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    width: 80vw;
+    margin-top: -50px;
+    font-family: auto;
+
+
+}
+.new-dog{
+    position: absolute;
+    top: 25%;
+}
+.new-mission{
+    position: absolute;
+    top: 33%;
+}

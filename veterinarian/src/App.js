@@ -1,5 +1,7 @@
 import { useState } from 'react';
+
 import './App.css';
+import Dashboard from './Components/Dashboard/Dashboard';
 import NewNavbar from './Components/navbar/Navbar';
 import AdoptionPanel from './pages/adoption/AdoptionPanel';
 import AppointmentsPanel from './pages/appointments/AppointmentsPanel';
@@ -13,14 +15,15 @@ function App() {
 
   return (
     <div className="App">
-      <NewNavbar setPannel={setPannel}/>
+     < Dashboard/>
+      {/* <NewNavbar setPannel={setPannel}/>
       <div className='pt-4'>
         {pannel === "adoption" && <AdoptionPanel/>}
         {pannel === "appointments" && <AppointmentsPanel/>}
         {pannel === "caring" && <CaringPanel/>}
+      </div>*/}
         <RegisterInspector/>
         <Calender/>
-      </div>
     </div>
   );
 }
