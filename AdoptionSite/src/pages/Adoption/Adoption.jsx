@@ -54,7 +54,6 @@ const Adoption = () => {
 
     return(
         <div className="adoption-container container">
-            <PetForm dog={dog}/>
             <div className='save-your-spot-btn'>
                 <NoResoultModal name="מיצאו את הכלב עבורכם"/>  
             </div>

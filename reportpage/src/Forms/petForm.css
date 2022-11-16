@@ -1,0 +1,72 @@
+.petform-footer-container {
+  display: flex;
+  flex-direction: row;
+  background-color: wheat;
+  background: wheat; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    wheat,
+    wheat
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    wheat,
+    wheat
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  width: 100vw;
+}
+
+.footer-container-without-mt {
+  display: flex;
+  flex-direction: row;
+  background-color: wheat;
+  background: wheat; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    wheat,
+    wheat
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    wheat,
+    wheat
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  width: 100vw;
+  height: 87vh;
+}
+
+.form-contact-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 100%;
+}
+
+.form-container {
+  width: 80%;
+  padding-top: 4vh;
+  padding-left: 5%;
+}
+
+.form-control {
+  direction: rtl;
+}
+
+.details-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  font-weight: 500;
+  width: 100%;
+}
+
+.input-title-container p {
+  color: grey;
+  text-align: right;
+}
+
+.must-asterisk {
+  color: red;
+}
