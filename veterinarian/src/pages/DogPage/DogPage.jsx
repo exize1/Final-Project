@@ -5,7 +5,7 @@ import Modal from "../../Components/modal/Modal"
 import ScrollSpy from "../../Components/scrollSpy/ScrolSpy"
 import "./dogPage.css"
 
-const DogPage = () => {
+const DogPage = ({ dog }) => {
     return(
         <div className='general-body-container'>
             <GeneralBody>
@@ -20,14 +20,14 @@ const DogPage = () => {
                         </Modal>
                     </div>
                     <div className="col">
-                        <h5 dir="rtl">מספר שבב:</h5>
-                        <h5 dir="rtl">גיל:</h5>
+                        <h5 dir="rtl">מספר שבב: <span>{}</span></h5>
+                        <h5 dir="rtl">גיל: <span>{dog.age}</span></h5>
                         <h5 dir="rtl">משקל:</h5>
                     </div>
                     <div className="col">
-                        <h5 dir="rtl">שם:</h5>
-                        <h5 dir="rtl">מין:</h5>
-                        <h5 dir="rtl">גודל:</h5>
+                        <h5 dir="rtl">שם: <span>{dog.dogName}</span></h5>
+                        <h5 dir="rtl">מין: <span>{dog.gender}</span></h5>
+                        <h5 dir="rtl">גודל: <span>{dog.size}</span></h5>
                     </div>
                     <div className="col">
                         <Avatar/>

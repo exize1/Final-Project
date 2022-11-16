@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const Event = require("../models/Event");
 const handleError = require("../utils/eventErrors")
-const Animal=require('../models/animal')
+const Report = require('../models/reports')
 const cloudinary = require('../utils/cloudinary')
 
 
@@ -276,62 +276,62 @@ router.delete("/events/calendar/:id/delete", async(req, res)=>{
 
 })
 ////////////////////////////
-router.get('/animals',(req,res,next)=>{
-  Animal.find({},["place",'size','color','vailent','problem','time','exstraDetails','photo','type','phoneNumber','email','name','status'])
+router.get('/reports',(req,res,next)=>{
+  Report.find({})
   .then((data) => res.json(data))
   .catch(next)
 }) 
 
 
-router.post('/animal',async  (req,res,next)=>{
+// router.post('/animal',async  (req,res,next)=>{
 
 
-  const { place, size, color, vailent, 
-    problem, time, exstraDetails, type, phoneNumber,email,name,status} = req.body;
+//   const { place, size, color, vailent, 
+//     problem, time, exstraDetails, type, phoneNumber,email,name,status} = req.body;
     
-    // const result = await cloudinary.uploader.upload(req.body.photo);
-    // if (result) {
-      const animal = {
-        place,
-        size,
-        color,
-        vailent,
-        problem,
-        time,
-        exstraDetails,
-        type,
-        phoneNumber,
-        // photo: result,
-        email,
-        name,
-        status
-      } 
-    Animal.create(animal)
-      .then(() =>{ 
-        res.json({
-          "error" : false,
-          "message": "הדיווח נשלח בהצלחה"
-        })
-      }).catch(err =>{
-        res.json({
-          "error" : true,
-          "message": "לא היה ניתן לשלוח את הדיווח",
-          "m":err
+//     // const result = await cloudinary.uploader.upload(req.body.photo);
+//     // if (result) {
+//       const animal = {
+//         // place,
+//         // size,
+//         // color,
+//         // vailent,
+//         // problem,
+//         // time,
+//         // exstraDetails,
+//         // type,
+//         // phoneNumber,
+//         // // photo: result,
+//         // email,
+//         // name,
+//         // status
+//       } 
+//       Report.create(animal)
+//       .then(() =>{ 
+//         res.json({
+//           "error" : false,
+//           "message": "הדיווח נשלח בהצלחה"
+//         })
+//       }).catch(err =>{
+//         res.json({
+//           "error" : true,
+//           "message": "לא היה ניתן לשלוח את הדיווח",
+//           "m":err
 
-        })
-      })
-    // }else{
-    //   res.json({ error: `this input is empty -> ${req.body}` })
-    // }
+//         })
+//       })
+//     // }else{
+//     //   res.json({ error: `this input is empty -> ${req.body}` })
+//     // }
    
-})
+// })
 
 router.patch('/animals/:id',(req,res,next)=>{
   const id = req.params.id
   const status = req.body.status
-  animal= Animal.findOne({_id:id })
+  animal = Report.findOne({_id:id })
   .then((data) =>{
-      Animal.findOneAndUpdate({_id:id }, {status:status},{ returnDocument: 'after' },function(err, doc){
+    Report.findOneAndUpdate({_id:id }, {status:status},{ returnDocument: 'after' },function(err, doc){
         res.json(data)
         if(err){
             console.log("Something wrong when updating data!");
@@ -345,35 +345,27 @@ router.patch('/animals/:id',(req,res,next)=>{
 })
 
 
-router.delete('/animals/:id', ( req,res,next) => {
+router.delete('/reports/:id', ( req,res,next) => {
     console.log("delete");
-    Animal.findOneAndDelete({_id: req.params.id })
+    Report.findOneAndDelete({_id: req.params.id })
         .then((data) => res.json(data))
         .catch(next)
 })
-router.post('/animal',async  (req,res,next)=>{
+router.post('/reports', async (req,res,next) => {
 
+  const { reporterDetails, dogDetails, location, reportDetails} = req.body;
 
-  const { place, size, color, vailent, 
-    problem, time, exstraDetails, type, phoneNumber,email,name} = req.body;
-
-    const result = await cloudinary.uploader.upload(req.body.photo);
+    const result = await cloudinary.uploader.upload(req.body.reportDetails.picture);
     if (result) {
-      const animal = {
-        place,
-        size,
-        color,
-        vailent,
-        problem,
-        time,
-        exstraDetails,
-        type,
-        phoneNumber,
-        photo: result,
-        email,
-        name
+      reportDetails.picture = result
+      const report = {
+        reporterDetails,
+        dogDetails,
+        location,
+        reportDetails,
+        // picture: result,
       } 
-    Animal.create(animal)
+      Report.create(report)
       .then(() =>{ 
         res.json({
           "error" : false,
@@ -396,9 +388,9 @@ router.post('/animal',async  (req,res,next)=>{
 router.patch('/animals/:id',(req,res,next)=>{
   const id = req.params.id
   const status = req.body.status
-  animal= Animal.findOne({_id:id })
+  animal= Report.findOne({_id:id })
   .then((data) =>{
-      Animal.findOneAndUpdate({_id:id }, {status:status},{ returnDocument: 'after' },function(err, doc){
+    Report.findOneAndUpdate({_id:id }, {status:status},{ returnDocument: 'after' },function(err, doc){
         res.json(data)
         if(err){
             console.log("Something wrong when updating data!");
@@ -414,7 +406,7 @@ router.patch('/animals/:id',(req,res,next)=>{
 
 router.delete('/animals/:id', ( req,res,next) => {
     console.log("delete");
-    Animal.findOneAndDelete({_id: req.params.id })
+    Report.findOneAndDelete({_id: req.params.id })
         .then((data) => res.json(data))
         .catch(next)
 })
