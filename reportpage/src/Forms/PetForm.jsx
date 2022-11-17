@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react';
 import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-
+////////socket
+import io from 'socket.io-client'
+const socket = io.connect("http://localhost:3001")
+///////
 const PetForm = ({ }) => {
 
     const [page, setPage] = useState(0)
@@ -87,24 +90,28 @@ const PetForm = ({ }) => {
 
     const postReport = (report) => {
         axios.post(`${process.env.REACT_APP_SERVER_URL}/api/reports`, report)
-        .then(console.log(report))
+        .then(()=>{
+            console.log(report);
+            sendM(report,room);
+        })
     }
 
-  ////////////
+  ////////////socket
   
-  // const [messageRecived,setMessageRecived]=useState("")
-  // const [room,setRoom]=useState("1")
-  // const sendM =(message, room)=>{
-  //   socket.emit("send_msg",{message,room})
+  const [messageRecived,setMessageRecived]=useState("")
+  const [room,setRoom]=useState("1")
+  const sendM =(message, room)=>{
+    socket.emit("send_msg",{message,room})
     
-  // }
-  // const joinRoom =()=>{
-  //   if (room!=="") {
-  //     socket.emit("join_room",room)
-  //     console.log("connected");
-  //   }
+  }
+  ////join room
+  (()=>{
+    if (room!=="") {
+      socket.emit("join_room",room)
+      console.log("connected");
+    }
     
-  // }
+  })()
   
   ///////////////////////
   useEffect(() => {
