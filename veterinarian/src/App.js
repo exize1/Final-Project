@@ -29,7 +29,7 @@ function App() {
 
               <Route path="/reports" element={<ReportsPanel/>}/>
 
-              <Route path="/calendar" exact element={<MyCalendar/>} />
+              <Route path="/calendar" exact element={<MyCalendar calendarHeight={450} toolbarDisplay={true} margincalendar={50}/>} />
               <Route path="/events/add" element={<AddEvents/>}/>
               <Route path="/event/:id/update" element={<UpdateEvent/>}/>
 
