@@ -10,7 +10,7 @@ const GeneralBody = ({ panelTitle, addOverFlow, children }) => {
                 {children}
             </div>
             <div className='new-dog'>
-                <Modal addOverflow={true} modalButtonName={"הוסף כלב חדש למאגר העירוני"} btnType="success" footer={true} size="medium" title="הוספת כלב חדש למאגר העירוני">
+                <Modal addOverflow={true} modalButtonName={"הוסף כלב חדש למאגר העירוני"} btnType="success" footer={true} size="large" title="הוספת כלב חדש למאגר העירוני">
                     <NewDogForm></NewDogForm>
                 </Modal>
             </div>
