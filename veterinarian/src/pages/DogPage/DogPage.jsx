@@ -3,9 +3,26 @@ import NewMission from "../../Components/forms/NewMission/NewMission"
 import GeneralBody from "../../Components/generalBody/GeneralBody"
 import Modal from "../../Components/modal/Modal"
 import ScrollSpy from "../../Components/scrollSpy/ScrolSpy"
+import { publicRequest } from "../../requestMethods"
 import "./dogPage.css"
 
-const DogPage = () => {
+const DogPage = ({ dog }) => {
+
+    const sendForAdoptionSite = () => {
+        const currentDate = new Date()
+        const updates = {
+            forAdopting: true,
+            addForAdoptingDate: {
+                date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
+                hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
+            }
+        }
+        publicRequest.patch(`/api/dogs/${dog._id}`, updates)
+            .then((res) => {
+                res.data && console.log("updated");
+            })
+    }
+
     return(
         <div className='general-body-container'>
             <GeneralBody>
@@ -15,22 +32,24 @@ const DogPage = () => {
                             <h3><b>?האם את/ה בטוח/ה</b></h3>
                             <div className="are-you-sure-btn-container mb-5">
                                 <button className="btn btn-danger px-4">לא</button>
-                                <button className="btn btn-success px-4">כן</button>
+                                <button className="btn btn-success px-4" onClick={() => {
+                                    sendForAdoptionSite()
+                                }}>כן</button>
                             </div>
                         </Modal>
                     </div>
                     <div className="col">
-                        <h5 dir="rtl">מספר שבב:</h5>
-                        <h5 dir="rtl">גיל:</h5>
-                        <h5 dir="rtl">משקל:</h5>
+                        <h5 dir="rtl">מספר שבב: <span>{dog.details.chipNumber}</span></h5>
+                        <h5 dir="rtl">גיל: <span>{dog.details.age}</span></h5>
+                        <h5 dir="rtl">משקל:<span>{dog.details.weight}</span></h5>
                     </div>
                     <div className="col">
-                        <h5 dir="rtl">שם:</h5>
-                        <h5 dir="rtl">מין:</h5>
-                        <h5 dir="rtl">גודל:</h5>
+                        <h5 dir="rtl">שם: <span>{dog.details.dogName}</span></h5>
+                        <h5 dir="rtl">מין: <span>{dog.details.gender}</span></h5>
+                        <h5 dir="rtl">גודל: <span>{dog.details.size}</span></h5>
                     </div>
                     <div className="col">
-                        <Avatar/>
+                        <Avatar src={dog.details.src}/>
                     </div>
                 </div>
                 <div className="row">

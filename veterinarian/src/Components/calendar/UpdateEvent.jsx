@@ -40,8 +40,8 @@ const UpdateEvent = ({updateEventApi, event, error}) => {
       resolver: yupResolver(schema),
       defaultValues: {
         title: event.title,
-        start: new Date(event.start) ,
-        end: event.end? new Date(event.end) :"",
+        start: new Date(event.start).toISOString() ,
+        end: event.end? new Date(event.end).toISOString() :"",
         describe: event.describe? event.describe : "No description was provided"
       }
     });

@@ -1,26 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import GeneralBody from '../../Components/generalBody/GeneralBody'
 import './adoptionPanel.css'
-import axios from 'axios'
 import DogCard from '../../Components/DogCard/DogCard'
 import { Link } from "react-router-dom";
 import ScrollSpy from '../../Components/scrollSpy/ScrolSpy'
 import { CgDisplayGrid, CgList } from "react-icons/cg"
+import {  useSelector } from 'react-redux';
+import { selectDog } from '../../Redux/slicer/DogSlice';
+
 const AdoptionPanel = () => {
-    const {REACT_APP_SERVER_URL} = process.env;
-    const [dogs, setDogs] = useState([])
     const [display, setDisplay] = useState(true)
-    useEffect(()=>{
-        const getDogs = () => {
-            axios.get(`${REACT_APP_SERVER_URL}/api/dogs`)
-                .then((res) => {
-                    res.data && setDogs(res.data)
-                })
-                .catch((err) => console.log(err));
-        }
-        getDogs()
-    },[REACT_APP_SERVER_URL])
-    
+
+    const dogs = useSelector(selectDog)
     return(
         <div className='general-body-container'>
             <GeneralBody panelTitle={"פאנל אימוץ"} addOverFlow={true}>
@@ -32,11 +23,12 @@ const AdoptionPanel = () => {
                 </div>
                 {display ? 
                 <div className='cards-container'>
-                        {dogs.map(dog => {
-                        return(
-                            <Link to="dogpage">
-                                <DogCard dog={dog}/>
-                            </Link>
+                        {dogs.map((dog, index) => {
+                            return(
+                                // <Link to={`dogpage`}>
+                                <Link to={dog._id}> 
+                                    <DogCard key={index} dog={dog}/>
+                                </Link>
                         )
                     })}
                 </div>
