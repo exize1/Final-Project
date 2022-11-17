@@ -4,7 +4,7 @@ import './App.css';
 import Dashboard from './pages/Dashboard/Dashboard';
 import NewNavbar from './Components/navbar/Navbar';
 import AdoptionPanel from './pages/adoption/AdoptionPanel';
-import ReportsPanel from './pages/Reports/ReportsPanel';
+// import AppointmentsPanel from './pages/appointments/AppointmentsPanel';
 import CaringPanel from './pages/caring/CaringPanel';
 import RegisterInspector from './pages/register/RegisterInspector';
 import { Route, Routes, Link} from "react-router-dom"
@@ -35,7 +35,7 @@ const dogs = useSelector(selectDog)
   return (
     <div className="App">
       <NewNavbar setPannel={setPannel}/>
-      <div className='pt-4'>
+      <Dashboard/>
         <Routes>
               <Route path='/' element={<Dashboard/>} />
 
