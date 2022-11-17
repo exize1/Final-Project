@@ -9,11 +9,10 @@ const Dashboard =()=> {
   return (
     <div className='dashboard-container'>
       <div className='logo'/>
-      <div className="calendar">
-        <MyCalendar  calendarHeight={300}  toolbarDisplay={false} fontDashbordsize={"0.55rem"} minWidthDash={"300px"} margincalendar={5}/>
-      </div>
+        <div className="calendar">
+          <MyCalendar  calendarHeight={300}  toolbarDisplay={false} fontDashbordsize={"0.55rem"} minWidthDash={"300px"} margincalendar={5}/>
+        </div>
 
-      <div />
       <GeneralBody panelTitle={"מחלקת וטרינריה עיירית דימונה"} removeUpperBg={true}>
         <div className='hero'>
           <div className='lines-container'>

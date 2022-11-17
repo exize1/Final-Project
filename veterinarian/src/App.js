@@ -15,19 +15,13 @@ import UpdateEvent from "./Components/calendar/UpdateEvent";import DogPage from 
 import { publicRequest } from './requestMethods';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDog, updateDogData } from './Redux/slicer/DogSlice';
+import { getDogs } from './utils/apiCalls';
 
 function App() {
 
   const [pannel, setPannel] = useState("")
   useEffect(()=>{
-    const getDogs = () => {
-        publicRequest.get(`/api/dogs`)
-            .then((res) => {
-                res.data && dispatch(updateDogData(res.data))
-            })
-            .catch((err) => console.log(err));
-    }
-    getDogs()
+    getDogs(dispatch)
 },[])
 const dispatch = useDispatch()
 const dogs = useSelector(selectDog)
