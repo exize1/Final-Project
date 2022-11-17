@@ -1,14 +1,17 @@
+import { useEffect } from "react"
 import { useState } from "react"
 import './modal.css'
 
-const Modal = ({ footer, header, title, size, addOverflow, btnType, modalButtonName, className, children}) => {
+const Modal = ({ footer, header, title, size, addOverflow, btnType, modalButtonName, className, inheritedOpen, children}) => {
 
     const [open, setOpen] = useState(false)
 
     const handleOpen = () => setOpen(true)
     
     const handleClose = () => setOpen(false)
-
+    useEffect(() => {
+            handleClose()
+    }, [inheritedOpen])
     return(
         <div className='modal-container'>
             <button type="button" className={`btn btn-${btnType} ${className}`} onClick={() => {handleOpen()}}>{modalButtonName}</button>

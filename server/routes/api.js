@@ -44,9 +44,18 @@ router.delete('/dogs/:id', ( req, res, next ) => {
 })
 
 router.put('/dogs/:id', ( req, res, next ) => {
-    const updates = {
-      forAdopting: req.body.forAdopting,
-      dates: req.body.dates
+    const updates = {}
+    if (req.body.forAdopting){
+      // const updates = {
+      //   forAdopting: req.body.forAdopting,
+      //   dates: req.body.dates
+      // }
+      updates.forAdopting = req.body.forAdopting
+      updates.dates = req.body.dates
+    }
+    if (req.body.adopted) {
+      updates.adopted = req.body.adopted
+      updates.dates = req.body.dates
     }
     Dog.findOneAndUpdate({_id: req.params.id}, { $set: updates }, {new: true})
     .then((data) => res.json(data))
