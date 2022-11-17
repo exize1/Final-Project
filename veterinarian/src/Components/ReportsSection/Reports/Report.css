@@ -1,0 +1,11 @@
+.complet-report{
+    border-style: solid;
+    border-color: black;
+    max-height: 30px;
+    border-radius: 18%;
+    background-color: rgb(139, 236, 160);
+}
+.text-report{
+   font-size:  0.55rem ;
+   direction: rtl;
+}
