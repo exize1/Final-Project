@@ -20,19 +20,20 @@ router.get('/dogs/', ( req, res, next ) => {
 })
 
 router.post('/dogs/', (req, res, next) =>{
-    req.body.src && req.body.dogName  && req.body.shortDescription  && req.body.gender  && req.body.age && req.body.size ?
+    req.body.details.src && req.body.details.dogName  &&  req.body.details.gender  && req.body.details.age && req.body.details.size ?
     Dog.create(req.body)
         .then((data) => {
-            DogRequest.find( {size: data.size} )
-            .then((datas) => {
-                datas.map(dog => {
-                    data.gender === dog.gender &&
-                    data.age === dog.age && res.json(dog) && console.log(dog)
-                })
-            }).catch(next)
+          res.json(data)
+            // DogRequest.find( {size: data.size} )
+            // .then((datas) => {
+            //     datas.map(dog => {
+            //         data.gender === dog.gender &&
+            //         data.age === dog.age && res.json(dog) && console.log(dog)
+            //     })
+            // }).catch(next)
         })
         .catch(next) :
-        res.json({error: 'this input is empty'})
+          res.json({error: 'this input is empty'})
 })
 
 router.delete('/dogs/:id', ( req, res, next ) => {
@@ -42,7 +43,11 @@ router.delete('/dogs/:id', ( req, res, next ) => {
 })
 
 router.patch('/dogs/:id', ( req, res, next ) => {
-    Dog.findOneAndUpdate({_id: req.params.id})
+    const updates = {
+      forAdopting: req.body.forAdopting,
+      addForAdoptingDate: req.body.addForAdoptingDate
+    }
+    Dog.findOneAndUpdate({_id: req.params.id}, { $set: updates })
     .then((data) => res.json(data))
     .catch(next)
 })

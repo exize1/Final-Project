@@ -1,15 +1,15 @@
 import './generalBody.css'
 import Modal from '../../Components/modal/Modal';
 
-const GeneralBody = ({panelTitle, addOverFlow, children}) => {
+const GeneralBody = ({panelTitle, addOverFlow, removeUpperBg, children}) => {
     return(
-        <div className='general-body'>
+        <div className={!removeUpperBg && 'general-body'}>
             <h1>{panelTitle}</h1>
             <div className={addOverFlow ? 'add-overflow children-container' : 'children-container'}>
                 {children}
             </div>
             <div className='new-dog'>
-                <Modal modalButtonName={"הוסף כלב חדש למאגר העירוני"} btnType="success" footer={true} size="medium" title="הוספת כלב חדש למאגר העירוני">
+                <Modal modalButtonName={"הוסף כלב חדש למאגר העירוני"} btnType="secondary" footer={true} size="medium" title="הוספת כלב חדש למאגר העירוני">
                     <input required={true} type={"text"}  dir ="rtl" placeholder="שם הכלב :"/><p/>
                     <input required={true} type={'number'} dir ="rtl" placeholder="משקל הכלב :"/><p/>
                     <input required={true} type={"number"}  dir ="rtl" placeholder="גיל הכלב:"/><p/>
@@ -21,7 +21,7 @@ const GeneralBody = ({panelTitle, addOverFlow, children}) => {
                 </Modal>
             </div>
             <div className='new-mission'>
-                <Modal modalButtonName={"הוספת משימה חדשה"} btnType="success" footer={true} size="medium" title="הוספת משימה חדשה">
+                <Modal modalButtonName={"הוספת משימה חדשה"} btnType="secondary" footer={true} size="medium" title="הוספת משימה חדשה">
                 <input required={true} type={"text"}  dir ="rtl" placeholder="סוג משימה :"/><p/>
                 <hr/><label>תאריך סיום </label> <br/>
                 <input required={true} type={"date"}  /><p/><hr/>

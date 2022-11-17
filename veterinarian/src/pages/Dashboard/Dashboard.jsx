@@ -8,7 +8,7 @@ const Dashboard =()=> {
   return (
     <div className='dashboard-container'>
       <div className='logo'/>
-      <GeneralBody panelTitle={"מחלקת וטרינריה עיירית דימונה"}>
+      <GeneralBody panelTitle={"מחלקת וטרינריה עיירית דימונה"} removeUpperBg={true}>
         <div className='hero'>
           <div className='lines-container'>
             <div className='teart-pannel'>
