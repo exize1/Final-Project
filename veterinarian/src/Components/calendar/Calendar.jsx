@@ -9,9 +9,10 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Popping from './Popping';
 import {closeEvent, ShowEventApi, ShowEventsApi} from "../../Redux/actions"
 import { connect } from 'react-redux'
-
+import he from 'date-fns/locale/he'
 const locales = {
-  'en-US': enUS,
+  // 'en-US': enUS,
+  he: he,
 }
 
 const localizer = dateFnsLocalizer({
@@ -26,7 +27,7 @@ const localizer = dateFnsLocalizer({
 
 
 
-const MyCalendar = ({events, ShowEventApi, closeEvent, ShowEventsApi}) => {
+const MyCalendar = ({events, ShowEventApi, closeEvent, ShowEventsApi,calendarHeight,margincalendar,fontDashbordsize,minWidthDash,toolbarDisplay}) => {
     const [open, setOpen] = useState(false);
     const [renderStatus, rerender] = useState(false);
 
@@ -68,11 +69,21 @@ const MyCalendar = ({events, ShowEventApi, closeEvent, ShowEventsApi}) => {
             events={events}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: 500 , margin: 50, fontFamily: 'Patrick Hand' }}
+            style={{ height:calendarHeight,fontSize:fontDashbordsize,minWidth:minWidthDash,background:"white" , margin: margincalendar,direction:"rtl", fontFamily: 'Patrick Hand'}}
             onSelectEvent={openEventClick}
+            toolbar={toolbarDisplay}
+            culture="he"
+            messages={{
+              next:"הבא",
+              previous:"הקודם",
+              today:"היום",
+              month:"חודש",
+              week:"שבוע",
+              day:"יום",
+              agenda:"רשימה"
+          }}
         />
     </div>
-        
     )
 }
 

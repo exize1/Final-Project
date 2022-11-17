@@ -1,3 +1,4 @@
+import MyCalendar from "../../Components/calendar/Calendar";
 
 import './dashboard.css'
 import React from 'react';
@@ -7,7 +8,11 @@ import GeneralBody from '../../Components/generalBody/GeneralBody';
 const Dashboard =()=> {
   return (
     <div className='dashboard-container'>
-      <div className='logo'/>
+      <div className="calendar">
+        <MyCalendar  calendarHeight={300}  toolbarDisplay={false} fontDashbordsize={"0.55rem"} minWidthDash={"300px"} margincalendar={5}/>
+        </div>
+
+      <div />
       <GeneralBody panelTitle={"מחלקת וטרינריה עיירית דימונה"}>
         <div className='hero'>
           <div className='lines-container'>
