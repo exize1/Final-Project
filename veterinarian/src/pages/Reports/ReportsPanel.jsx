@@ -6,7 +6,7 @@ import './reportsPanel.css'
 const AppointmentsPanel = () => {
     return (
         <div className='general-body-container'>
-            <GeneralBody panelTitle={"פאנל דיווחים"}>
+            <GeneralBody panelTitle={"פאנל דיווחים"} addOverFlow={true}>
                 <AreaDropDown></AreaDropDown>
                 <AnimalCards></AnimalCards>
             </GeneralBody>

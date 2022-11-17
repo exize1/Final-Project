@@ -36,7 +36,7 @@ const NewNavbar = ({ setPannel }) =>{
           dogs.filter((val) => {
                 if(filterKey === ""){
                   return val;
-                }else if(val.dogName.toLowerCase().includes(filterKey.toLowerCase())){
+                }else if(val.details.dogName.toLowerCase().includes(filterKey.toLowerCase())){
                     return val;
                 }else return null
             })

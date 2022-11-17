@@ -1,9 +1,11 @@
+import { useDispatch } from "react-redux"
 import Avatar from "../../Components/avatar/Avatar"
 import NewMission from "../../Components/forms/NewMission/NewMission"
 import GeneralBody from "../../Components/generalBody/GeneralBody"
 import Modal from "../../Components/modal/Modal"
 import ScrollSpy from "../../Components/scrollSpy/ScrolSpy"
 import { publicRequest } from "../../requestMethods"
+import { getDogs } from "../../utils/apiCalls"
 import "./dogPage.css"
 
 const DogPage = ({ dog }) => {
@@ -12,23 +14,55 @@ const DogPage = ({ dog }) => {
         const currentDate = new Date()
         const updates = {
             forAdopting: true,
-            addForAdoptingDate: {
+            dates: {
+                initialDate: dog.dates.initialDate,
+                addForAdoptingDate: {
+                    date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
+                    hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
+                },
+                AdoptedDate: dog.dates.AdoptedDate
+            }
+        }
+        publicRequest.put(`/api/dogs/${dog._id}`, updates)
+            .then((res) => {
+                res.data && console.log("updated");
+                res.data && getDogs(dispatch);
+            })
+    }
+    const approveAdotion = () => {
+        const currentDate = new Date()
+        const updates = {
+            adopted: true,
+            AdoptedDate: {
                 date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
                 hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
             }
         }
-        publicRequest.patch(`/api/dogs/${dog._id}`, updates)
+        publicRequest.put(`/api/dogs/${dog._id}`, updates)
             .then((res) => {
                 res.data && console.log("updated");
+                res.data && getDogs(dispatch);
             })
     }
+    const dispatch = useDispatch()
 
     return(
         <div className='general-body-container'>
             <GeneralBody>
                 <div className="row">
                     <div className="col">
-                        <Modal modalButtonName="לשלוח לאימוץ?" btnType="success">
+                        {dog.forAdopting ? 
+                        
+                        <Modal modalButtonName="אומץ?" btnType="success">
+                            <h4 dir="rtl"><b>האם את/ה בטוח/ה שאימצו אותי?</b></h4>
+                            <div className="are-you-sure-btn-container mb-5">
+                                <button className="btn btn-danger px-4">לא</button>
+                                <button className="btn btn-success px-4" onClick={() => {
+                                    approveAdotion()
+                                }}>כן</button>
+                            </div>
+                        </Modal>
+                        :<Modal modalButtonName="לשלוח לאימוץ?" btnType="success">
                             <h3><b>?האם את/ה בטוח/ה</b></h3>
                             <div className="are-you-sure-btn-container mb-5">
                                 <button className="btn btn-danger px-4">לא</button>
@@ -37,6 +71,7 @@ const DogPage = ({ dog }) => {
                                 }}>כן</button>
                             </div>
                         </Modal>
+                        }
                     </div>
                     <div className="col">
                         <h5 dir="rtl">מספר שבב: <span>{dog.details.chipNumber}</span></h5>

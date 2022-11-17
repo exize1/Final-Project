@@ -42,12 +42,12 @@ router.delete('/dogs/:id', ( req, res, next ) => {
     .catch(next)
 })
 
-router.patch('/dogs/:id', ( req, res, next ) => {
+router.put('/dogs/:id', ( req, res, next ) => {
     const updates = {
       forAdopting: req.body.forAdopting,
-      addForAdoptingDate: req.body.addForAdoptingDate
+      dates: req.body.dates
     }
-    Dog.findOneAndUpdate({_id: req.params.id}, { $set: updates })
+    Dog.findOneAndUpdate({_id: req.params.id}, { $set: updates }, {new: true})
     .then((data) => res.json(data))
     .catch(next)
 })

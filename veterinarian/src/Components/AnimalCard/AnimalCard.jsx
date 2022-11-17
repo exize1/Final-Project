@@ -2,6 +2,7 @@ import { useState } from 'react'
 import MoreDetailsModal from '../MoreDetailsModal/MoreDetailsModal';
 import './animalCard.css'
 import { IoMdMore } from 'react-icons/io'
+import Modal from '../modal/Modal';
 
 function AnimalCard({ report }) {
     const [petStatus, SetPetStatus] = useState("")
@@ -15,21 +16,21 @@ function AnimalCard({ report }) {
                 <h5 className="card-title">{report.time}</h5>
                 <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 <div className='card-body-btn-container'>
-                    <MoreDetailsModal report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
+                    <Modal report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
                         <div dir='rtl'>סטאטוס:</div>
                         <div className='modal-img'>
                             <div className='modal-img-container'>
-                                <img className='modal-img-container-image' src={report.photo} alt="image" />
+                                <img className='modal-img-container-image' src={report.reportDetails.picture} alt="image" />
+                                {/* <Image cloudName="diggwedxe" publicId={user.avatar.public_id} className="img-thumbnail"/> */}
                             </div>
                         </div>
 
-                        <div dir='rtl'>תיאור: {report.problem}</div>
-                        <div dir='rtl'>שם מדווח: {report.name}</div>
-                        <div dir='rtl'>טלפון: {report.phoneNumber}</div>
-                        <div dir='rtl'>מיקום: {report.place}</div>
-                        <div dir='rtl'>אלים: {report.vailent}</div>
-                        <div dir='rtl'>הערות: {report.exstraDetails}</div>
-                    </MoreDetailsModal>
+                        <div dir='rtl'>תיאור: {report.reportDetails.details}</div>
+                        <div dir='rtl'>שם מדווח: {report.reporterDetails.fullName}</div>
+                        <div dir='rtl'>טלפון: {report.reporterDetails.phone}</div>
+                        <div dir='rtl'>מיקום: {report.location.place}</div>
+                        <div dir='rtl'>אלים: {report.dogDetails.violent}</div>
+                    </Modal>
 
                     <div className="btn-group dropup">
                         <button type="button" className="remove-borders" data-bs-toggle="dropdown" aria-expanded="false" data-bs-placement="bottom" data-bs-title="Tooltip on bottom">

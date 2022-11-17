@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import AnimalCard from '../AnimalCard/AnimalCard'
 import axios from 'axios'
 import './animalCards.css'
+import { publicRequest } from '../../requestMethods'
 
 
 export default function AnimalCards() {
@@ -11,7 +12,7 @@ export default function AnimalCards() {
     const [counterb, setCounterb] = useState(0)
 
     const getAnimals = () => {
-        axios.get(`https://eager-petticoat-hare.cyclic.app/api/animals`)
+        publicRequest.get(`api/reports`)
             .then((res) => {
                 res.data && setAllReports([...res.data])
                 console.log(allReports);

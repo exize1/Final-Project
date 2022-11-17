@@ -72,6 +72,11 @@ const ReportSchema = mongoose.Schema({
     default: "reported"
    },
 
+   lost: {
+      type: Boolean,
+      default: false
+   }
+
 })
 const Report = mongoose.model('report',ReportSchema)
 module.exports = Report
