@@ -4,11 +4,16 @@ import './dashboard.css'
 import React from 'react';
 import {Link} from 'react-router-dom'
 import GeneralBody from '../../Components/generalBody/GeneralBody';
+import ReportSection from "../../Components/ReportsSection/ReportsSection/ReportSection";
 
 const Dashboard =()=> {
   return (
     <div className='dashboard-container'>
       <div className="calendar">
+        <div style={{paddingLeft:"5px"}}>
+
+       <ReportSection ></ReportSection>
+        </div>
         <MyCalendar  calendarHeight={300}  toolbarDisplay={false} fontDashbordsize={"0.55rem"} minWidthDash={"300px"} margincalendar={5}/>
         </div>
 

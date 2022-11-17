@@ -15,8 +15,12 @@ import UpdateEvent from "./Components/calendar/UpdateEvent";import DogPage from 
 import { publicRequest } from './requestMethods';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDog, updateDogData } from './Redux/slicer/DogSlice';
+import io from 'socket.io-client'
+
+export const socket = io.connect("http://localhost:3001")
 
 function App() {
+  const [room,setRoom]=useState("1")
 
   const [pannel, setPannel] = useState("")
   useEffect(()=>{
@@ -27,6 +31,13 @@ function App() {
             })
             .catch((err) => console.log(err));
     }
+    (()=>{
+      if (room!=="") {
+        socket.emit("join_room","1")
+        console.log("connected");
+      }
+      
+    })()
     getDogs()
 },[])
 const dispatch = useDispatch()
