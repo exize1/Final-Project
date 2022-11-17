@@ -3,7 +3,7 @@ import GeneralBody from '../../Components/generalBody/GeneralBody'
 import './adoptionPanel.css'
 import DogCard from '../../Components/DogCard/DogCard'
 import { Link } from "react-router-dom";
-import ScrollSpy from '../../Components/scrollSpy/ScrolSpy'
+import ScrollSpy from '../../Components/scrollSpy/dogs/ScrolSpy'
 import { CgDisplayGrid, CgList } from "react-icons/cg"
 import {  useSelector } from 'react-redux';
 import { selectDog } from '../../Redux/slicer/DogSlice';
@@ -14,7 +14,7 @@ const AdoptionPanel = () => {
     const dogs = useSelector(selectDog)
     return(
         <div className='general-body-container'>
-            <GeneralBody panelTitle={"פאנל אימוץ"} addOverFlow={true}>
+            <GeneralBody panelTitle={"פאנל אימוץ"} addOverFlow={display}>
                 <div className='displays-container'>
                     <div className='buttons-container'>
                         <button className='btn btn-secondary py-1 px-1' onClick={() => setDisplay(false)}><CgList className='list-emoji add-size'/></button>
@@ -34,7 +34,7 @@ const AdoptionPanel = () => {
                 </div>
                 :
                 <div>
-                    <ScrollSpy/>
+                    <ScrollSpy addOverflow={true}/>
                 </div>
                 }
             </GeneralBody>

@@ -4,3 +4,11 @@
     justify-content: space-evenly;
     margin: 6% 0;
 }
+
+.adopted-dog-icon{
+    color: rgb(2, 179, 2);
+    font-size: 3rem;
+}
+.adopted-dog{
+    color: rgb(41, 168, 41);
+}

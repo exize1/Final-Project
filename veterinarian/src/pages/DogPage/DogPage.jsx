@@ -1,49 +1,16 @@
+import { useState } from "react"
 import { useDispatch } from "react-redux"
 import Avatar from "../../Components/avatar/Avatar"
 import NewMission from "../../Components/forms/NewMission/NewMission"
 import GeneralBody from "../../Components/generalBody/GeneralBody"
 import Modal from "../../Components/modal/Modal"
-import ScrollSpy from "../../Components/scrollSpy/ScrolSpy"
-import { publicRequest } from "../../requestMethods"
-import { getDogs } from "../../utils/apiCalls"
+import ScrollSpy from "../../Components/scrollSpy/dogs/ScrolSpy"
+import { approveAdotion, sendForAdoptionSite } from "../../utils/apiCalls"
 import "./dogPage.css"
+import { SiDatadog } from 'react-icons/si'
 
 const DogPage = ({ dog }) => {
-
-    const sendForAdoptionSite = () => {
-        const currentDate = new Date()
-        const updates = {
-            forAdopting: true,
-            dates: {
-                initialDate: dog.dates.initialDate,
-                addForAdoptingDate: {
-                    date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
-                    hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
-                },
-                AdoptedDate: dog.dates.AdoptedDate
-            }
-        }
-        publicRequest.put(`/api/dogs/${dog._id}`, updates)
-            .then((res) => {
-                res.data && console.log("updated");
-                res.data && getDogs(dispatch);
-            })
-    }
-    const approveAdotion = () => {
-        const currentDate = new Date()
-        const updates = {
-            adopted: true,
-            AdoptedDate: {
-                date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
-                hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
-            }
-        }
-        publicRequest.put(`/api/dogs/${dog._id}`, updates)
-            .then((res) => {
-                res.data && console.log("updated");
-                res.data && getDogs(dispatch);
-            })
-    }
+    const [inheritedOpen, setInheritedOpen] = useState(false)
     const dispatch = useDispatch()
 
     return(
@@ -51,26 +18,35 @@ const DogPage = ({ dog }) => {
             <GeneralBody>
                 <div className="row">
                     <div className="col">
-                        {dog.forAdopting ? 
-                        
-                        <Modal modalButtonName="אומץ?" btnType="success">
-                            <h4 dir="rtl"><b>האם את/ה בטוח/ה שאימצו אותי?</b></h4>
-                            <div className="are-you-sure-btn-container mb-5">
-                                <button className="btn btn-danger px-4">לא</button>
-                                <button className="btn btn-success px-4" onClick={() => {
-                                    approveAdotion()
-                                }}>כן</button>
-                            </div>
-                        </Modal>
-                        :<Modal modalButtonName="לשלוח לאימוץ?" btnType="success">
+                        {!dog.forAdopting && 
+                        <Modal modalButtonName="לשלוח לאימוץ?" btnType="success" inheritedOpen={inheritedOpen} >
                             <h3><b>?האם את/ה בטוח/ה</b></h3>
                             <div className="are-you-sure-btn-container mb-5">
-                                <button className="btn btn-danger px-4">לא</button>
+                                <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
                                 <button className="btn btn-success px-4" onClick={() => {
-                                    sendForAdoptionSite()
+                                    sendForAdoptionSite(dispatch, dog)
+                                    setInheritedOpen(!inheritedOpen)
+                                }}>כן</button>
+                            </div>
+                        </Modal>}
+                        {!dog.adopted && 
+                        <Modal modalButtonName="אומץ?" btnType="success" inheritedOpen={inheritedOpen}>
+                            <h4 dir="rtl"><b>האם את/ה בטוח/ה שאימצו אותי?</b></h4>
+                            <div className="are-you-sure-btn-container mb-5">
+                                <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
+                                <button className="btn btn-success px-4" onClick={() => {
+                                    approveAdotion(dispatch, dog)
+                                    setInheritedOpen(!inheritedOpen)
                                 }}>כן</button>
                             </div>
                         </Modal>
+                        }
+                        { dog.adopted && 
+                        <div>
+                            <SiDatadog className="adopted-dog-icon"/>
+                            <h5 dir="rtl" className="adopted-dog">אימצו אותי!</h5>
+                        </div> 
+
                         }
                     </div>
                     <div className="col">
