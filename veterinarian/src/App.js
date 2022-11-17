@@ -30,13 +30,13 @@ function App() {
     getDogs(dispatch)
 
     
-    (()=>{
-      if (room!=="") {
-        socket.emit("join_room","1")
-        console.log("connected");
-      }
+    // (()=>{
+    //   if (room!=="") {
+    //     socket.emit("join_room","1")
+    //     console.log("connected");
+    //   }
       
-    })()
+    // })()
 },[])
 const dispatch = useDispatch()
 const dogs = useSelector(selectDog)
@@ -44,7 +44,6 @@ const dogs = useSelector(selectDog)
   return (
     <div className="App">
       <NewNavbar setPannel={setPannel}/>
-      <Dashboard/>
         <Routes>
               <Route path='/' element={<Dashboard/>} />
 
@@ -60,18 +59,12 @@ const dogs = useSelector(selectDog)
                 
               {/* <Route path="/adoption/dogpage" element={<DogPage/>}/> */}
 
-              <Route path="/reports" element={<ReportsPanel/>}/>
-              <Route path="/reports" element={<ReportsPanel/>}/>
-
               <Route path="/calendar" exact element={<MyCalendar calendarHeight={450} toolbarDisplay={true} margincalendar={50}/>} />
               <Route path="/events/add" element={<AddEvents/>}/>
               <Route path="/event/:id/update" element={<UpdateEvent/>}/>
 
-
-
               <Route path="/register" element={<RegisterInspector/>}/>
         </Routes>
-      </div> 
         {/* <nav className="navbar navbar-light bg-light">
           <div className="container-fluid align-items-center">
             <Link className="navbar-brand ms-2" to="/">
