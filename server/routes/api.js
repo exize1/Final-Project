@@ -4,6 +4,7 @@ const Dog = require('../models/dogs')
 const Former = require('../models/formers')
 const DogRequest = require('../models/dogRequests')
 const Users = require('../models/User')
+const Assigmnent = require('../models/assignment')
 const UsersPostValidation = require('../middelewares/validation');
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
@@ -414,5 +415,72 @@ router.delete('/animals/:id', ( req,res,next) => {
     Report.findOneAndDelete({_id: req.params.id })
         .then((data) => res.json(data))
         .catch(next)
+})
+
+///////////assigmnents
+
+router.get('/assigmnents',(req,res,next)=>{
+  Assigmnent.find({})
+  .then((data) => res.json(data))
+  .catch(next)
+}) 
+
+router.delete("/assigmnents/:id", async(req, res)=>{
+  const id = req.params.id;
+  try{
+      await Assigmnent.findByIdAndRemove(id)
+      res.status(200).json("Assigmnent has been deleted");
+  }catch(err){
+      handleError(err, res)
+  }
+
+})
+
+router.post('/assigmnents', async (req,res,next) => {
+
+  const { dogHandlerName, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
+
+      const report = {
+        dogHandlerName,
+        dateUpload,
+        dateToEnd,
+        details,
+        complited,
+        dogNumber
+      } 
+      Assigmnent.create(report)
+      .then(() =>{ 
+        res.json({
+          "error" : false,
+          "message": "המשימה נשלחה בהצלחה"
+        })
+      }).catch(err =>{
+        res.json({
+          "error" : true,
+          "message": "לא היה ניתן לשלוח את המשימה",
+          "m":err
+
+        })
+      })
+    
+   
+})
+
+router.patch('/assigmnents/:id',(req,res,next)=>{
+  const id = req.params.id
+  const status = req.body.status
+  assigmnents= Report.findOne({_id:id })
+  .then((data) =>{
+    Assigmnent.findOneAndUpdate({_id:id }, {complited:status},{ returnDocument: 'after' },function(err, doc){
+        res.json(data)
+        if(err){
+            console.log("Something wrong when updating data!");
+          }
+          console.log(doc);
+        })
+      
+  }
+  )
+  .catch(next)
 })
 module.exports = router
