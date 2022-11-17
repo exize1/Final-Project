@@ -8,12 +8,13 @@ import GeneralBody from '../../Components/generalBody/GeneralBody';
 const Dashboard =()=> {
   return (
     <div className='dashboard-container'>
+      <div className='logo'/>
       <div className="calendar">
         <MyCalendar  calendarHeight={300}  toolbarDisplay={false} fontDashbordsize={"0.55rem"} minWidthDash={"300px"} margincalendar={5}/>
-        </div>
+      </div>
 
       <div />
-      <GeneralBody panelTitle={"מחלקת וטרינריה עיירית דימונה"}>
+      <GeneralBody panelTitle={"מחלקת וטרינריה עיירית דימונה"} removeUpperBg={true}>
         <div className='hero'>
           <div className='lines-container'>
             <div className='teart-pannel'>

@@ -2,9 +2,10 @@ import './generalBody.css'
 import Modal from '../../Components/modal/Modal';
 import NewDogForm from '../forms/NewDogForm/NewDogForm';
 
-const GeneralBody = ({ panelTitle, addOverFlow, children }) => {
-    return (
-        <div className='general-body' >
+const GeneralBody = ({panelTitle, addOverFlow, removeUpperBg, children}) => {
+    return(
+        <div className={!removeUpperBg && 'general-body'}>
+
             <h1>{panelTitle}</h1>
             <div className={addOverFlow ? 'add-overflow children-container' : 'children-container'}>
                 {children}
