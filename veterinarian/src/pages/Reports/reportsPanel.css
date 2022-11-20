@@ -1,0 +1,6 @@
+.area-dropdown {
+  display: flex;
+  justify-content: center;
+  margin-top: 3vh;
+  height: 20px;
+}
