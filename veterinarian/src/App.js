@@ -30,7 +30,7 @@ function App() {
   const user = useSelector(selectUser)
   const [pannel, setPannel] = useState("")
   useEffect(()=>{
-    getVolunteers();
+    getVolunteers(dispatch);
     getDogs(dispatch)
 
     

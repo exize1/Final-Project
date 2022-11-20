@@ -13,7 +13,7 @@ import {
     REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import VolunteerSlice from "./slicer/VolunteerSlice";
+import VolunteerReducer from "./slicer/VolunteerSlice";
 
 const persistConfig = {
     key: "root",
@@ -29,7 +29,7 @@ export const store = configureStore({
             user: persistedReducer,
             forms: FormsReducer,
             dogs: DogReducer,
-            volunteer : VolunteerSlice,
+            volunteer : VolunteerReducer,
 
         },
         middleware: (getDefaultMiddleware) =>

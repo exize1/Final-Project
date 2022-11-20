@@ -53,10 +53,10 @@ const Volunteering = () => {
     //     },
     // ]
 
-    useEffect(()=> {
-        getVolunteers(dispatch)
-    }, [])
-    const dispatch = useDispatch()
+    // useEffect(()=> {
+    //     getVolunteers(dispatch)
+    // }, [])
+    // const dispatch = useDispatch()
     
         const volunteerings = useSelector(selectVolunteer)
         console.log(volunteerings);
