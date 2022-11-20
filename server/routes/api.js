@@ -13,6 +13,7 @@ const handleError = require("../utils/eventErrors")
 const Report = require('../models/reports')
 const cloudinary = require('../utils/cloudinary')
 const DogHandler = require('../models/DogHandler')
+const Volunteering = require('../models/Volunteering')
 
 
 router.get('/dogs/', ( req, res, next ) => {
@@ -455,4 +456,55 @@ router.patch('/assigmnents/:id',(req,res,next)=>{
   )
   .catch(next)
 })
+
+router.get('/volunteering',(req,res,next)=>{
+  Volunteering.find({})
+  .then((data) => res.json(data))
+  .catch(next)
+}) 
+
+router.post('/volunteering', async (req,res,next) => {
+
+  const {  titleName, description, activityHours, contactNum} = req.body;
+
+      const addVolunteering = {
+        titleName, 
+        description, 
+        activityHours,
+        contactNum,
+      } 
+      Volunteering.create(addVolunteering)
+      .then(() =>{ 
+        res.json({
+          "error" : false,
+          "message": "ההתנדבות התקבלה בהצלחה"
+        })
+      }).catch(err =>{
+        res.json({
+          "error" : true,
+          "message": "לא היה ניתן לשלוח את ההתנדבות",
+          "m":err
+
+        })
+      })
+    })
+    router.delete('/volunteering/:id', ( req,res,next) => {
+      console.log("delete");
+      Volunteering.findOneAndDelete({_id: req.params.id })
+          .then((data) => res.json(data))
+          .catch(next)
+  })
+
+  router.put('/volunteering/:id',(req,res,next)=>{
+    const id = req.params.id
+    const updates = {}
+    const status = req.body.status
+    if(status) updates.status = req.body.status
+  
+      Volunteering.findOneAndUpdate({_id: id }, { $set: updates }, { new: true })
+        .then((data) => res.json(data))
+        .catch(next)
+    })
+
+
 module.exports = router

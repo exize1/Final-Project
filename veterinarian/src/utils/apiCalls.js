@@ -1,7 +1,9 @@
 import Assignments, { updateAssignments } from "../Redux/slicer/Assignments";
 import { updateDogData } from "../Redux/slicer/DogSlice";
 import { updateUsers } from "../Redux/slicer/Users";
+import { updateVolunteerData } from "../Redux/slicer/VolunteerSlice";
 import { publicRequest } from "../requestMethods";
+
 
 
 export const getDogs = (dispatch) => {
@@ -134,3 +136,37 @@ export const deleteDog = (dispatch, dog) => {
         res.data && getDogs(dispatch);
     })
 }    
+
+export const getVolunteers = (dispatch) =>{
+
+    publicRequest.get(`/api/volunteering`)
+        .then((res) => {
+            res.data && dispatch(updateVolunteerData(res.data))
+        })
+        .catch((err) => console.log(err));
+
+    
+    }
+
+
+export const createNewVolunteer = (dispatch,body) =>{
+    publicRequest.post(`/api/volunteering`, body)
+        .then((res) => {
+            res.data && getVolunteers(dispatch)
+            res.data && console.log(res.data);
+            
+        })
+        .catch((err) => console.log(err));
+    
+    }
+
+    export const deleteVolunteer = (dispatch, volunteer) => {
+    
+        publicRequest.delete(`/api/volunteering/${volunteer._id}`)
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getVolunteers(dispatch);
+        })
+    }   
+    
+    

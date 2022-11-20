@@ -9,6 +9,7 @@ import UserReducer from "../slicer/UserSlice";
 import  DogReducer  from "../slicer/DogSlice"
 import  AssignmentsReducer  from "../slicer/Assignments"
 import  usersReducer  from "../slicer/Users"
+import VolunteerReducer from "../slicer/VolunteerSlice";
 
 
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     assignments: AssignmentsReducer,
     users:usersReducer,
     dogs: DogReducer,
+    volunteer: VolunteerReducer,
     events: EventsReducer,
     modalStatus: modalReducer,
     error: errorReducer

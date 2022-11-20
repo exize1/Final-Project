@@ -16,7 +16,8 @@ import DogPage from './pages/DogPage/DogPage';
 import { publicRequest } from './requestMethods';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDog, updateDogData } from './Redux/slicer/DogSlice';
-import { getAssignments, getDogs, getUsers } from './utils/apiCalls';
+import { getAssignments, getDogs, getUsers, getVolunteers } from './utils/apiCalls';
+
 import io from 'socket.io-client'
 import ReportsPannel from './pages/Reports/ReportsPanel';
 import VolunteerPannel from './pages/volunteering/VolunteerPannel';
@@ -32,7 +33,7 @@ function App() {
   const user = useSelector(selectUser)
   const [pannel, setPannel] = useState("")
   useEffect(()=>{
-
+    getVolunteers(dispatch);
     getDogs(dispatch)
     getAssignments(dispatch)
     getUsers(dispatch)
