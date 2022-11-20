@@ -7,6 +7,8 @@ import EventsReducer from "./eventsReducer";
 import modalReducer from "./modelReducer";
 import UserReducer from "../slicer/UserSlice";
 import  DogReducer  from "../slicer/DogSlice"
+import  AssignmentsReducer  from "../slicer/Assignments"
+import  usersReducer  from "../slicer/Users"
 
 
 
@@ -14,6 +16,8 @@ import  DogReducer  from "../slicer/DogSlice"
 const rootReducer = combineReducers({
     event: EventReducer ,
     user: UserReducer,
+    assignments: AssignmentsReducer,
+    users:usersReducer,
     dogs: DogReducer,
     events: EventsReducer,
     modalStatus: modalReducer,

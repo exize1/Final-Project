@@ -11,16 +11,18 @@ import { Route, Routes, Link} from "react-router-dom"
 import MyCalendar from "./Components/calendar/Calendar";
 import "./Components/calendar//style/global.scss"
 import AddEvents from "./Components/calendar/AddEvents";
-import UpdateEvent from "./Components/calendar/UpdateEvent";import DogPage from './pages/DogPage/DogPage';
+import UpdateEvent from "./Components/calendar/UpdateEvent";
+import DogPage from './pages/DogPage/DogPage';
 import { publicRequest } from './requestMethods';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDog, updateDogData } from './Redux/slicer/DogSlice';
-import { getDogs } from './utils/apiCalls';
+import { getAssignments, getDogs, getUsers } from './utils/apiCalls';
 import io from 'socket.io-client'
 import ReportsPannel from './pages/Reports/ReportsPanel';
 import VolunteerPannel from './pages/volunteering/VolunteerPannel';
 import Login from './pages/Login/login';
 import { selectUser } from './Redux/slicer/UserSlice';
+import Assignments from './pages/assignments/Assignments';
 
 export const socket = io.connect("http://localhost:3001")
 
@@ -32,15 +34,15 @@ function App() {
   useEffect(()=>{
 
     getDogs(dispatch)
-
+    getAssignments(dispatch)
+    getUsers(dispatch)
     
-    // (()=>{
-    //   if (room!=="") {
-    //     socket.emit("join_room","1")
-    //     console.log("connected");
-    //   }
+   
+      if (room!=="") {
+        socket.emit("join_room","1")
+        console.log("connected");
+      }
       
-    // })()
 },[])
 const dispatch = useDispatch()
 const dogs = useSelector(selectDog)
@@ -70,6 +72,8 @@ const dogs = useSelector(selectDog)
                   <Route path="/volunteering" element={<VolunteerPannel/>}/>
                   <Route path="/reports" element={<ReportsPannel/>}/>
                   <Route path="/register" element={<RegisterInspector/>}/>
+                  <Route path="/assignments" element={<Assignments/>}/>
+
             </Routes>
         </div>
         </>
@@ -97,6 +101,7 @@ const dogs = useSelector(selectDog)
                   <Route path="/volunteering" element={<VolunteerPannel/>}/>
                   <Route path="/reports" element={<ReportsPannel/>}/>
                   <Route path="/register" element={<RegisterInspector/>}/>
+                  <Route path="/assignments" element={<Assignments/>}/>
             </Routes>
           </div>
       </>
