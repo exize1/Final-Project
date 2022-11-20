@@ -10,9 +10,11 @@ import ScrollSpyTreatment from "../../Components/scrollSpy/treatments/ScrollspyT
 import NewTreatment from "../../Components/forms/NewTreatment/NewTreatment"
 import EditDogProfile from "../../Components/forms/EditDogProfile/EditDogProfile"
 import { useNavigate } from "react-router-dom"
+import ScrollSpyAdoption from "../../Components/scrollSpy/AdoptionRequests/AdoptionScrollspy"
 
 const DogPage = ({ dog }) => {
     const [inheritedOpen, setInheritedOpen] = useState(false)
+    const [displayTreatments, setDisplayTreatments] = useState(true)
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
@@ -63,9 +65,11 @@ const DogPage = ({ dog }) => {
                         <Avatar src={dog.details.src}/>
                     </div>
                 </div>
+                    <button onClick={() => setDisplayTreatments(false)} className="col-1">בקשות אימוץ</button>
+                    <button onClick={() => setDisplayTreatments(true)} className="col-1">טיפולים</button>
                 <div className="row">
                     <div className="treatment-scrollspy-container col">
-                        <ScrollSpyTreatment dog={dog}/>
+                        {displayTreatments ? <ScrollSpyTreatment dog={dog}/> : <ScrollSpyAdoption dog={dog}/>}
                     </div>
                     <div className="delete-dog-button-container col-3">
                         <div className="dog-details-container">                        

@@ -2,6 +2,7 @@ import Assignments, { updateAssignments } from "../Redux/slicer/Assignments";
 import { updateDogData } from "../Redux/slicer/DogSlice";
 import { updateUsers } from "../Redux/slicer/Users";
 import { updateVolunteerData } from "../Redux/slicer/VolunteerSlice";
+import { updateAdoption } from "../Redux/slicer/DogReqSlice";
 import { publicRequest } from "../requestMethods";
 
 
@@ -167,5 +168,13 @@ export const createNewVolunteer = (dispatch, body, handleAlerts) =>{
             res.data && getVolunteers(dispatch);
         })
     }   
+
+export const getDogRequests = (dispatch) => {
+    publicRequest.get(`/api/dogRequests`)
+        .then((res) => {
+            res.data && dispatch(updateAdoption(res.data))
+        })
+        .catch((err) => console.log(err));
+}
     
     
