@@ -1,5 +1,7 @@
 import { updateDogData } from "../Redux/slicer/DogSlice";
+import { updateVolunteerData } from "../Redux/slicer/VolunteerSlice";
 import { publicRequest } from "../requestMethods";
+
 
 
 export const getDogs = (dispatch) => {
@@ -99,3 +101,16 @@ export const deleteDog = (dispatch, dog) => {
         res.data && getDogs(dispatch);
     })
 }    
+
+export const getVolunteers = (dispatch) =>{
+    let data = []
+    publicRequest.get(`/api/volunteering`)
+        .then((res) => {
+            res.data && dispatch(updateVolunteerData(res.data))
+        })
+        .catch((err) => console.log(err));
+        console.log(data);
+    return data
+    }
+    
+    

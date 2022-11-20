@@ -11,6 +11,7 @@ export const publicRequest = axios.create({
   baseURL: REACT_APP_SERVER_URL,
 });
 
+
 export const userRequest = axios.create({
   baseURL: REACT_APP_SERVER_URL,
   headers: { 'authorization' : `Bearer ${TOKEN}` },
