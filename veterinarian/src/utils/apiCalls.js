@@ -161,7 +161,6 @@ export const createNewVolunteer = (dispatch, body, handleAlerts) =>{
     }
 
     export const deleteVolunteer = (dispatch, volunteer) => {
-    
         publicRequest.delete(`/api/volunteering/${volunteer._id}`)
         .then((res) => {
             res.data && console.log("updated");
