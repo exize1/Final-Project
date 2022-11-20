@@ -103,14 +103,35 @@ export const deleteDog = (dispatch, dog) => {
 }    
 
 export const getVolunteers = (dispatch) =>{
-    let data = []
+
     publicRequest.get(`/api/volunteering`)
         .then((res) => {
             res.data && dispatch(updateVolunteerData(res.data))
         })
         .catch((err) => console.log(err));
-        console.log(data);
-    return data
+
+    
     }
+
+
+export const createNewVolunteer = (dispatch,body) =>{
+    publicRequest.post(`/api/volunteering`, body)
+        .then((res) => {
+            res.data && getVolunteers(dispatch)
+            res.data && console.log(res.data);
+            
+        })
+        .catch((err) => console.log(err));
+    
+    }
+
+    export const deleteVolunteer = (dispatch, volunteer) => {
+    
+        publicRequest.delete(`/api/volunteering/${volunteer._id}`)
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getVolunteers(dispatch);
+        })
+    }   
     
     
