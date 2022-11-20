@@ -52,7 +52,7 @@ const Dashboard =()=> {
             </div>
           </Link>
           
-          <Link className="remove-underline"  to= {"/missions"}>
+          <Link className="remove-underline"  to= {"/assignments"}>
           <div className="pannel-container">
             <div className='pannel tasks-btn'>
               <div className="pannel-title-container">

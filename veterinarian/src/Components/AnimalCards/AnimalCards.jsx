@@ -15,21 +15,10 @@ export default function AnimalCards() {
         publicRequest.get(`api/reports`)
             .then((res) => {
                 res.data && setAllReports([...res.data])
-                console.log(allReports);
-                setCounter(allReports.length)
             })
     }
     useEffect(() => {
-        // function a() {
-        //     getAnimals()
-        //     if (counterb < counter) {
-        //         alert('התווסף דיווח חדש')
-        //         setCounterb(counter)
-        //     }
-        // }
-        // a()
         getAnimals()
-
     }, [])
 
     return (
