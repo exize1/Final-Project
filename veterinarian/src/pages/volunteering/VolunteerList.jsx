@@ -50,10 +50,10 @@ const Volunteering = () => {
     //         activityHours: ["שבת 11:00 -16:00"]
     //     },
     // ]
-useEffect(()=> {
-    getVolunteers(dispatch)
-}, [])
-const dispatch = useDispatch()
+// useEffect(()=> {
+//     getVolunteers(dispatch)
+// }, [])
+// const dispatch = useDispatch()
 
     const volunteerings = useSelector(selectVolunteer)
     console.log(volunteerings);
