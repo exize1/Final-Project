@@ -2,10 +2,10 @@ import { useEffect } from "react"
 import { useState } from "react"
 import './modal.css'
 
-const Modal = ({ footer, dir, title, size, addOverflow, btnType, modalButtonName, className, inheritedOpen, children}) => {
+const Modal = ({ footer, dir, title, size, addOverflow, btnType, modalButtonName, className, inheritedOpen, children,isComplites}) => {
 
     const [open, setOpen] = useState(false)
-
+    
     const handleOpen = () => setOpen(true)
     
     const handleClose = () => setOpen(false)

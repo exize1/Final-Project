@@ -13,6 +13,7 @@ const handleError = require("../utils/eventErrors")
 const Report = require('../models/reports')
 const cloudinary = require('../utils/cloudinary')
 const DogHandler = require('../models/DogHandler')
+const Volunteering = require('../models/Volunteering')
 
 
 router.get('/dogs/', ( req, res, next ) => {
@@ -150,6 +151,11 @@ router.post('/login', async function (req, res, next) {
     return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET)
     // return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
   }
+  router.get('/users', ( req, res, next ) => {
+    DogHandler.find({})
+    .then((data) => res.json(data))
+    .catch(next)
+})
 
   router.post('/registerDogHandler', UsersPostValidation, async function (req, res, next) {
     const { email, firstName, lastName, phone } = req.body
@@ -401,15 +407,18 @@ router.delete("/assigmnents/:id", async(req, res)=>{
 
 router.post('/assigmnents', async (req,res,next) => {
 
-  const { dogHandlerName, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
+  const { dogHandlerName,dogHandlerID, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
 
       const report = {
         dogHandlerName,
+        dogHandlerID,
         dateUpload,
         dateToEnd,
         details,
         complited,
-        dogNumber
+        dogNumber,
+        WhoComplited:""
+
       } 
       Assigmnent.create(report)
       .then(() =>{ 
@@ -432,9 +441,10 @@ router.post('/assigmnents', async (req,res,next) => {
 router.patch('/assigmnents/:id',(req,res,next)=>{
   const id = req.params.id
   const status = req.body.status
+  const WhoComplited = req.body.WhoComplited
   assigmnents= Report.findOne({_id:id })
   .then((data) =>{
-    Assigmnent.findOneAndUpdate({_id:id }, {complited:status},{ returnDocument: 'after' },function(err, doc){
+    Assigmnent.findOneAndUpdate({_id:id }, {complited:status,WhoComplited:WhoComplited},{ returnDocument: 'after' },function(err, doc){
         res.json(data)
         if(err){
             console.log("Something wrong when updating data!");
@@ -446,4 +456,57 @@ router.patch('/assigmnents/:id',(req,res,next)=>{
   )
   .catch(next)
 })
+
+router.get('/volunteering',(req,res,next)=>{
+  Volunteering.find({})
+  .then((data) => res.json(data))
+  .catch(next)
+}) 
+
+router.post('/volunteering', async (req,res,next) => {
+
+  const {  titleName, description, activityHours, contactNum} = req.body;
+
+      const addVolunteering = {
+        titleName, 
+        description, 
+        activityHours,
+        contactNum,
+      } 
+      Volunteering.create(addVolunteering)
+      .then(() =>{ 
+        res.json({
+          "error" : true,
+          "alertType": "success",
+          "message": "ההתנדבות התקבלה בהצלחה"
+        })
+      }).catch(err =>{
+        res.json({
+          "error" : true,
+          "alertType": "danger",
+          "message": "לא היה ניתן לשלוח את ההתנדבות",
+          "m":err
+
+        })
+      })
+    })
+    router.delete('/volunteering/:id', ( req,res,next) => {
+      console.log("delete");
+      Volunteering.findOneAndDelete({_id: req.params.id })
+          .then((data) => res.json(data))
+          .catch(next)
+  })
+
+  router.put('/volunteering/:id',(req,res,next)=>{
+    const id = req.params.id
+    const updates = {}
+    const status = req.body.status
+    if(status) updates.status = req.body.status
+  
+      Volunteering.findOneAndUpdate({_id: id }, { $set: updates }, { new: true })
+        .then((data) => res.json(data))
+        .catch(next)
+    })
+
+
 module.exports = router

@@ -1,11 +1,48 @@
+import Assignments, { updateAssignments } from "../Redux/slicer/Assignments";
 import { updateDogData } from "../Redux/slicer/DogSlice";
+import { updateUsers } from "../Redux/slicer/Users";
+import { updateVolunteerData } from "../Redux/slicer/VolunteerSlice";
 import { publicRequest } from "../requestMethods";
+
 
 
 export const getDogs = (dispatch) => {
     publicRequest.get(`/api/dogs`)
         .then((res) => {
             res.data && dispatch(updateDogData(res.data))
+        })
+        .catch((err) => console.log(err));
+}
+export const getAssignments = (dispatch) => {
+    publicRequest.get(`/api/assigmnents`)
+        .then((res) => {
+            res.data && dispatch(updateAssignments(res.data))
+        })
+        .catch((err) => console.log(err));
+}
+
+export const addAssignment = (newAssignment) => {
+    publicRequest.post(`/api/assigmnents`,newAssignment)
+        .then((res) => {
+            res.data && console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+}
+export const finishAssignment = (id,whoComplited) => {
+    const report={
+        whoComplited:whoComplited,
+        status:true
+    }
+    publicRequest.patch(`/api/assigmnents/${id}`,report)
+        .then((res) => {
+            res.data && console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+}
+export const getUsers = (dispatch) => {
+    publicRequest.get(`/api/users`)
+        .then((res) => {
+            res.data && dispatch(updateUsers(res.data))
         })
         .catch((err) => console.log(err));
 }
@@ -94,9 +131,41 @@ export const deleteDog = (dispatch, dog) => {
         display: false
     }
     publicRequest.put(`/api/dogs/${dog._id}`, updates)
+    .then((res) => {
+        res.data && console.log("updated");
+        res.data && getDogs(dispatch);
+    })
+}    
+
+export const getVolunteers = (dispatch) =>{
+
+    publicRequest.get(`/api/volunteering`)
+        .then((res) => {
+            res.data && dispatch(updateVolunteerData(res.data))
+        })
+        .catch((err) => console.log(err));
+
+    
+    }
+
+
+export const createNewVolunteer = (dispatch, body, handleAlerts) =>{
+        publicRequest.post(`/api/volunteering`, body)
+            .then((res) => {
+                res.data && getVolunteers(dispatch)
+                res.data && console.log(res.data);
+                handleAlerts(res.data)
+            })
+            .catch((err) => console.log(err))
+    }
+
+    export const deleteVolunteer = (dispatch, volunteer) => {
+    
+        publicRequest.delete(`/api/volunteering/${volunteer._id}`)
         .then((res) => {
             res.data && console.log("updated");
-            res.data && getDogs(dispatch);
+            res.data && getVolunteers(dispatch);
         })
-}
-
+    }   
+    
+    

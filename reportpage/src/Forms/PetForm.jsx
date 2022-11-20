@@ -143,7 +143,7 @@ const PetForm = ({ }) => {
                             // extraDetails: "",
                         }}
                         onSubmit={(values) => handleSubmition(values)}
-                        validationSchema={schema}
+                        // validationSchema={schema}
                     >
                         {({
                             handleSubmit,
@@ -280,8 +280,8 @@ const PetForm = ({ }) => {
                                         <br></br>
                                         <div className='must-asterisk' dir='rtl'>שדות חובה מסומנים ב*</div>
                                     </div>}
-                                <button onClick={() => setSuccess(!success)}>הצלחה</button>
-                                <button onClick={() => serFail(!fail)}>כשלון</button>
+                                {/* <button onClick={() => setSuccess(!success)}>הצלחה</button>
+                                <button onClick={() => serFail(!fail)}>כשלון</button> */}
                             </form>
                         )}
                     </Formik>
