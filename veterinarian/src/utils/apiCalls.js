@@ -62,11 +62,11 @@ export const sendForAdoptionSite = (dispatch, dog) => {
         }
     }
     publicRequest.put(`/api/dogs/${dog._id}`, updates)
-    .then((res) => {
-        res.data && console.log("updated");
-        res.data && getDogs(dispatch);
-    })
-}    
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getDogs(dispatch);
+        })
+}
 
 export const approveAdotion = (dispatch, dog) => {
     const currentDate = new Date()
@@ -82,30 +82,30 @@ export const approveAdotion = (dispatch, dog) => {
         }
     }
     publicRequest.put(`/api/dogs/${dog._id}`, updates)
-    .then((res) => {
-        res.data && console.log("updated");
-        res.data && getDogs(dispatch);
-    })
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getDogs(dispatch);
+        })
 
 }
 
 export const updateDogProfile = (dispatch, value, dog) => {
     const updates = {}
-    
-    if(Object.values(value).length !==0) updates.details = value
 
-    Object.values(updates).length !==0 && publicRequest.put(`/api/dogs/${dog._id}`, updates)
-    .then((res) => {
-        res.data && console.log("updated");
-        res.data && getDogs(dispatch);
-    })
-}    
+    if (Object.values(value).length !== 0) updates.details = value
+
+    Object.values(updates).length !== 0 && publicRequest.put(`/api/dogs/${dog._id}`, updates)
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getDogs(dispatch);
+        })
+}
 
 export const addDogTreatment = (dispatch, values, dog, treatment) => {
     const dogTreatments = dog.treatments
     const newDogTreatments = [...dogTreatments]
-    
-    const currentDate  = new Date()
+
+    const currentDate = new Date()
     const newTreatment = {
         type: treatment,
         treatmentName: values.treatmentName,
@@ -116,16 +116,16 @@ export const addDogTreatment = (dispatch, values, dog, treatment) => {
         amount: values.amount,
         description: values.description
     };
-    if(Object.values(newTreatment).length !==0) newDogTreatments.push(newTreatment)
+    if (Object.values(newTreatment).length !== 0) newDogTreatments.push(newTreatment)
     const updates = {
         treatments: newDogTreatments
     }
     publicRequest.put(`/api/dogs/${dog._id}`, updates)
-    .then((res) => {
-        res.data && console.log("updated");
-        res.data && getDogs(dispatch);
-    })
-}    
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getDogs(dispatch);
+        })
+}
 
 export const deleteDog = (dispatch, dog) => {
     const updates = {
