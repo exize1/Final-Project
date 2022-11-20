@@ -10,6 +10,7 @@ import { publicRequest } from '../../../requestMethods';
 
 export default function NewDogForm() {
     const [dogSize, setDogSize] = useState("")
+    const [dogImage, setDogImage] = useState("")
     const [dogSex, setDogSex] = useState("")
     const [drug, setDrug] = useState(false)
     const [vaccine, setVaccine] = useState(false)
@@ -43,8 +44,7 @@ export default function NewDogForm() {
                 gender: dogSex,
                 size: dogSize,
                 chipNumber: values.chipNumber,
-                src: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=640:*"
-
+                src: dogImage
             },
             dates: {
                 initialDate: {
@@ -55,6 +55,24 @@ export default function NewDogForm() {
         };
 
         createDog(value);
+    }
+
+    const handleProductImageUpload = (e) => {
+        const file = e.target.files[0]
+        transformFile(file)
+    }
+
+    const transformFile = (file) => {
+        const reader = new FileReader()
+
+        if (file) {
+            reader.readAsDataURL(file)
+            reader.onloadend = () => {
+                setDogImage(reader.result)
+            }
+        } else {
+            setDogImage("")
+        }
     }
 
     const createDog = (body) => {
@@ -237,6 +255,19 @@ export default function NewDogForm() {
                                             </div>
                                         </div>
 
+                                    </div>
+                                    <div className='form-container-page1-fifth row'>
+                                        <div className="input-group mb-3 col-sm-3 ">
+                                            <p dir='rtl'>העלאת תמונה</p>
+                                            {/* <label dir='rtl' className="input-group-text" for="inputGroupFile01">בחרו קובץ</label> */}
+                                            <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
+                                                // onSelectfile(e)
+                                                handleProductImageUpload(e)
+                                            }}
+                                                // value={values.picture} 
+                                                onBlur={handleBlur}
+                                            />
+                                        </div>
                                     </div>
                                     <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
                                 </div>
