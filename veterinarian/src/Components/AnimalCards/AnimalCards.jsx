@@ -19,6 +19,15 @@ export default function AnimalCards() {
                 setCounter(allReports.length)
             })
     }
+
+    // const getAnimals = () => {
+    //     axios.get(`https://eager-petticoat-hare.cyclic.app/api/animals`)
+    //         .then((res) => {
+    //             res.data && setAllReports([...res.data])
+    //             console.log(allReports);
+    //             setCounter(allReports.length)
+    //         })
+    // }
     useEffect(() => {
         // function a() {
         //     getAnimals()

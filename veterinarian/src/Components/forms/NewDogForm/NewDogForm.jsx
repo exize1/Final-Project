@@ -9,6 +9,7 @@ import Alert from '../../alert/Alert';
 
 export default function NewDogForm() {
     const [dogSize, setDogSize] = useState("")
+    const [dogSex, setDogSex] = useState("")
     const [drug, setDrug] = useState(false)
     const [vaccine, setVaccine] = useState(false)
     const [success, setSuccess] = useState(false)
@@ -138,11 +139,29 @@ export default function NewDogForm() {
 
                                     </div>
                                     <div className='form-container-page1-fourth row'>
-                                        <div className="form-floating col-sm">
+                                        {/* <div className="form-floating col-sm">
                                             <input name="gender" type="text" className="form-control" id="floatingInput" placeholder="מין החיה" onChange={handleChange} value={values.gender} onBlur={handleBlur} />
                                             <label dir='rtl' for="floatingInput" className="form-label">מין החיה*</label>
                                             <p className="error-message">{errors.gender && touched.gender && errors.gender}</p>
+                                        </div> */}
+
+                                        <div className="dropdown col-sm">
+                                            <div className="input-group mb-3 me-5">
+                                                <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSex ? dogSex : "מין החיה"}</button>
+                                                <ul className="dropdown-menu scrollable-menu">
+                                                    <li><a class="dropdown-item" dir='rtl' >בחר/י מין...</a></li>
+                                                    <li><hr class="dropdown-divider" /></li>
+
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSex("זכר")}>{"זכר"}</a></li>
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSex("נקבה")}>{"נקבה"}</a></li>
+
+
+                                                </ul>
+                                            </div>
                                         </div>
+
+                                        {/* how to catch the value of the the dropdown? should we use yup?*/}
+                                        {/* how to set dropdown going down instead of up> */}
 
                                         {/* <div className="form-floating col-sm">
                                     <input name="dogSize" type="text" className="form-control" id="floatingInput" placeholder="גודל הכלב" onChange={handleChange} value={values.dogSize} onBlur={handleBlur} />
@@ -160,12 +179,12 @@ export default function NewDogForm() {
                                                     <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן")}>{"קטן"}</a></li>
                                                     <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני")}>{"בינוני"}</a></li>
                                                     <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול")}>{"גדול"}</a></li>
-                                                    {/* how to catch the value of the the dropdown? should we use yup?*/}
-                                                    {/* how to set dropdown going down instead of up> */}
-                                                    {/* to implement the fixxed dropdonw in the 2 other forms */}
                                                 </ul>
                                             </div>
                                         </div>
+                                        {/* how to catch the value of the the dropdown? should we use yup?*/}
+                                        {/* how to set dropdown going down instead of up> */}
+
 
                                     </div>
                                     <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
