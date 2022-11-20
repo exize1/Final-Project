@@ -161,8 +161,6 @@ export default function NewDogForm() {
                                                     <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני")}>{"בינוני"}</a></li>
                                                     <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול")}>{"גדול"}</a></li>
                                                     {/* how to catch the value of the the dropdown? should we use yup?*/}
-                                                    {/* how to set dropdown going down instead of up> */}
-                                                    {/* to implement the fixxed dropdonw in the 2 other forms */}
                                                 </ul>
                                             </div>
                                         </div>

@@ -64,9 +64,16 @@
 
 .input-title-container p {
   color: grey;
-  text-align: right;
 }
 
 .must-asterisk {
   color: red;
+}
+
+.radio-btns-container p {
+  color: grey;
+}
+
+.form-container-page1-third-dogSize {
+  color: grey;
 }
