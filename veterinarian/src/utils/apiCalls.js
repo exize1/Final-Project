@@ -1,4 +1,6 @@
+import Assignments, { updateAssignments } from "../Redux/slicer/Assignments";
 import { updateDogData } from "../Redux/slicer/DogSlice";
+import { updateUsers } from "../Redux/slicer/Users";
 import { updateVolunteerData } from "../Redux/slicer/VolunteerSlice";
 import { publicRequest } from "../requestMethods";
 
@@ -8,6 +10,39 @@ export const getDogs = (dispatch) => {
     publicRequest.get(`/api/dogs`)
         .then((res) => {
             res.data && dispatch(updateDogData(res.data))
+        })
+        .catch((err) => console.log(err));
+}
+export const getAssignments = (dispatch) => {
+    publicRequest.get(`/api/assigmnents`)
+        .then((res) => {
+            res.data && dispatch(updateAssignments(res.data))
+        })
+        .catch((err) => console.log(err));
+}
+
+export const addAssignment = (newAssignment) => {
+    publicRequest.post(`/api/assigmnents`,newAssignment)
+        .then((res) => {
+            res.data && console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+}
+export const finishAssignment = (id,whoComplited) => {
+    const report={
+        whoComplited:whoComplited,
+        status:true
+    }
+    publicRequest.patch(`/api/assigmnents/${id}`,report)
+        .then((res) => {
+            res.data && console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+}
+export const getUsers = (dispatch) => {
+    publicRequest.get(`/api/users`)
+        .then((res) => {
+            res.data && dispatch(updateUsers(res.data))
         })
         .catch((err) => console.log(err));
 }

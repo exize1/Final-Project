@@ -5,6 +5,10 @@ const AssignmentSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    dogHandlerID: {
+        type : String,
+        required : true
+    },
     
     dateUpload: {
         type : String,
@@ -20,6 +24,10 @@ const AssignmentSchema = mongoose.Schema({
     },
     complited: {
         type : Boolean,
+        required : true
+    },
+    WhoComplited: {
+        type : String,
         required : true
     },
     dogNumber: {
