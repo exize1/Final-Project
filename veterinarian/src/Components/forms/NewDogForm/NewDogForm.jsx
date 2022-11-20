@@ -258,7 +258,7 @@ export default function NewDogForm() {
                                     </div>
                                     <div className='form-container-page1-fifth row'>
                                         <div className="input-group mb-3 col-sm-3 ">
-                                            <p dir='rtl'>העלאת תמונה</p>
+                                            <p dir='rtl'>העלאתתמונה</p>
                                             {/* <label dir='rtl' className="input-group-text" for="inputGroupFile01">בחרו קובץ</label> */}
                                             <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
                                                 // onSelectfile(e)
