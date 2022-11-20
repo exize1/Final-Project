@@ -4,11 +4,13 @@ import * as Yup from "yup";
 import { useState } from 'react';
 import './newDogForm.css'
 import Alert from '../../alert/Alert';
+import { publicRequest } from '../../../requestMethods';
 
 
 
 export default function NewDogForm() {
     const [dogSize, setDogSize] = useState("")
+    const [dogSex, setDogSex] = useState("")
     const [drug, setDrug] = useState(false)
     const [vaccine, setVaccine] = useState(false)
     const [success, setSuccess] = useState(false)
@@ -22,8 +24,6 @@ export default function NewDogForm() {
             .required("נא להכניס את משקל הכלב"),
         dogAge: Yup.string()
             .required("נא לכניס את גיל הכלב"),
-        gender: Yup.string()
-            .required("נא לכניס את המין "),
         treatment: Yup.string()
             .required("נא להכניס את הטיפול הניתן לכלב"),
         // dogSize: Yup.string()
@@ -34,37 +34,90 @@ export default function NewDogForm() {
     // });
 
     const handleSubmition = (values) => {
+        const currentDate = new Date()
         const value = {
-            dogName: values.dogName,
-            dogWeight: values.dogWeight,
-            dogAge: values.dogAge,
-            gender: values.gender,
-            treatment: values.treatment,
-            dogSize: values.dogSize
+            details: {
+                dogName: values.dogName,
+                weight: values.dogWeight,
+                age: values.dogAge,
+                gender: dogSex,
+                size: dogSize,
+                chipNumber: values.chipNumber,
+                src: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=640:*"
+
+            },
+            dates: {
+                initialDate: {
+                    date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
+                    hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
+                }
+            }
         };
 
-        console.log(values);
-
-
-        // const submit = () => {
-        //     setSubmited(true)
-        // }
-
-        // useEffect(() => {
-        //     if (submited !== false) {
-        //         postReport(value)
-        //         alert("הדיווח נשלח")
-        //     }
-        // })
-
-        // const postReport = (report) => {
-        //     Axios.post(`${process.env.REACT_APP_SECRET_NAME_url}/api/animals`, report)
-        //         .then(console.log(report))
-        // }
-
-
-        // dispatch(update(value));
+        createDog(value);
     }
+
+    const createDog = (body) => {
+        publicRequest.post(`/api/dogs/`, body)
+            .then((res) => {
+                res.data && console.log(res.data);
+            })
+
+    }
+
+
+    // router.post('/register', async function (req, res, next) {
+    //     const { userName, firstName, LastName, password } = req.body
+    //     const userExists = await Users.findOne({ userName });
+
+    //     if (!userExists) {
+    //         const users = {
+    //             userName,
+    //             firstName,
+    //             LastName,
+    //             password
+    //         }
+    //         Users.create(users).then(() => {
+    //             res.json({
+    //                 "error": false,
+    //                 "message": "user registered successfully"
+    //             })
+    //         }).catch(err => {
+    //             res.json({
+    //                 "error": true,
+    //                 "message": "couldn't register user",
+    //                 "m": err
+
+    //             })
+    //         })
+
+    //     } else {
+    //         res.json({
+    //             "error": true,
+    //             "message": "user already registered"
+    //         })
+    //     }
+    //     }
+
+
+    // const submit = () => {
+    //     setSubmited(true)
+    // }
+
+    // useEffect(() => {
+    //     if (submited !== false) {
+    //         postReport(value)
+    //         alert("הדיווח נשלח")
+    //     }
+    // })
+
+    // const postReport = (report) => {
+    //     Axios.post(`${process.env.REACT_APP_SECRET_NAME_url}/api/animals`, report)
+    //         .then(console.log(report))
+    // }
+
+
+    // dispatch(update(value));
     return (
         <div className='petform-footer-container'>
             <div className='form-contact-container'>
@@ -76,7 +129,8 @@ export default function NewDogForm() {
                             dogAge: "",
                             gender: "",
                             treatment: "",
-                            dogSize: ""
+                            dogSize: "",
+                            chipNumber: ""
                         }}
                         onSubmit={(values) => handleSubmition(values)}
                         validationSchema={schema}
@@ -102,6 +156,11 @@ export default function NewDogForm() {
                                             <input name="dogName" type="text" className="form-control" id="floatingInput" placeholder="שם הכלב" onChange={handleChange} value={values.dogName} onBlur={handleBlur} />
                                             <label dir='rtl' htmlFor="floatingInput" className="form-label">שם הכלב*</label>
                                             <p className="error-message">{errors.dogName && touched.dogName && errors.dogName}</p>
+                                        </div>
+                                        <div className="form-floating col-sm">
+                                            <input name="chipNumber" type="text" className="form-control" id="floatingInput" placeholder="שם הכלב" onChange={handleChange} value={values.chipNumber} onBlur={handleBlur} />
+                                            <label dir='rtl' htmlFor="floatingInput" className="form-label">שם הכלב*</label>
+                                            {/* <p className="error-message">{errors.chipNumber && touched.chipNumber && errors.chipNumber}</p> */}
                                         </div>
                                         <div className="form-floating col-sm">
                                             <input name="dogWeight" type="text" className="form-control" id="floatingInput" placeholder="משקל הכלב" onChange={handleChange} value={values.dogWeight} onBlur={handleBlur} />
@@ -138,11 +197,24 @@ export default function NewDogForm() {
 
                                     </div>
                                     <div className='form-container-page1-fourth row'>
-                                        <div className="form-floating col-sm">
+                                        <div className="dropdown col-sm">
+                                            <div className="input-group mb-3 me-5">
+                                                <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSex ? dogSex : "מין החיה"}</button>
+                                                <ul className="dropdown-menu scrollable-menu">
+                                                    <li><a class="dropdown-item" dir='rtl' >בחר/י מין...</a></li>
+                                                    <li><hr class="dropdown-divider" /></li>
+
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSex("זכר")}>{"זכר"}</a></li>
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSex("נקבה")}>{"נקבה"}</a></li>
+                                                    {/* how to catch the value of the the dropdown? should we use yup?*/}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {/* <div className="form-floating col-sm">
                                             <input name="gender" type="text" className="form-control" id="floatingInput" placeholder="מין החיה" onChange={handleChange} value={values.gender} onBlur={handleBlur} />
                                             <label dir='rtl' for="floatingInput" className="form-label">מין החיה*</label>
                                             <p className="error-message">{errors.gender && touched.gender && errors.gender}</p>
-                                        </div>
+                                        </div> */}
 
                                         {/* <div className="form-floating col-sm">
                                     <input name="dogSize" type="text" className="form-control" id="floatingInput" placeholder="גודל הכלב" onChange={handleChange} value={values.dogSize} onBlur={handleBlur} />
@@ -157,9 +229,9 @@ export default function NewDogForm() {
                                                     <li><a class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
                                                     <li><hr class="dropdown-divider" /></li>
 
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן")}>{"קטן"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני")}>{"בינוני"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול")}>{"גדול"}</a></li>
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני/ת")}>{"בינוני/ת"}</a></li>
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול/ה")}>{"גדול/ה"}</a></li>
                                                     {/* how to catch the value of the the dropdown? should we use yup?*/}
                                                 </ul>
                                             </div>
