@@ -1,32 +1,37 @@
 import './generalBody.css'
-import Modal from '../../Components/modal/Modal';
-import NewDogForm from '../forms/NewDogForm/NewDogForm';
+import AllPagesBtns from '../allPagesBtns/allPagesBtns';
 
-const GeneralBody = ({panelTitle, addOverFlow, removeUpperBg, children}) => {
+const GeneralBody = ({panelTitle, addOverFlow, removeUpperBg, children, actions}) => {
+
     return(
+        <>
         <div className={!removeUpperBg && 'general-body'}>
 
-            <h1>{panelTitle}</h1>
-            <div className={addOverFlow ? 'add-overflow children-container' : 'children-container'}>
-                {children}
+            <div className={'children-container'}>
+                <div className={addOverFlow ? "add-overflow  children" : 'children'}>
+                    {children}
+                </div>
             </div>
-            <div className='new-dog'>
-                <Modal addOverflow={true} modalButtonName={"הוסף כלב חדש למאגר העירוני"} btnType="success" footer={true} size="large" title="הוספת כלב חדש למאגר העירוני">
-                    <NewDogForm></NewDogForm>
-                </Modal>
-            </div>
-            <div className='new-mission'>
-                <Modal modalButtonName={"הוספת משימה חדשה"} btnType="success" footer={true} size="medium" title="הוספת משימה חדשה">
-                    <input required={true} type={"text"} dir="rtl" placeholder="סוג משימה :" /><p />
-                    <hr /><label>תאריך סיום </label> <br />
-                    <input required={true} type={"date"} /><p /><hr />
-                    <label>תמונה </label> <br />
-                    <input required={false} type={"file"} /><p /><hr />
-                    <input required={true} type={"text"} dir="rtl" placeholder="שם העובד המבצע " /><p />
-                    <input required={true} type={"submit"} /><p />
-                </Modal>
+            <div className='movebar-container'>
+                <div className='movebar'>
+                    <h3 className='panel-title mt-3'>{panelTitle}</h3>
+                    <div dir='rtl' className='actions-container'>
+                        <div className='action'>
+                            {actions && actions.map((action) => {
+                                return(
+                                    <div>{action}</div>
+                                )
+                            })}
+                        </div>
+                        <div className='mb-2 mx-2'>
+                            <hr className='mb-0'/>
+                            <AllPagesBtns/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div >
+        </>
     )
 }
 

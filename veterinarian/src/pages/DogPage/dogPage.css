@@ -5,10 +5,51 @@
     margin: 6% 0;
 }
 
+.adoption-btn{
+    display: flex;
+    margin-left: 5px;
+}
+
 .adopted-dog-icon{
     color: rgb(2, 179, 2);
     font-size: 3rem;
 }
+
 .adopted-dog{
     color: rgb(41, 168, 41);
+}
+
+.dog-avatar-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-dog-button-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.delete-dog-button{
+    width: 13vw;
+}
+
+.dog-details-container{
+    margin-top: 6px;
+    margin-right: 3px;
+    text-align: start;
+}
+
+.dog-details{
+    margin-bottom: 7px;
+    font-size: 1.1rem;
+}
+
+.treatment-scrollspy-container{
+    margin-left: 5px;
+}
+
+.dates-container{
+    text-align: start;
 }

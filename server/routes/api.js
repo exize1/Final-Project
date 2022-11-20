@@ -12,6 +12,7 @@ const Event = require("../models/Event");
 const handleError = require("../utils/eventErrors")
 const Report = require('../models/reports')
 const cloudinary = require('../utils/cloudinary')
+const DogHandler = require('../models/DogHandler')
 
 
 router.get('/dogs/', ( req, res, next ) => {
@@ -46,16 +47,23 @@ router.delete('/dogs/:id', ( req, res, next ) => {
 router.put('/dogs/:id', ( req, res, next ) => {
     const updates = {}
     if (req.body.forAdopting){
-      // const updates = {
-      //   forAdopting: req.body.forAdopting,
-      //   dates: req.body.dates
-      // }
       updates.forAdopting = req.body.forAdopting
       updates.dates = req.body.dates
     }
     if (req.body.adopted) {
       updates.adopted = req.body.adopted
       updates.dates = req.body.dates
+    }
+    if (req.body.details){
+      updates.details = req.body.details
+    }
+
+    if(req.body.treatments){
+      updates.treatments = req.body.treatments
+    }
+
+    if(!req.body.display){
+      updates.display = req.body.display
     }
     Dog.findOneAndUpdate({_id: req.params.id}, { $set: updates }, {new: true})
     .then((data) => res.json(data))
@@ -109,17 +117,17 @@ router.delete('/dogRequests/', ( req, res, next ) => {
     }))
     .catch(next)
 })
+
 router.post('/login', async function (req, res, next) {
     const { email, password } = req.body
   
-    const user = await Users.findOne({ email })
+    const user = await DogHandler.findOne({ email })
     if (user) {
       const result = await bcrypt.compare(password, user.password)
-      console.log(user);
       if (result) {
         const accessToken = generateAccessToken(user)
         // const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-  
+        console.log(user);
         res.json({
           "error": false,
           "message": "התחבר בהצלחה",
@@ -136,17 +144,17 @@ router.post('/login', async function (req, res, next) {
       "error": true,
       "message": "אימייל או סיסמה לא נכונים"
     })
-  });
+});
   
   function generateAccessToken(user) {
     return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET)
     // return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
   }
 
-  router.post('/registerInspector', UsersPostValidation, async function (req, res, next) {
-    const { email, firstName, lastName, avatar, phone } = req.body
+  router.post('/registerDogHandler', UsersPostValidation, async function (req, res, next) {
+    const { email, firstName, lastName, phone } = req.body
     let { password } = req.body
-    const userExist = await Users.findOne({ email })
+    const userExist = await DogHandler.findOne({ email })
   
     if (!userExist) {
       password = await bcrypt.hash(password, 10)
@@ -157,7 +165,7 @@ router.post('/login', async function (req, res, next) {
         email,
         phone
       }
-      Users.create(user).then(async(newUser) => {
+      DogHandler.create(user).then(async(newUser) => {
         const accessToken = generateAccessToken(newUser)
         res.json(
           {
@@ -180,7 +188,6 @@ router.post('/login', async function (req, res, next) {
       })
     }
   })
-
 
   ////////////////calendar
   router.get("/events/calendar", async(req, res)=>{
@@ -210,8 +217,6 @@ router.get("/events/calendar/:id/show", async(req, res)=>{
     }
 });
 
-
-
 router.post("/events/calendar", async(req, res)=>{
    
         const newEvent = await new Event(req.body)
@@ -229,8 +234,6 @@ router.post("/events/calendar", async(req, res)=>{
         }
     }
 )
-
-
 
 router.put("/events/calendar/:id/update", async (req, res)=>{
     const id = req.params.id
@@ -298,74 +301,6 @@ router.get('/reports',(req,res,next)=>{
 }) 
 
 
-// router.post('/animal',async  (req,res,next)=>{
-
-
-//   const { place, size, color, vailent, 
-//     problem, time, exstraDetails, type, phoneNumber,email,name,status} = req.body;
-    
-//     // const result = await cloudinary.uploader.upload(req.body.photo);
-//     // if (result) {
-//       const animal = {
-//         // place,
-//         // size,
-//         // color,
-//         // vailent,
-//         // problem,
-//         // time,
-//         // exstraDetails,
-//         // type,
-//         // phoneNumber,
-//         // // photo: result,
-//         // email,
-//         // name,
-//         // status
-//       } 
-//       Report.create(animal)
-//       .then(() =>{ 
-//         res.json({
-//           "error" : false,
-//           "message": "הדיווח נשלח בהצלחה"
-//         })
-//       }).catch(err =>{
-//         res.json({
-//           "error" : true,
-//           "message": "לא היה ניתן לשלוח את הדיווח",
-//           "m":err
-
-//         })
-//       })
-//     // }else{
-//     //   res.json({ error: `this input is empty -> ${req.body}` })
-//     // }
-   
-// })
-
-router.patch('/animals/:id',(req,res,next)=>{
-  const id = req.params.id
-  const status = req.body.status
-  animal = Report.findOne({_id:id })
-  .then((data) =>{
-    Report.findOneAndUpdate({_id:id }, {status:status},{ returnDocument: 'after' },function(err, doc){
-        res.json(data)
-        if(err){
-            console.log("Something wrong when updating data!");
-          }
-          console.log(doc);
-        })
-      
-  }
-  )
-  .catch(next)
-})
-
-
-router.delete('/reports/:id', ( req,res,next) => {
-    console.log("delete");
-    Report.findOneAndDelete({_id: req.params.id })
-        .then((data) => res.json(data))
-        .catch(next)
-})
 router.post('/reports', async (req,res,next) => {
 
   const { reporterDetails, dogDetails, location, reportDetails} = req.body;
@@ -400,6 +335,26 @@ router.post('/reports', async (req,res,next) => {
    
 })
 
+router.put('/reports/:id',(req,res,next)=>{
+  const id = req.params.id
+  const updates = {}
+  const status = req.body.status
+  if(status) updates.status = req.body.status
+
+    Report.findOneAndUpdate({_id: id }, { $set: updates }, { new: true })
+      .then((data) => res.json(data))
+      .catch(next)
+  })
+
+
+router.delete('/reports/:id', ( req,res,next) => {
+    console.log("delete");
+    Report.findOneAndDelete({_id: req.params.id })
+        .then((data) => res.json(data))
+        .catch(next)
+})
+
+
 router.patch('/animals/:id',(req,res,next)=>{
   const id = req.params.id
   const status = req.body.status
@@ -417,7 +372,6 @@ router.patch('/animals/:id',(req,res,next)=>{
   )
   .catch(next)
 })
-
 
 router.delete('/animals/:id', ( req,res,next) => {
     console.log("delete");

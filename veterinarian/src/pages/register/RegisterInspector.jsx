@@ -30,35 +30,19 @@ const RegisterInspector = () => {
     })
     const createUser = (body) => {
         const {firstName, lastName, email, password} = body
-        const sendbody = {
+        const user = {
             firstName,
             lastName,
             email,
             password
             }
-            axios.post(`${process.env.REACT_APP_SECRET_NAME_BACKEND_URL}/api/registerInspector`, sendbody)
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/registerDogHandler`, user)
             .then((res) => {
                     setAlert(res.data.error)
                     setMessage(res.data.message)
-                    // const {avatar, email, firstName, lastName, password, _id } = res.data.userData
-                    // const accessToken = res.data.accessToken
-                    // const values = {
-                    //         avatar,
-                    //         email,
-                    //         firstName,
-                    //         lastName,
-                    //         password,
-                    //         accessToken,
-                    //         _id,
-                    //         loggedIn: true
-                    //     }
-                     
-                    
-                    // return navigate("/");
             })
             .catch((err) => (err));
     };
-    // const dispatch = useDispatch();
 
     return (
         <div className="signup-page-container">

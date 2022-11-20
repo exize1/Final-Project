@@ -2,36 +2,36 @@ import "./navbar.css"
 // import { useNavigate } from 'react-router-dom';
 // import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import Offcanvas from "../offcanvas/Offcanvas";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiBellAlert, HiOutlineBell } from 'react-icons/hi2'
+import { BiLogOut } from 'react-icons/bi'
 import { publicRequest } from "../../requestMethods";
+import { updateUserData } from "../../Redux/slicer/UserSlice";
+import { useDispatch } from "react-redux";
 
-const NewNavbar = ({ setPannel }) =>{
+const NewNavbar = () =>{
 
     const [dogs, setDogs] = useState([])
     useEffect(()=>{
-        const getDogs = () => {
-            publicRequest.get(`/api/dogs`)
-                .then((res) => {
-                    // res.data && dispatch(updateDogData(res.data))
-                    res.data && setDogs(res.data)
-                })
-                .catch((err) => console.log(err));
-        }
-        getDogs()
+        // const getDogs = () => {
+        //     publicRequest.get(`/api/dogs`)
+        //         .then((res) => {
+        //             // res.data && dispatch(updateDogData(res.data))
+        //             res.data && setDogs(res.data)
+        //         })
+        //         .catch((err) => console.log(err));
+        // }
+        // getDogs()
     },[])
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     let windoWidth = window.innerWidth;
 
-    const AddLogoutButton = "add AddLogoutButton"
-    console.log(AddLogoutButton)
     const [open, setOpen] = useState(false) 
     const [searchTerm, setSearchTerm] = useState("");
     const [haveMission, setHaveMission] = useState(false);
 
-      const routes = [["בית", ""], ["כלבים", "adoption"], ["משימות", "assignments"], ["דיווחים", "reports"], ["יומן", "calendar"] ]
-      const filterSearchProducts = (filterKey) => {
+      const routes = [["בית", ""], ["כלבים", "adoption"], ["משימות", "assignments"], ["דיווחים", "reports"],  ["התנדבויות", "volunteering"], ["יומן", "calendar"] ]
+      const filterSearchDogs = (filterKey) => {
         return(
           dogs.filter((val) => {
                 if(filterKey === ""){
@@ -42,11 +42,11 @@ const NewNavbar = ({ setPannel }) =>{
             })
             )
         }
-        // const dispatch = useDispatch();
+        const dispatch = useDispatch();
 
     return(
         <>
-        <nav className="navbar bg-light navbar-contianer">
+        <nav className="navbar navbar-contianer">
             <div className="navabr-fluid">
                 <div className={windoWidth < 992 ? "title-button" : "title-links-search"}>
                 {/* <Link className="remove-underline" to="/"><a className="navbar-brand navbar-title" href="#home" onClick={() => setOpen(false)}>BidMe</a></Link> */}
@@ -63,16 +63,16 @@ const NewNavbar = ({ setPannel }) =>{
                                 )
                             })}
                         </ul>
-                        <form className="d-flex dropdown search-input-container" role="search">
+                        <form dir="rtl" className="d-flex dropdown search-input-container" role="search">
                             <input className="form-control me-2 search-input" data-bs-toggle="dropdown"  onChange={(e) => {setSearchTerm(e.target.value)}} type="search" placeholder="Search" aria-label="Search"/>
                             <ul className="dropdown-menu search-dropdown-list">
-                                {filterSearchProducts(searchTerm).length === 0 ? 
-                                <li key="unfoundProducts"><p className="unfound-dropdown-item">Can't found a result</p></li>
-                                :filterSearchProducts(searchTerm).map((dog, index) => {
+                                {filterSearchDogs(searchTerm).length === 0 ? 
+                                <li key="unfoundDogs"><p className="unfound-dropdown-item">לא נמצאו התאמות</p></li>
+                                :filterSearchDogs(searchTerm).map((dog, index) => {
                                 return(
                                     index < 3 &&
-                                    <Link className="remove-underline" to={`/auction/${dog._id}`}>
-                                        <li key={index}><a className="dropdown-item" href="#search">{dog.dogName}</a></li>
+                                    <Link className="remove-underline" to={`/adoption/${dog._id}`}>
+                                        <li key={index}><a className="dropdown-item" href="#search">{dog.details.dogName}</a></li>
                                     </Link>
                                 )
                                 })}
@@ -84,14 +84,14 @@ const NewNavbar = ({ setPannel }) =>{
                         <form className="d-flex dropdown search-input-container" role="search">
                             <input className="form-control me-2 search-input" data-bs-toggle="dropdown"  onChange={(e) => {setSearchTerm(e.target.value)}} type="search" placeholder="Search" aria-label="Search"/>
                             <ul className="dropdown-menu search-dropdown-list">
-                                {filterSearchProducts(searchTerm).length === 0 ? 
-                                <li key="unfoundProducts"><p className="unfound-dropdown-item">Can't found a result</p></li>
-                                :filterSearchProducts(searchTerm).map((dog, index) => {
+                                {filterSearchDogs(searchTerm).length === 0 ? 
+                                <li key="unfoundDogs"><p className="unfound-dropdown-item">לא נמצאו התאמות</p></li>
+                                :filterSearchDogs(searchTerm).map((dog, index) => {
                                 return(
                                     index < 3 &&
-                                    // <Link className="remove-underline" to={`/auction/${productOption._id}`}>
-                                        <li key={index}><a className="dropdown-item" href="#search">{dog.dogName}</a></li>
-                                    // </Link>
+                                    <Link className="remove-underline" to={`/adoption/${dog._id}`}>
+                                        <li key={index}><a className="dropdown-item" href="#search">{dog.details.dogName}</a></li>
+                                    </Link>
                                     )
                                 })}
                             </ul>
@@ -101,7 +101,7 @@ const NewNavbar = ({ setPannel }) =>{
                 </div>
                 {windoWidth > 992 && 
                 <>
-                <div className="right-side">
+                <div dir="rtl" className="right-side">
                     {haveMission ? 
                         <div className="badge-container">
                             <span className="my-badge">1</span>
@@ -112,11 +112,19 @@ const NewNavbar = ({ setPannel }) =>{
                             <HiOutlineBell onClick={() => setHaveMission(true)} style={{fontSize: "1.4rem"}}/>
                         </div>
                     }
-                    <Offcanvas setPannel={setPannel}/>
-                    {/* <button className="btn btn-danger me-3" onClick={() => {
+                    <button className=" me-3 remove-borders" 
+                    onClick={() => {
                         navigate("/login")
                         dispatch(updateUserData({}))}
-                        }>logout</button> */}
+                        }
+                        >
+                            <div className='logout-icon-container'>
+                                <BiLogOut/>
+                            </div>
+                            <div className='popper mt-1'>
+                                <p>התנתקות</p>
+                            </div>
+                        </button>
                 </div>
                 </>
                 }

@@ -3,46 +3,74 @@ import MyCalendar from "../../Components/calendar/Calendar";
 import './dashboard.css'
 import React from 'react';
 import {Link} from 'react-router-dom'
-import GeneralBody from '../../Components/generalBody/GeneralBody';
 import ReportSection from "../../Components/ReportsSection/ReportsSection/ReportSection";
 
 const Dashboard =()=> {
   return (
-    <div className='dashboard-container'>
-      <div className='logo'/>
-      <div className="calendar">
-        <div style={{paddingLeft:"5px"}}>
-
-       <ReportSection ></ReportSection>
-        </div>
-        <MyCalendar  calendarHeight={300}  toolbarDisplay={false} fontDashbordsize={"0.55rem"} minWidthDash={"300px"} margincalendar={5}/>
+    <div className='dashboard-container '>
+      <div className='logo-container'>
+        <h1 className="main-title">כלביית דימונה</h1>
+        <div className='logo'/>
       </div>
-
-      <GeneralBody panelTitle={"מחלקת וטרינריה עיירית דימונה"} removeUpperBg={true}>
-        <div className='hero'>
-          <div className='lines-container'>
-            <div className='teart-pannel'>
-              <h1>פאנל טיפולים</h1>
-            </div>
-            <Link to= {"/adoption"}>
-              <div className='dog-pannel'>
-                <h1>פאנל כלבים</h1>
-              </div>
-            </Link>
-          </div>
-
-          <div className='lines-container'>
-            <Link  to= {"/reports"}>
-              <div className='report-pannel'>
-                <h1>פאנל דיווחים</h1>
-              </div>
-            </Link>
-            <div className='tasks-pannel'>
-              <h1>פאנל משימות</h1>
-            </div>
+        <div className="calendar-container">
+          <div className="calendar">
+            <MyCalendar  calendarHeight={300}  toolbarDisplay={false} fontDashbordsize={"0.55rem"} minWidthDash={"300px"} margincalendar={5}/>
           </div>
         </div>
-      </GeneralBody>
+
+      <div className='hero '>
+        <div className='lines-container'>
+
+          <div className="pannel-container">
+            <div className='pannel teart-btn'>
+              <div className="pannel-title-container">
+                <h1 className="pannel-title">פאנל טיפולים</h1>
+              </div>
+            </div>
+          </div>
+
+          <Link className="remove-underline" to= {"/adoption"}>
+            <div className="pannel-container">
+              <div className='pannel dog-btn'>
+                <div className="pannel-title-container">
+                  <h1 className="pannel-title">פאנל כלבים</h1>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        <div className='lines-container'>
+          
+          <Link className="remove-underline"  to= {"/reports"}>
+            <div className="pannel-container">
+              <div className='pannel report-btn'>
+                <div className="pannel-title-container">
+                  <h1 className="pannel-title">פאנל דיווחים</h1>
+                </div>
+              </div>
+            </div>
+          </Link>
+          
+          <Link className="remove-underline"  to= {"/missions"}>
+          <div className="pannel-container">
+            <div className='pannel tasks-btn'>
+              <div className="pannel-title-container">
+                <h1 className="pannel-title">פאנל משימות</h1>
+              </div>
+            </div>
+          </div>
+          </Link>
+
+        </div>
+      </div>
+      <div className="reports-in-realtime-container">
+        <ReportSection />
+        <div className="assighments-container">
+          <h5>צריך שיוחלף במשימות</h5>
+          <ReportSection />
+        </div>
+      </div>
     </div>
   )
 }

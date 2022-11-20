@@ -17,13 +17,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectDog, updateDogData } from './Redux/slicer/DogSlice';
 import { getDogs } from './utils/apiCalls';
 import io from 'socket.io-client'
+import ReportsPannel from './pages/Reports/ReportsPanel';
+import VolunteerPannel from './pages/volunteering/VolunteerPannel';
+import Login from './pages/Login/login';
+import { selectUser } from './Redux/slicer/UserSlice';
 
 export const socket = io.connect("http://localhost:3001")
 
 
 function App() {
   const [room,setRoom]=useState("1")
-
+  const user = useSelector(selectUser)
   const [pannel, setPannel] = useState("")
   useEffect(()=>{
 
@@ -43,28 +47,61 @@ const dogs = useSelector(selectDog)
 
   return (
     <div className="App">
-      <NewNavbar setPannel={setPannel}/>
-        <Routes>
-              <Route path='/' element={<Dashboard/>} />
+      {user.loggedIn ? <>
+        <NewNavbar setPannel={setPannel}/>
 
-              <Route path="/adoption" element={<AdoptionPanel/>}/>
-              {dogs.map((dog, index) => {
-                return(
-                  // <Route path={`/adoption/${dog._id}`} element={<DogPage dog={dog}/>}/>
-                  <Route path={"/adoption/" + dog._id} element={<DogPage dog={dog}/>}/>
-                )
-                })}
+          <div className='padding-all-components'>
+            <Routes>
+                  <Route path='/' element={<Dashboard/>} />
+                  <Route path='/login' element={<Login/>} />
+                  <Route path='/register' element={<RegisterInspector/>} />
+        
+                  <Route path="/adoption" element={<AdoptionPanel/>}/>
+                  {dogs.map((dog, index) => {
+                    return(
+                      // <Route path={`/adoption/${dog._id}`} element={<DogPage dog={dog}/>}/>
+                      <Route path={"/adoption/" + dog._id} element={<DogPage dog={dog}/>}/>
+                    )
+                    })}
+                  <Route path="/calendar" exact element={<MyCalendar calendarHeight={450} toolbarDisplay={true} margincalendar={50}/>} />
+                  <Route path="/events/add" element={<AddEvents/>}/>
+                  <Route path="/event/:id/update" element={<UpdateEvent/>}/>
 
+                  <Route path="/volunteering" element={<VolunteerPannel/>}/>
+                  <Route path="/reports" element={<ReportsPannel/>}/>
+                  <Route path="/register" element={<RegisterInspector/>}/>
+            </Routes>
+        </div>
+        </>
+      : <>
+        <NewNavbar setPannel={setPannel}/>
 
-                
-              {/* <Route path="/adoption/dogpage" element={<DogPage/>}/> */}
+          <div className='padding-all-components'>
+            <Routes>
+            <Route path='/' element={<Dashboard/>} />
+                  {/* <Route path='/*' element={<Login/>} /> */}
+                  <Route path='/login' element={<Login/>} />
+                  <Route path='/register' element={<RegisterInspector/>} />
+        
+                  <Route path="/adoption" element={<AdoptionPanel/>}/>
+                  {dogs.map((dog, index) => {
+                    return(
+                      // <Route path={`/adoption/${dog._id}`} element={<DogPage dog={dog}/>}/>
+                      <Route path={"/adoption/" + dog._id} element={<DogPage dog={dog}/>}/>
+                    )
+                    })}
+                  <Route path="/calendar" exact element={<MyCalendar calendarHeight={450} toolbarDisplay={true} margincalendar={50}/>} />
+                  <Route path="/events/add" element={<AddEvents/>}/>
+                  <Route path="/event/:id/update" element={<UpdateEvent/>}/>
 
-              <Route path="/calendar" exact element={<MyCalendar calendarHeight={450} toolbarDisplay={true} margincalendar={50}/>} />
-              <Route path="/events/add" element={<AddEvents/>}/>
-              <Route path="/event/:id/update" element={<UpdateEvent/>}/>
-
-              <Route path="/register" element={<RegisterInspector/>}/>
-        </Routes>
+                  <Route path="/volunteering" element={<VolunteerPannel/>}/>
+                  <Route path="/reports" element={<ReportsPannel/>}/>
+                  <Route path="/register" element={<RegisterInspector/>}/>
+            </Routes>
+          </div>
+      </>
+      }
+      
         {/* <nav className="navbar navbar-light bg-light">
           <div className="container-fluid align-items-center">
             <Link className="navbar-brand ms-2" to="/">
@@ -75,6 +112,7 @@ const dogs = useSelector(selectDog)
             </span> 
           </div>
         </nav> */}
+
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import "./volunteerlist.css"
-// import hand from './handlogo.png'
-// import backgroundvideo from '../../components/home-sections/hero/dogvideobg2.mp4'
+import hand from './handlogo.png'
 
 const Volunteering = () => {
 
@@ -59,9 +58,11 @@ const Volunteering = () => {
                         <ul>
                             <div className="volunteering-details-container">
                                 <div className="volunteering-details">
-                                {/* <img className="hand-logo"src={hand} alt="icon"/> */}
-                                    <h3 className="volunteering-title">{item.title}</h3>
-                                    <p className="volunteering-descriptopn">{item.descriptopn}</p>
+                                    <img className="hand-logo"src={hand} alt="icon"/>
+                                    <div>
+                                        <h3 className="volunteering-title">{item.title}</h3>
+                                        <p className="volunteering-descriptopn">{item.descriptopn}</p>
+                                    </div>
                                 </div>
                                 <div className="hours">
                                     <p>ימי פעילות:</p>

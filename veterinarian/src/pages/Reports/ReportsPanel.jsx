@@ -3,7 +3,7 @@ import AreaDropDown from '../../Components/AreaDropdown/AreaDropDown'
 import AnimalCards from '../../Components/AnimalCards/AnimalCards'
 import './reportsPanel.css'
 
-const AppointmentsPanel = () => {
+const ReportsPannel = () => {
     return (
         <div className='general-body-container'>
             <GeneralBody panelTitle={"פאנל דיווחים"} addOverFlow={true}>
@@ -14,4 +14,4 @@ const AppointmentsPanel = () => {
     )
 }
 
-export default AppointmentsPanel
+export default ReportsPannel

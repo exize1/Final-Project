@@ -1,11 +1,9 @@
-*{
-    font-family: 'Poppins', sans-serif;
-}
 
 .navbar-contianer{
+    width: 100%;
+    /* background-color: #3140a3d3; */
     box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
     position: fixed;
-    width: 100%;
     z-index: 100;
     flex-wrap: wrap;
 }
@@ -13,8 +11,10 @@
 .navabr-fluid{
     display: flex;
     justify-content: space-between;
+    flex-direction: row-reverse;
     width: 100%;
     margin: 0 2%;
+    /* color: white; */
 }
 
 .navbar-title{
@@ -30,12 +30,12 @@
 }
 
 .title-links-search{
-    display: flex;
     width: 100%;
 }
 
 .link-and-search-container{
     display: flex;
+    flex-direction: row-reverse;
 }
 
 .navbar-button{
@@ -52,8 +52,8 @@
 .navbar-nav-close{
     display: flex;
     align-items: center;
-    flex-direction: row;
-    width: 100%;
+    flex-direction: row-reverse;
+    /* width: 100%; */
 }
 
 .navbar-nav-open{
@@ -68,15 +68,17 @@
 
 .add-width{
     width: 80px;
+    /* color: white; */
 }
 
 .search-input-container{
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .search-input{
-    max-height: 70%;
+    max-height: 80%;
     width: 30vw;
     max-width: 200px;
 }
@@ -100,6 +102,8 @@
 .search-dropdown-list{
     font-size: 0.8rem;
     width: 100%;
+    max-width: 200px;
+    left: none;
 }
 
 .unfound-dropdown-item{
@@ -122,9 +126,40 @@
     align-items: center;
 }
 
+.remove-borders{
+    border: 0;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.logout-icon-container{
+    font-size: 1.4rem;
+    /* color: white; */
+}
+
+.popper {
+    position: absolute;
+    height: 0px;
+    font-size: 0;
+  }
+  
+.remove-borders:hover .popper {
+    color: white;
+    display: block;
+    position: absolute;
+    z-index: 10;
+    background-color: rgba(109, 108, 108, 0.781) !important;
+    border-radius: 8px;
+    height: fit-content;
+    width: max-content;
+    padding: 5px 8px 0 8px !important;
+    left: 0.5%;
+    font-size: 0.7rem !important;
+    transition-delay: 0.5s;
+}
+
 .logout-btn{
     margin-left: 2% !important;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     cursor: pointer;
 }
 

@@ -1,11 +1,18 @@
 .complet-report{
-    border-style: solid;
-    border-color: black;
-    max-height: 30px;
-    border-radius: 18%;
-    background-color: rgb(139, 236, 160);
+    height: 40px;
+    width: 100%;
+    background-color: rgba(227, 227, 227, 0.6);
+    border: 1px solid rgba(117, 117, 117, 0.199);
+    text-align: start;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
 }
 .text-report{
    font-size:  0.55rem ;
-   direction: rtl;
+}
+.phone{
+   text-align: end;
+   font-size:  0.55rem ;
+   margin-left: 3px;
 }
