@@ -159,7 +159,7 @@ export default function NewDogForm() {
                                         </div>
                                         <div className="form-floating col-sm">
                                             <input name="chipNumber" type="text" className="form-control" id="floatingInput" placeholder="שם הכלב" onChange={handleChange} value={values.chipNumber} onBlur={handleBlur} />
-                                            <label dir='rtl' htmlFor="floatingInput" className="form-label">שם הכלב*</label>
+                                            <label dir='rtl' htmlFor="floatingInput" className="form-label">מספר צ׳יפ*</label>
                                             {/* <p className="error-message">{errors.chipNumber && touched.chipNumber && errors.chipNumber}</p> */}
                                         </div>
                                         <div className="form-floating col-sm">
