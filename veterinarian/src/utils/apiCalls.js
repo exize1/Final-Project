@@ -114,15 +114,14 @@ export const getVolunteers = (dispatch) =>{
     }
 
 
-export const createNewVolunteer = (dispatch,body) =>{
-    publicRequest.post(`/api/volunteering`, body)
-        .then((res) => {
-            res.data && getVolunteers(dispatch)
-            res.data && console.log(res.data);
-            
-        })
-        .catch((err) => console.log(err));
-    
+export const createNewVolunteer = (dispatch, body, handleAlerts) =>{
+        publicRequest.post(`/api/volunteering`, body)
+            .then((res) => {
+                res.data && getVolunteers(dispatch)
+                res.data && console.log(res.data);
+                handleAlerts(res.data)
+            })
+            .catch((err) => console.log(err))
     }
 
     export const deleteVolunteer = (dispatch, volunteer) => {

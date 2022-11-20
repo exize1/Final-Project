@@ -467,12 +467,14 @@ router.post('/volunteering', async (req,res,next) => {
       Volunteering.create(addVolunteering)
       .then(() =>{ 
         res.json({
-          "error" : false,
+          "error" : true,
+          "alertType": "success",
           "message": "ההתנדבות התקבלה בהצלחה"
         })
       }).catch(err =>{
         res.json({
           "error" : true,
+          "alertType": "danger",
           "message": "לא היה ניתן לשלוח את ההתנדבות",
           "m":err
 
