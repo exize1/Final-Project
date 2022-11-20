@@ -136,7 +136,7 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                 </div>
             </div>
 
-            <div dir="rtl" className="text-start list-container scrollspy-example bg-light px-3 mt-0" tabindex="0" >
+            <div dir="rtl" className="text-start list-container scrollspy-asignment bg-light px-3 mt-0" tabindex="0" >
                 {assignments.map((assignment, index) => {
                     // if (dog.display) {
                         serial -= 1

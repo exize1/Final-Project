@@ -79,29 +79,31 @@ router.get('/dogRequests/', ( req, res, next ) => {
 })
 
 router.post('/dogRequests/', (req, res, next) =>{
-    req.body.fullName && req.body.email  && req.body.phone &&  req.body.gender  && req.body.age && req.body.size ?
-    DogRequest.find( {size: req.body.size} )
+
+    req.body.fullName && req.body.email  && req.body.phone &&  req.body.details.gender  && req.body.details.age && req.body.details.size ?
+    DogRequest.find( {isInDB: false} )
     .then((datas) => {
         let isAlreadtRequested = false
         datas.map(dogReq => {
-            if (req.body.gender === dogReq.gender &&
-                req.body.age === dogReq.age &&
+            if (req.body.details.gender === dogReq.details.gender &&
+                req.body.details.age === dogReq.details.age &&
+                req.body.details.size === dogReq.details.size &&
                 req.body.email === dogReq.email &&
                 req.body.phone === dogReq.phone ){
-
-                isAlreadtRequested = true
+                  isAlreadtRequested = true
             }
-        })
-        isAlreadtRequested ? res.json({
-            error: true,
-            message: 'נראה שהנתונים שלך כבר במערכת שלנו'
         }) 
-        :                 
-        DogRequest.create(req.body)
-        .then((data) => {
-            res.json(data)
-        })
-        .catch(next)
+        isAlreadtRequested ?
+        res.json({
+          error: true,
+          message: 'נראה שהנתונים שלך כבר במערכת שלנו'
+      }) :
+      DogRequest.create(req.body)
+      .then((data) => {
+          res.json(data)
+      })
+      .catch(err => res.json(err))
+
     }).catch(next)
     :
     res.json({

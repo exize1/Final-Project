@@ -46,14 +46,17 @@ const NoResoultModal = ({age, size, gender, name}) => {
     const [reqAge, setReqAge] = useState("");
     const [reqSize, setReqSize] = useState("");
 
-    const sendData = (FullName, userEmail, Phone) => {
+    const sendData = (fullName, userEmail, Phone) => {
         const data = { 
-            fullName: FullName,
+            fullName: fullName,
             email: userEmail,
             phone: Phone,
-            gender: reqGender, 
-            age: reqAge, 
-            size: reqSize, 
+            details:{
+                gender: reqGender, 
+                age: reqAge, 
+                size: reqSize 
+            },
+            isInDB: false
         };
           axios
             .post(`${REACT_APP_SERVER_URL}/api/dogRequests`, data)
@@ -89,20 +92,20 @@ const NoResoultModal = ({age, size, gender, name}) => {
                 if (val.adopted === false){
                     if(reqGender === ""){
                         return val;
-                    }else if(val.gender.includes(reqGender)){
+                    }else if(val.details.gender.includes(reqGender)){
                         return val;
                     }else return null
                 }else return null
             }).filter((val) => {
                 if(reqAge === ""){
                     return val;
-                }else if(val.age.includes(reqAge)){
+                }else if(val.details.age.includes(reqAge)){
                     return val;
                 }else return null
             }).filter((val) => {
                 if(reqSize === ""){
                     return val;
-                }else if(val.size.includes(reqSize)){
+                }else if(val.details.size.includes(reqSize)){
                     return val;
                 }else return null
             })
