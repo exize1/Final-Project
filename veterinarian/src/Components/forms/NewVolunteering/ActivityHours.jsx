@@ -15,7 +15,6 @@ const ActivityHours = ({ handleChange, handleBlur, values, toDay, setToDay, setF
                 <li><a className="dropdown-item" dir='rtl' onClick={() => {setFromDay("ה'")}}>{"ה'"}</a></li>
                 <li><a className="dropdown-item" dir='rtl' onClick={() => {setFromDay("ו'")}}>{"ו'"}</a></li>
                 <li><a className="dropdown-item" dir='rtl' onClick={() => {setFromDay("שבת")}}>{"שבת"}</a></li>
-                <li><a className="dropdown-item" dir='rtl' onClick={() => {setFromDay("אחר")}}>{"אחר"}</a></li>
             </ul>
         </div>
     </div>
@@ -33,7 +32,6 @@ const ActivityHours = ({ handleChange, handleBlur, values, toDay, setToDay, setF
                 <li><a className="dropdown-item" dir='rtl' onClick={() => {setToDay("ה'")}}>{"ה'"}</a></li>
                 <li><a className="dropdown-item" dir='rtl' onClick={() => {setToDay("ו'")}}>{"ו'"}</a></li>
                 <li><a className="dropdown-item" dir='rtl' onClick={() => {setToDay("שבת")}}>{"שבת"}</a></li>
-                <li><a className="dropdown-item" dir='rtl' onClick={() => {setToDay("אחר")}}>{"אחר"}</a></li>
             </ul>
         </div>
     </div>

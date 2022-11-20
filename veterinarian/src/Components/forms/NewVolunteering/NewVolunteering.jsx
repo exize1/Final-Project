@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import Modal from "../../modal/Modal";
 import * as Yup from "yup";
 import ActivityHours from "./ActivityHours";
+import {createNewVolunteer} from '../../../utils/apiCalls'
 
 
 const NewVolunteering = ({dog}) => {
@@ -14,10 +15,10 @@ const NewVolunteering = ({dog}) => {
     const [alertType, setAlertType] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
     const [inheritedOpen, setInheritedOpen] = useState(false)
+
+
     const [fromDay, setFromDay] = useState("")
     const [toDay, setToDay] = useState("")
-    const [fromHour, setFromHour] = useState("")
-    const [toHour, setToHour] = useState("")
     const [counter, setCounter] = useState(1)
     const [addedActivityHours, setAddedActivityHours] = useState([])
 
@@ -41,12 +42,12 @@ const NewVolunteering = ({dog}) => {
             titleName: values.titleName,
             description: values.description,
             activityHours:{
-                fromDayToDay: [fromDay, toDay],
-                fromHourToHour: [values.fromHour, values.toHour]
+                fromDayToDay: [[fromDay, toDay]],
+                fromHourToHour: [[values.fromHour, values.toHour]]
             },
             contactNum: values.contactNum
             }
-            // console.log(value);
+            createNewVolunteer(dispatch,value)
   }
 
   const schema = Yup.object().shape({
