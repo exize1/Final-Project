@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import Modal from '../../Components/modal/Modal'
-import css from './volunteer.css'
+import './volunteer.css'
 import VolunteerList from './VolunteerList'
-import button from 'bootstrap'
 
 
  function AddDate () {
@@ -37,7 +36,7 @@ import button from 'bootstrap'
 
 
 
-const Volunteer = () => {
+const VolunteerPannel = () => {
 const [date, setDate] = useState(false)
   return (
     <div className='volunteer-container'>
@@ -91,4 +90,4 @@ const [date, setDate] = useState(false)
   )
 }
 
-export default Volunteer
+export default VolunteerPannel

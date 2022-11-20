@@ -12,32 +12,23 @@
 .vulonteertitle{
     color: #336ec3;
     font-size: 7vh;
-    margin-bottom: px;
 }
 
 .hole{
     height: 10vh;
 }
 
-.background-img-container{
-    position: fixed;
-    z-index: -1;
-}
-
-.background-img{
-    object-fit: cover;
-    width: 100vw;
-    
-}
-
 .volunteering-details-container{
     display: flex;
     justify-content: center;
     text-align: start;
+    flex-direction: row;
 }
 
 .volunteering-details{
-    width: 50%;
+    display: flex;
+    justify-content: center;
+    width: 70%;
 }
 
 .volunteering-descriptopn{
@@ -45,15 +36,9 @@
 }
 
 .hand-logo{
-    margin-right: -15vw;
-    margin-top: 10vh;
     height: 8vh;
-    margin-bottom: -10vh;
 }
-.main-hand{
-    height: 15vh;
-    margin-top: 5vh;
-}
+
 .hours{
     margin-top: 10vh;
 }

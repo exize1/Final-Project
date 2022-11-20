@@ -24,8 +24,7 @@ const AdoptionPanel = () => {
                 {display ? 
                 <div className='cards-container'>
                         {dogs.map((dog, index) => {
-                            return(
-                                // <Link to={`dogpage`}>
+                            if (dog.display) return(
                                 <Link to={dog._id}> 
                                     <DogCard key={index} dog={dog}/>
                                 </Link>

@@ -5,9 +5,8 @@ import { useState } from "react";
 import { AiFillEye ,AiFillEyeInvisible } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginFailure, loginStart, selectFetching, updateUserData } from "../../redux/slicer/UserSlice";
+import { loginFailure, loginStart, selectFetching, updateUserData } from "../../Redux/slicer/UserSlice";
 import { publicRequest } from "../../requestMethods";
-import Alert from "../../components/alert/Alert";
 
 
 const Login = () => {
@@ -49,17 +48,15 @@ const Login = () => {
                   }, 2000);
                 setMessage(data.message)
                 if(!data.error){
-                    const {avatar, email, firstName, lastName, password, CreditCard, _id, } = data.userData
+                    const { email, firstName, lastName, password, _id, } = data.userData
                     const accessToken = data.accessToken
                     const values = {
-                        avatar,
                         email,
                         firstName,
                         lastName,
                         password,
                         _id,
                         accessToken,
-                        CreditCard,
                         loggedIn: true
                     }
                     console.log(values);
@@ -80,19 +77,14 @@ const Login = () => {
 
     return (
         <>
-        <div className="home-background"/>
+        {/* <div className="home-background"/> */}
         <div className="login-page-container">
-            {error && (
+            {/* {error && (
                 <Alert alertType={"danger"}  alert={error}>
                     {message}
                 </Alert>
-            )}
+            )} */}
             <div className="row">
-                {windoWidth > 900 &&
-                    <div className="background-container">
-                        <div className="teaser-container"/>
-                    </div>
-                }
                 <div className="right-side-container">
                     <div className="login-container">
                         <div className="form-contianer">

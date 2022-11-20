@@ -1,23 +1,27 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import Avatar from "../../Components/avatar/Avatar"
-import NewMission from "../../Components/forms/NewMission/NewMission"
 import GeneralBody from "../../Components/generalBody/GeneralBody"
 import Modal from "../../Components/modal/Modal"
-import ScrollSpy from "../../Components/scrollSpy/dogs/ScrolSpy"
-import { approveAdotion, sendForAdoptionSite } from "../../utils/apiCalls"
+import { approveAdotion, deleteDog, sendForAdoptionSite } from "../../utils/apiCalls"
 import "./dogPage.css"
 import { SiDatadog } from 'react-icons/si'
+import ScrollSpyTreatment from "../../Components/scrollSpy/treatments/ScrollspyTreatment"
+import NewTreatment from "../../Components/forms/NewTreatment/NewTreatment"
+import EditDogProfile from "../../Components/forms/EditDogProfile/EditDogProfile"
+import { useNavigate } from "react-router-dom"
 
 const DogPage = ({ dog }) => {
     const [inheritedOpen, setInheritedOpen] = useState(false)
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
     return(
         <div className='general-body-container'>
-            <GeneralBody>
+            
+            <GeneralBody actions={[<NewTreatment dog={dog}/>, <EditDogProfile dog={dog}/>]} panelTitle="פרופיל כלב">
                 <div className="row">
-                    <div className="col">
+                    <div className="col-3 adoption-btn">
                         {!dog.forAdopting && 
                         <Modal modalButtonName="לשלוח לאימוץ?" btnType="success" inheritedOpen={inheritedOpen} >
                             <h3><b>?האם את/ה בטוח/ה</b></h3>
@@ -29,7 +33,8 @@ const DogPage = ({ dog }) => {
                                 }}>כן</button>
                             </div>
                         </Modal>}
-                        {!dog.adopted && 
+                        
+                        {dog.forAdopting && !dog.adopted && 
                         <Modal modalButtonName="אומץ?" btnType="success" inheritedOpen={inheritedOpen}>
                             <h4 dir="rtl"><b>האם את/ה בטוח/ה שאימצו אותי?</b></h4>
                             <div className="are-you-sure-btn-container mb-5">
@@ -49,34 +54,37 @@ const DogPage = ({ dog }) => {
 
                         }
                     </div>
-                    <div className="col">
-                        <h5 dir="rtl">מספר שבב: <span>{dog.details.chipNumber}</span></h5>
-                        <h5 dir="rtl">גיל: <span>{dog.details.age}</span></h5>
-                        <h5 dir="rtl">משקל:<span>{dog.details.weight}</span></h5>
+                    <div dir="rtl" className="col dates-container">
+                        <p className="dog-details" dir="rtl"><b>תאריך פתיחת תיק: </b><span>{dog.dates.initialDate}</span></p>
+                        <p className="dog-details" dir="rtl"><b>תאריך העלאה לאימוץ: </b><span>{dog.dates.addForAdoptingDate.date ? dog.dates.addForAdoptingDate.date : "-"}</span></p>
+                        <p className="dog-details" dir="rtl"><b>תאריך אימוץ: </b><span>{dog.dates.AdoptedDate.date? dog.dates.AdoptedDate.date : "-"}</span></p>
                     </div>
-                    <div className="col">
-                        <h5 dir="rtl">שם: <span>{dog.details.dogName}</span></h5>
-                        <h5 dir="rtl">מין: <span>{dog.details.gender}</span></h5>
-                        <h5 dir="rtl">גודל: <span>{dog.details.size}</span></h5>
-                    </div>
-                    <div className="col">
+                    <div className="col-3 dog-avatar-container">
                         <Avatar src={dog.details.src}/>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col">
-                        <ScrollSpy/>
+                    <div className="treatment-scrollspy-container col">
+                        <ScrollSpyTreatment dog={dog}/>
                     </div>
-                    <div className="col-4">
-                        <Modal title={"משימה חדשה"} modalButtonName="פתח משימה חדשה" btnType="primary">
-                            <NewMission/>
-                        </Modal>
-
-                        <Modal modalButtonName="מחיקת פרופיל" btnType="danger">
+                    <div className="delete-dog-button-container col-3">
+                        <div className="dog-details-container">                        
+                            <p className="dog-details" dir="rtl"><b> שם: </b><span>{dog.details.dogName}</span></p>
+                            <p className="dog-details" dir="rtl"><b> מין: </b><span>{dog.details.gender}</span></p>
+                            <p className="dog-details" dir="rtl"><b> גודל: </b><span>{dog.details.size}</span></p>
+                            <p className="dog-details" dir="rtl"><b> מספר שבב: </b><span>{dog.details.chipNumber}</span></p>
+                            <p className="dog-details" dir="rtl"><b> גיל: </b><span>{dog.details.age}</span></p>
+                            <p className="dog-details" dir="rtl"><b> משקל:</b><span>{dog.details.weight}</span></p>
+                        </div>
+                        <Modal  modalButtonName="מחיקת פרופיל" btnType="danger" className={"delete-dog-button"} inheritedOpen={inheritedOpen}>
                             <h3><b>?האם את/ה בטוח/ה</b></h3>
                             <div className="are-you-sure-btn-container mb-5">
-                                <button className="btn btn-danger px-4">לא</button>
-                                <button className="btn btn-success px-4">כן</button>
+                                <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
+                                <button className="btn btn-success px-4" onClick={() => {
+                                    deleteDog(dispatch, dog)
+                                    setInheritedOpen(!inheritedOpen)
+                                    navigate("/adoption")
+                                }}>כן</button>
                             </div>
                         </Modal>
                     </div>

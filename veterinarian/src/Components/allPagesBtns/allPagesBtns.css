@@ -1,0 +1,17 @@
+.add-new-dog-btn{
+    font-weight: bold;
+    color: rgb(70, 161, 70);
+    padding: 0;
+}
+
+.add-new-dog-btn:hover{
+    color: rgb(45, 124, 45);
+}
+
+.new-mission{
+    display: flex;
+}
+
+.new-dog{
+    display: flex;
+}

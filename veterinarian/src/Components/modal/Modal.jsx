@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import './modal.css'
 
-const Modal = ({ footer, header, title, size, addOverflow, btnType, modalButtonName, className, inheritedOpen, children}) => {
+const Modal = ({ footer, dir, title, size, addOverflow, btnType, modalButtonName, className, inheritedOpen, children}) => {
 
     const [open, setOpen] = useState(false)
 
@@ -18,9 +18,9 @@ const Modal = ({ footer, header, title, size, addOverflow, btnType, modalButtonN
         { open &&
             <div className='modal-background'>
                 <div className={`modal-fade-container ${size}`}>
-                        <div className='modal-title-contianer modal-header'>
-                            <button onClick={() => handleClose()} type="button" className="btn-close"></button>
+                        <div dir={dir} className='modal-title-contianer modal-header'>
                             <h5 className="modal-title" id="exampleModalLabel">{title}</h5>
+                            <button onClick={() => handleClose()} type="button" className="btn-close"></button>
                         </div>
                     <div className={addOverflow && "add-overflow"}>
                         <div className={`modal-body-contianer`}>

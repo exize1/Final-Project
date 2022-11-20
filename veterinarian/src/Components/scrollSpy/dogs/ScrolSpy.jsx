@@ -137,8 +137,9 @@ const ScrollSpy = ({ addOverflow }) =>{
             </div>
             <div dir="rtl" className="text-start list-container scrollspy-example bg-light px-3 mt-0" tabindex="0" >
                 {filtered(genderKey, adoptedKey, forAdoptingKey).map((dog, index) => {
-                    serial -= 1
-                    return(
+                    if (dog.display) {
+                        serial -= 1
+                        return(
                         <Link to={dog._id} className="remove-underline">
                             <div className="row bid-details-container">
                                 <div className="col">
@@ -161,7 +162,7 @@ const ScrollSpy = ({ addOverflow }) =>{
                                 </div>            
                             </div>
                         </Link>
-                    )}
+                    )}}
                 )}
             </div>
         </div>

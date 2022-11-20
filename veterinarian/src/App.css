@@ -2,9 +2,9 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.padding-all-components {
+  /* height: 98vh;
+  padding-top: 55px; */
 }
 
 @media (prefers-reduced-motion: no-preference) {
