@@ -7,7 +7,10 @@ const ReportsPannel = () => {
     return (
         <div className='general-body-container'>
             <GeneralBody panelTitle={"פאנל דיווחים"} addOverFlow={true}>
-                <AreaDropDown></AreaDropDown>
+                <div className='area-dropdown '>
+                    <AreaDropDown className='area-dropdown '></AreaDropDown>
+                </div>
+
                 <AnimalCards></AnimalCards>
             </GeneralBody>
         </div>

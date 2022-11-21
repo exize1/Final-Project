@@ -1,19 +1,21 @@
 .lostForm-footer-container {
-  display: flex;
+  background-color: #dbe0ed;
+
+  /* display: flex;
   flex-direction: row;
   background-color: brown;
   background: brown; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
+  /* background: -webkit-linear-gradient(
+    to right,
+    brown,
+    brown  */
+  /* ); Chrome 10-25, Safari 5.1-6 */
+  /* background: linear-gradient(
     to right,
     brown,
     brown
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    brown,
-    brown
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  width: 100vw;
+  ); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* width: 100vw; */
 }
 
 .footer-container-without-mt {

@@ -1,7 +1,13 @@
+import { useEffect } from 'react'
 import './alert.css'
 
-const Alert  = ({ alert, alertType, children }) => {
+const Alert  = ({ alert, alertType, setAlert, children }) => {
 
+    useEffect(() => {
+        setTimeout(() => {
+            setAlert(false);
+          }, 2000);
+    }, [alert])
 
     return(
         <div className="alert-container"> 

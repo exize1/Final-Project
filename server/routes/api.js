@@ -79,29 +79,31 @@ router.get('/dogRequests/', ( req, res, next ) => {
 })
 
 router.post('/dogRequests/', (req, res, next) =>{
-    req.body.fullName && req.body.email  && req.body.phone &&  req.body.gender  && req.body.age && req.body.size ?
-    DogRequest.find( {size: req.body.size} )
+
+    req.body.fullName && req.body.email  && req.body.phone &&  req.body.details.gender  && req.body.details.age && req.body.details.size ?
+    DogRequest.find( {isInDB: false} )
     .then((datas) => {
         let isAlreadtRequested = false
         datas.map(dogReq => {
-            if (req.body.gender === dogReq.gender &&
-                req.body.age === dogReq.age &&
+            if (req.body.details.gender === dogReq.details.gender &&
+                req.body.details.age === dogReq.details.age &&
+                req.body.details.size === dogReq.details.size &&
                 req.body.email === dogReq.email &&
                 req.body.phone === dogReq.phone ){
-
-                isAlreadtRequested = true
+                  isAlreadtRequested = true
             }
-        })
-        isAlreadtRequested ? res.json({
-            error: true,
-            message: 'נראה שהנתונים שלך כבר במערכת שלנו'
         }) 
-        :                 
-        DogRequest.create(req.body)
-        .then((data) => {
-            res.json(data)
-        })
-        .catch(next)
+        isAlreadtRequested ?
+        res.json({
+          error: true,
+          message: 'נראה שהנתונים שלך כבר במערכת שלנו'
+      }) :
+      DogRequest.create(req.body)
+      .then((data) => {
+          res.json(data)
+      })
+      .catch(err => res.json(err))
+
     }).catch(next)
     :
     res.json({
@@ -151,6 +153,11 @@ router.post('/login', async function (req, res, next) {
     return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET)
     // return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
   }
+  router.get('/users', ( req, res, next ) => {
+    DogHandler.find({})
+    .then((data) => res.json(data))
+    .catch(next)
+})
 
   router.post('/registerDogHandler', UsersPostValidation, async function (req, res, next) {
     const { email, firstName, lastName, phone } = req.body
@@ -402,15 +409,18 @@ router.delete("/assigmnents/:id", async(req, res)=>{
 
 router.post('/assigmnents', async (req,res,next) => {
 
-  const { dogHandlerName, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
+  const { dogHandlerName,dogHandlerID, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
 
       const report = {
         dogHandlerName,
+        dogHandlerID,
         dateUpload,
         dateToEnd,
         details,
         complited,
-        dogNumber
+        dogNumber,
+        WhoComplited:""
+
       } 
       Assigmnent.create(report)
       .then(() =>{ 
@@ -433,9 +443,10 @@ router.post('/assigmnents', async (req,res,next) => {
 router.patch('/assigmnents/:id',(req,res,next)=>{
   const id = req.params.id
   const status = req.body.status
+  const WhoComplited = req.body.WhoComplited
   assigmnents= Report.findOne({_id:id })
   .then((data) =>{
-    Assigmnent.findOneAndUpdate({_id:id }, {complited:status},{ returnDocument: 'after' },function(err, doc){
+    Assigmnent.findOneAndUpdate({_id:id }, {complited:status,WhoComplited:WhoComplited},{ returnDocument: 'after' },function(err, doc){
         res.json(data)
         if(err){
             console.log("Something wrong when updating data!");
@@ -467,12 +478,14 @@ router.post('/volunteering', async (req,res,next) => {
       Volunteering.create(addVolunteering)
       .then(() =>{ 
         res.json({
-          "error" : false,
+          "error" : true,
+          "alertType": "success",
           "message": "ההתנדבות התקבלה בהצלחה"
         })
       }).catch(err =>{
         res.json({
           "error" : true,
+          "alertType": "danger",
           "message": "לא היה ניתן לשלוח את ההתנדבות",
           "m":err
 
