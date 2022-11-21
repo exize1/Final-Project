@@ -1,26 +1,12 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
 import AnimalCard from '../AnimalCard/AnimalCard'
-import axios from 'axios'
 import './animalCards.css'
-import { publicRequest } from '../../requestMethods'
+import { useSelector } from 'react-redux'
+import { selectReport } from '../../Redux/slicer/ReportsSlice'
 
 
 export default function AnimalCards() {
-    const [allReports, setAllReports] = useState([])
-    const [counter, setCounter] = useState("")
-    const [counterb, setCounterb] = useState(0)
-
-    const getAnimals = () => {
-        publicRequest.get(`api/reports`)
-            .then((res) => {
-                res.data && setAllReports([...res.data])
-            })
-    }
-    useEffect(() => {
-        getAnimals()
-    }, [])
-
+    const allReports = useSelector(selectReport)
     return (
         <div className='cards-container'>
             {allReports.map((report) => {
@@ -31,13 +17,3 @@ export default function AnimalCards() {
         </div>
     )
 }
-
-
-// function Home() {
-//   return (
-//     <div className="home">
-//       <PetCards id={id} image={images} problem={problem} type={type} name={name} phone={phone} email={email} size={size} vailent={vailent} place={place} time={time} exstraD={exstraD}></PetCards>
-//       <Footer />
-//     </div>
-//   );
-// }

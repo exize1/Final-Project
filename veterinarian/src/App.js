@@ -13,7 +13,7 @@ import UpdateEvent from "./Components/calendar/UpdateEvent";
 import DogPage from './pages/DogPage/DogPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDog } from './Redux/slicer/DogSlice';
-import { getAssignments, getDogRequests, getDogs, getUsers, getVolunteers } from './utils/apiCalls';
+import { getAssignments, getDogRequests, getDogs, getReports, getUsers, getVolunteers } from './utils/apiCalls';
 
 import io from 'socket.io-client'
 import ReportsPannel from './pages/Reports/ReportsPanel';
@@ -35,6 +35,7 @@ function App() {
     getAssignments(dispatch)
     getUsers(dispatch)
     getDogRequests(dispatch)
+    getReports(dispatch)
     
     if (room!=="") {
       socket.emit("join_room","1")

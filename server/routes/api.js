@@ -417,10 +417,13 @@ router.patch('/animals/:id',(req,res,next)=>{
   .catch(next)
 })
 
-router.delete('/animals/:id', ( req,res,next) => {
+router.delete('/reports/', ( req,res,next) => {
     console.log("delete");
-    Report.findOneAndDelete({_id: req.params.id })
-        .then((data) => res.json(data))
+    Report.find({})
+        .then((data) => data.map( report => {
+          Report.findOneAndDelete({_id: report._id})
+          .then(data => console.log("delete"))
+        }))
         .catch(next)
 })
 
