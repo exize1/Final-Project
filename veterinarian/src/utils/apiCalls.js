@@ -4,6 +4,7 @@ import { updateUsers } from "../Redux/slicer/Users";
 import { updateVolunteerData } from "../Redux/slicer/VolunteerSlice";
 import { updateAdoption } from "../Redux/slicer/DogReqSlice";
 import { publicRequest } from "../requestMethods";
+import { updateReportData } from "../Redux/slicer/ReportsSlice";
 
 
 
@@ -187,4 +188,30 @@ export const updateOldReqDog = (dispatch, dog) => {
         res.data && console.log("updated");
         res.data && getDogRequests(dispatch);
     })
+}
+
+export const getReports = (dispatch) => {
+    publicRequest.get(`api/reports`)
+        .then((res) => {
+            res.data && dispatch(updateReportData(res.data))
+        })
+}
+
+export const updateStatus = (dispatch, value, report) => {
+    const updates = {}
+    updates.status = value
+
+    publicRequest.put(`/api/reports/${report._id}`, updates)
+        .then((res) => {
+            res.data && getReports(dispatch);
+        })
+}
+export const deleteStatus = (dispatch, value, report) => {
+    const updates = {}
+    updates.status = value
+
+    publicRequest.delete(`/api/reports/${report._id}`, updates)
+        .then((res) => {
+            res.data && getReports(dispatch);
+        })
 }
