@@ -64,9 +64,9 @@ const LostForm = ({ }) => {
                 details: values.details,
                 picture: productImage,
             },
+            lost: true
         };
         postReport(value)
-        // console.log(value);
     };
 
     const handleProductImageUpload = (e) => {
@@ -138,7 +138,7 @@ const LostForm = ({ }) => {
         // })
     }, [])
     return (
-        <div className='petform-footer-container'>
+        <div className='lostForm-footer-container'>
             <div className='form-contact-container'>
                 <div className="form-container">
                     <Formik
@@ -199,7 +199,7 @@ const LostForm = ({ }) => {
                                         <div className="form-container-page1-third-dogSize dropdown col-sm-2">
                                             <div className="input-group mb-3 me-5">
                                                 <p>גודל הכלב</p>
-                                                <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSize ? dogSize : "בחירת גודל"}</button>
+                                                <button dir='rtl' className="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSize ? dogSize : "בחירת גודל"}</button>
                                                 <ul className="dropdown-menu scrollable-menu">
                                                     <li><a class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
                                                     <li><hr class="dropdown-divider" /></li>
@@ -224,7 +224,7 @@ const LostForm = ({ }) => {
                                                 <p dir='rtl'> שכונה</p>
                                                 <div className="dropdown">
                                                     <div className="input-group mb-3">
-                                                        <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{area ? area : "בחירת שכונה"}</button>
+                                                        <button dir='rtl' className="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{area ? area : "בחירת שכונה"}</button>
                                                         <ul className="dropdown-menu scrollable-menu">
                                                             <li><a class="dropdown-item" dir='rtl' >בחר/י שכונה...</a></li>
                                                             <li><hr class="dropdown-divider" /></li>
