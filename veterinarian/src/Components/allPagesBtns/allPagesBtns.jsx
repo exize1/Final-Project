@@ -2,6 +2,7 @@ import Modal from '../modal/Modal';
 import NewDogForm from '../forms/NewDogForm/NewDogForm';
 import NewMission from '../forms/NewMission/NewMission';
 import "./allPagesBtns.css"  
+import AddEvents from '../calendar/AddEvents';
 
 const AllPagesBtns = ( ) => {
  return(
@@ -17,6 +18,7 @@ const AllPagesBtns = ( ) => {
             <NewDogForm></NewDogForm>
         </Modal>
     </div>
+
     </>
  )
 }

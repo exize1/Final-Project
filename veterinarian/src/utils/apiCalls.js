@@ -26,17 +26,18 @@ export const addAssignment = (newAssignment) => {
         })
         .catch((err) => console.log(err));
 }
-export const finishAssignment = (id,whoComplited) => {
+export const finishAssignment = (dispatch, id, whoComplited) => {
     const report={
         whoComplited:whoComplited,
         status:true
     }
     publicRequest.patch(`/api/assigmnents/${id}`,report)
         .then((res) => {
-            res.data && console.log(res.data);
+            getAssignments(dispatch);
         })
         .catch((err) => console.log(err));
 }
+
 export const getUsers = (dispatch) => {
     publicRequest.get(`/api/users`)
         .then((res) => {

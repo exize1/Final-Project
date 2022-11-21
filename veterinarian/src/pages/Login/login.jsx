@@ -41,6 +41,7 @@ const Login = () => {
         publicRequest.post('/api/login', value)
             .then((res) => {
                 const data = res.data
+                console.log(data);
                 data && 
                 setError(data.error)
                 setTimeout(() => {
