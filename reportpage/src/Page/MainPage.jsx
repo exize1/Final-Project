@@ -9,18 +9,26 @@ export default function MainPage() {
     const [petForm, setPetForm] = useState(false)
 
     return (
-        <div>
-            <div className="mainpage" >
-                <ReportNavbar></ReportNavbar>
+        
+        <div className="mainpage" >
+            <div className='nvabar'>
+            <ReportNavbar/>
+                <h4>דיוווחי תושבים על חיות אבודות/משוטטות עיריית דימונה</h4><br/>
+
+            </div>
+                <div className='report-container'>
                 <div className='mainpage-title'>
                     <h1>
-                        טפסי דיווח על חיות
+                 אזור דיווחי חיות עיריית דימונה
                     </h1>
+                </div> 
+                <div className='buttons-container'>
+
+                <button type="button" className={petForm ? "btn btn-success" : "btn btn-outline- success"} onClick={() => setPetForm(true)} >טופס דיווח חיה משוטטת</button>
+                <button type="button" className={petForm ? "btn btn-outline-success" : "btn btn-success"} onClick={() => setPetForm(false)} >טופס דיווח חיית מחמד אבודה</button>
                 </div>
-                <button type="button" className={petForm ? "btn btn-secondary" : "btn btn-outline-secondary"} onClick={() => setPetForm(true)} >טופס דיווח חיה משוטטת</button>
-                <button type="button" className={petForm ? "btn btn-outline-secondary" : "btn btn-secondary"} onClick={() => setPetForm(false)} >טופס דיווח חיית מחמד אבודה</button>
             </div>
-            <div>
+            <div className='form-container'>
                 {petForm ? <LostForm /> : <PetForm />}
             </div>
         </div>
