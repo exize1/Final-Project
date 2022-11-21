@@ -24,7 +24,7 @@ const Popping = ({open, handleClose, event, deleteEventApi, renderStatus, rerend
             <Modal.Title className="text-capitalize">{title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {describe? <p className="lead">{describe}</p>: "No Dsecriptions Yet"}
+            {describe? <p className="lead">{describe}</p>: "אין עדיין תיאור"}
             <div className="row justify-content-between">
               <p className="col small text-muted text-center pb-0 mb-0">from: {start}</p>
               <p className="col small text-muted text-center pb-0 mb-0">to: {end}</p>
@@ -32,9 +32,9 @@ const Popping = ({open, handleClose, event, deleteEventApi, renderStatus, rerend
           </Modal.Body>
           <Modal.Footer>
      
-            <Button variant="warning" onClick={handleClose}>Close</Button>
-            <Link to={`/event/${id}/update`}><Button variant="success">Update</Button></Link>
-            <Button variant="danger" onClick={handleDelete}>Delete</Button>
+            <Button variant="warning" onClick={handleClose}>לסגור</Button>
+            <Link to={`/event/${id}/update`}><Button variant="success">לעדכן אירוע</Button></Link>
+            <Button variant="danger" onClick={handleDelete}>מחק</Button>
         </Modal.Footer>
       </Modal>
      )

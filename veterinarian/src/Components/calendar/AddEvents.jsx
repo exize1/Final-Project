@@ -55,12 +55,12 @@ const AddEvents = ({addEventApi, error}) => {
     //this form is in bootstrab
     <form onSubmit={handleSubmit(onSubmit)} className=" align-content-center m-5">
     <div className="mb-4">
-      <label htmlFor="title" className="form-label">Event Title</label>
-      <input {...register("title")}  type="text" placeholder="title" className="form-control" id="title" aria-describedby="title" />
+      <label htmlFor="title" className="form-label">כותרת</label>
+      <input {...register("title")}  type="text" placeholder="כותרת" className="form-control" id="title" aria-describedby="title" />
       <p className={`error text-warning position-absolute ${errors.title?"active":""}`}>{errors.title?<i className="bi bi-info-circle me-2"></i>:""}{errors.title?.message}</p>
     </div>
     <div className="mb-4" style={{zIndex: "100"}}>
-      <label htmlFor="start" className="form-label">Start Date</label>
+      <label htmlFor="start" className="form-label">תאריך התחלה</label>
       {/* controllers are the way you can wrap and use datePicker inside react form-hook*/}
       {/* start date controller*/}
       <Controller
@@ -68,7 +68,7 @@ const AddEvents = ({addEventApi, error}) => {
       name="start"
       render={({ field }) => (
         <DatePicker
-          placeholderText="Select date"
+          placeholderText="תאריך התחלה"
           onChange={(date) => field.onChange(date)}
           selected={field.value}
           value={field.value}
@@ -85,14 +85,14 @@ const AddEvents = ({addEventApi, error}) => {
     <p className={`error text-warning position-absolute ${dbError.start?"":"d-none"}`}>{dbError.start?<i className=" bi bi-info-circle me-2"></i>:""}{dbError.start}</p>
     </div>
     <div className="mb-4" style={{zIndex: "100"}}>
-      <label htmlFor="end" className="form-label">End Date</label>
+      <label htmlFor="end" className="form-label">תאריך סוף</label>
       {/* end date controller*/}
       <Controller
     control={control}
     name="end"
     render={({ field }) => (
       <DatePicker
-        placeholderText="Select end date"
+        placeholderText="תאריך סוף"
         onChange={(date) => field.onChange(date)}
         selected={field.value}
         value={field.value}
@@ -109,11 +109,11 @@ const AddEvents = ({addEventApi, error}) => {
     </div>
     <div className="mb-4">
       <label htmlFor="describe" className="form-label">
-        Event Description <span className="text-danger small">(optional)</span>
+        תיאור <span className="text-danger small">(אופציונלי)</span>
       </label>
-      <input {...register("describe")}  type="text" placeholder="describe your event" className="form-control" id="describe" aria-describedby="describe" />
+      <input {...register("describe")}  type="text" placeholder="תיאור אירוע" className="form-control" id="describe" aria-describedby="describe" />
     </div>
-    <button type="submit" className="btn btn-success">Create</button>
+    <button type="submit" className="btn btn-success">צור</button>
   </form>
   )
 }

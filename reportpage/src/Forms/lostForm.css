@@ -72,3 +72,9 @@
 .must-asterisk {
   color: red;
 }
+
+.scrollable-menu {
+  height: auto;
+  max-height: 250px;
+  overflow-x: hidden;
+}

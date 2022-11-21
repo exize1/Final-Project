@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { selectDog } from "../../../Redux/slicer/DogSlice"
 import "./ScrolSpyAssignments.css"
 import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai"
@@ -7,12 +7,15 @@ import { useState } from "react"
 import { selectAssignments } from "../../../Redux/slicer/Assignments"
 import Modal from "../../modal/Modal"
 import { finishAssignment } from "../../../utils/apiCalls"
+import { selectUser } from "../../../Redux/slicer/UserSlice"
 
 
 
 const ScrolSpyAssignments = ({ addOverflow }) =>{
 
     const assignments = useSelector(selectAssignments)
+    const user = useSelector(selectUser)
+    console.log(user);
     console.log(assignments);
     const [type, setType] = useState("")
     const [openCompite, setOpenCompite] = useState(false)
@@ -22,7 +25,7 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
     const [genderKey, setGenderKey] = useState("")
     const [adoptedKey, setAdoptedrKey] = useState("")
     const [forAdoptingKey, setForAdoptingKey] = useState("")
-
+    const dispatch = useDispatch()
     const filtered = (filterKey) => {
         return(
             assignments.filter((val) => {
@@ -167,27 +170,30 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                                         assignment.complited ? 
                                         <AiOutlineCheck style={{color: "green"}}/> 
                                         : 
-                                        <AiOutlineClose style={{color: "red"}} onClick={()=>{
-                                            setOpenCompite(true)
-                                            setassignmentSelectedId(assignment._id)
-                                          }}>
-                                         
-                                          </AiOutlineClose>
-                                          
-                                     }
-                                    </p>
-                                </div>            
-                                {openCompite? 
-                                           <Modal modalButtonName="משימה בוצעה?" btnType="success" inheritedOpen={inheritedOpen} >
-                                            <h3><b>?האם את/ה בטוח/ה</b></h3>
+                                        <Modal checkbox={true} modalButtonName="משימה בוצעה?" inheritedOpen={inheritedOpen} >
+                                                <h3><b>?האם את/ה בטוח/ה</b></h3>
                                                <div className="are-you-sure-btn-container mb-5">
                                                <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
                                                  <button className="btn btn-success px-4" onClick={() => {
                                                    // sendForAdoptionSite(dispatch, dog)
-                                                 finishAssignment(assignmentSelectedId,"עמית")
+                                                 finishAssignment(dispatch,assignment._id,user._id)
                                                  setInheritedOpen(!inheritedOpen)
                                                      }}>כן</button>
                                                       </div>
+                                        </Modal>
+                                        // <AiOutlineClose style={{color: "red"}} onClick={()=>{
+                                        //     setOpenCompite(true)
+                                        //     setassignmentSelectedId(assignment._id)
+                                        //   }}>
+                                         
+                                        //   </AiOutlineClose>
+                                          
+                                     }
+                                    </p>
+                                </div>            
+                                {openCompite &&assignmentSelectedId===assignment._id? 
+                                           <Modal  btnType="success" >
+                                        
                                                      </Modal>
                                           :
                                                console.log()}      
