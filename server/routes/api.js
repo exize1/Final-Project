@@ -349,15 +349,15 @@ router.post('/reports', async (req, res, next) => {
 
   const { reporterDetails, dogDetails, location, reportDetails } = req.body;
 
-  // const result = await cloudinary.uploader.upload(req.body.reportDetails.picture);
-  // if (result) {
-  // reportDetails.picture = result
+  const result = await cloudinary.uploader.upload(req.body.reportDetails.picture);
+  if (result) {
+  reportDetails.picture = result
   const report = {
     reporterDetails,
     dogDetails,
     location,
     reportDetails,
-    // picture: result,
+    picture: result,
   }
   if (req.body.lost) report.lost = req.body.lost
   Report.create(report)
@@ -377,9 +377,9 @@ router.post('/reports', async (req, res, next) => {
 
       })
     })
-  // } else {
-  //   res.json({ error: `this input is empty -> ${req.body}` })
-  // }
+  } else {
+    res.json({ error: `this input is empty -> ${req.body}` })
+  }
 
 })
 
