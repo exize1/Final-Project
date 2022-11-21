@@ -1,29 +1,34 @@
-import './petForm.css'
+import './abandonedForm.css'
 import { useEffect, useState } from 'react';
 import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 ////////socket
 import io from 'socket.io-client'
-import neighborhoods from '../Area';
 import Alert from '../alert/Alert';
+import neighborhoods from '../Area';
+
 const socket = io.connect("http://localhost:3001")
 ///////
-const PetForm = ({ }) => {
+const AbandonedForm = ({ }) => {
 
     const [page, setPage] = useState(0)
     const [productImage, setProductImage] = useState("")
     const [submited, setSubmited] = useState(false)
     const [dogSize, setDogSize] = useState("")
-    const [success, setSuccess] = useState(false)
-    const [fail, serFail] = useState(false)
     const [area, setArea] = useState("")
     const [filteredList, setFilteredList] = useState(neighborhoods);
-    // const [selectedImage, setSelectedImage] = useState([])
+    const [violent, setViolent] = useState(false)
+    const [alert, setAlert] = useState(false)
+    const [alertType, setAlertType] = useState(false)
+    const [alertMessage, setAlertMessage] = useState("")
+
+
+    const [selectedImage, setSelectedImage] = useState([])
     const schema = Yup.object().shape({
         fullName: Yup.string()
             .required("נא להכניס שם מלא"),
-        // email: Yup.string().email(),
+        email: Yup.string().email(),
         phone: Yup.string()
             .required("נא להכניס מספר פלאפון")
             .min(10, "Phone number should containe 10 numbers exactly")
@@ -42,13 +47,14 @@ const PetForm = ({ }) => {
             },
 
             dogDetails: {
-                size: values.size,
+                size: dogSize,
                 color: values.color,
-                violent: values.violent,
+                violent: violent,
             },
 
             location: {
-                place: values.place,
+                neighborhood: area,
+                street: values.street
             },
             reportDetails: {
                 time: {
@@ -58,6 +64,7 @@ const PetForm = ({ }) => {
                 details: values.details,
                 picture: productImage,
             },
+            lost: true
         };
         postReport(value)
     };
@@ -91,7 +98,10 @@ const PetForm = ({ }) => {
 
     const postReport = (report) => {
         axios.post(`${process.env.REACT_APP_SERVER_URL}/api/reports`, report)
-            .then(() => {
+            .then((res) => {
+                res.data && setAlert(res.data.error)
+                res.data && setAlertMessage(res.data.message)
+                res.data && setAlertType(res.data.alertType)
                 console.log(report);
                 sendM(report, room);
             })
@@ -128,7 +138,7 @@ const PetForm = ({ }) => {
         // })
     }, [])
     return (
-        <div className='petform-footer-container'>
+        <div className='lostForm-footer-container'>
             <div className='form-contact-container'>
                 <div className="form-container">
                     <Formik
@@ -137,15 +147,11 @@ const PetForm = ({ }) => {
                             email: "",
                             phone: "",
                             details: "",
-                            size: "",
                             color: "",
-                            picture: "",
-                            location: "",
-                            violent: "",
-                            // extraDetails: "",
+                            street: "",
                         }}
                         onSubmit={(values) => handleSubmition(values)}
-                    // validationSchema={schema}
+                        validationSchema={schema}
                     >
                         {({
                             handleSubmit,
@@ -157,11 +163,8 @@ const PetForm = ({ }) => {
                         }) => (
                             <form dir='rtl' onSubmit={handleSubmit} noValidate>
                                 {/* page 1 */}
-                                <Alert alertType={"success"} alert={success}>
-                                    הטופס נשלח הצלחה
-                                </Alert>
-                                <Alert alertType={"danger"} alert={fail}>
-                                    שגיאה בשליחת הטופס
+                                <Alert alertType={alertType} alert={alert} >
+                                    {alertMessage}
                                 </Alert>
                                 {page === 0 ? <div className='form-container-page1'>
                                     <div className='form-container-page1-first row'>
@@ -187,17 +190,10 @@ const PetForm = ({ }) => {
                                         <p className="error-message">{errors.details && touched.details && errors.details}</p>
                                     </div>
                                     <div className='form-container-page1-third row'>
-                                        {/* <div className="form-floating col-sm">
-                                            <input name="size" type="text" className="form-control" id="floatingInput" placeholder="גודל" onChange={handleChange} value={values.size} onBlur={handleBlur} />
-                                            <label dir='rtl' for="floatingInput" className="form-label">גודל החיה (קטן/בינוני/גדול)*</label>
-                                            <p className="error-message">{errors.size && touched.size && errors.size}</p>
-                                        </div> */}
-
-
                                         <div className="form-floating col-sm-4">
                                             <input name="color" type="text" className="form-control" id="floatingInput" placeholder="צבע" onChange={handleChange} value={values.color} onBlur={handleBlur} />
                                             <label dir='rtl' for="floatingInput" className="form-label">צבע</label>
-                                            <p className="error-message">{errors.color && touched.color && errors.color}</p>
+                                            {/* <p className="error-message">{errors.color && touched.color && errors.color}</p> */}
                                         </div>
 
                                         <div className="form-container-page1-third-dogSize dropdown col-sm-2">
@@ -225,7 +221,7 @@ const PetForm = ({ }) => {
                                     : <div className='form-container-page2'>
                                         <div className='form-container-page2-first row'>
                                             <div className='input-title-container col-sm-4'>
-                                                <p dir='rtl'> שכונה*</p>
+                                                <p dir='rtl'> שכונה</p>
                                                 <div className="dropdown">
                                                     <div className="input-group mb-3">
                                                         <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{area ? area : "בחירת שכונה"}</button>
@@ -240,13 +236,12 @@ const PetForm = ({ }) => {
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div className='input-title-container col-sm-3'>
                                                 {/* <p dir='rtl'> רחוב ומספר בית*</p> */}
                                                 <div className="form-floating col">
-                                                    <input name="place" type="text" className="form-control" id="floatingInput" placeholder="מיקום" onChange={handleChange} value={values.place} onBlur={handleBlur} />
+                                                    <input name="street" type="text" className="form-control" id="floatingInput" placeholder="מיקום" onChange={handleChange} value={values.street} onBlur={handleBlur} />
                                                     <label dir='rtl' for="floatingInput" className="form-label">רחוב ומספר בית</label>
-                                                    <p className="error-message">{errors.place && touched.place && errors.place}</p>
+                                                    {/* <p className="error-message">{errors.street && touched.street && errors.street}</p> */}
                                                 </div>
                                             </div>
                                             <div className='radio-btns-container col-sm'>
@@ -256,11 +251,11 @@ const PetForm = ({ }) => {
 
                                                 <div className='radio-btns-container-btns ms-5'>
                                                     <div className="form-check form-check-inline">
-                                                        <input name="violent" className="form-check-input" type="radio" id="inlineRadio1" placeholder="לא" onChange={handleChange} value={"לא"} />
+                                                        <input name="violent" className="form-check-input" type="radio" id="inlineRadio1" placeholder="לא" onChange={handleChange} onClick={() => setViolent(!violent)} value={"לא"} />
                                                         <label dir='rtl' className="form-check-label" for="inlineRadio1">לא</label>
                                                     </div>
                                                     <div className="form-check form-check-inline">
-                                                        <input name="violent" className="form-check-input" type="radio" id="inlineRadio2" placeholder="כן" onChange={handleChange} value={"כן"} />
+                                                        <input name="violent" className="form-check-input" type="radio" id="inlineRadio2" placeholder="כן" onChange={handleChange} onClick={() => setViolent(!violent)} value={"כן"} />
                                                         <label dir='rtl' className="form-check-label" for="inlineRadio2">כן</label>
                                                     </div>
                                                 </div>
@@ -295,8 +290,6 @@ const PetForm = ({ }) => {
                                         <br></br>
                                         <div className='must-asterisk' dir='rtl'>שדות חובה מסומנים ב*</div>
                                     </div>}
-                                {/* <button onClick={() => setSuccess(!success)}>הצלחה</button>
-                                <button onClick={() => serFail(!fail)}>כשלון</button> */}
                             </form>
                         )}
                     </Formik>
@@ -305,4 +298,4 @@ const PetForm = ({ }) => {
         </div>
     )
 }
-export default PetForm
+export default AbandonedForm

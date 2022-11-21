@@ -16,11 +16,13 @@ const LostForm = ({ }) => {
     const [productImage, setProductImage] = useState("")
     const [submited, setSubmited] = useState(false)
     const [dogSize, setDogSize] = useState("")
-    const [success, setSuccess] = useState(false)
-    const [fail, serFail] = useState(false)
     const [area, setArea] = useState("")
     const [filteredList, setFilteredList] = useState(neighborhoods);
     const [violent, setViolent] = useState(false)
+    const [alert, setAlert] = useState(false)
+    const [alertType, setAlertType] = useState(false)
+    const [alertMessage, setAlertMessage] = useState("")
+
 
     const [selectedImage, setSelectedImage] = useState([])
     const schema = Yup.object().shape({
@@ -62,9 +64,9 @@ const LostForm = ({ }) => {
                 details: values.details,
                 picture: productImage,
             },
-            lost: true
         };
         postReport(value)
+        // console.log(value);
     };
 
     const handleProductImageUpload = (e) => {
@@ -96,7 +98,10 @@ const LostForm = ({ }) => {
 
     const postReport = (report) => {
         axios.post(`${process.env.REACT_APP_SERVER_URL}/api/reports`, report)
-            .then(() => {
+            .then((res) => {
+                res.data && setAlert(res.data.error)
+                res.data && setAlertMessage(res.data.message)
+                res.data && setAlertType(res.data.alertType)
                 console.log(report);
                 sendM(report, room);
             })
@@ -133,7 +138,7 @@ const LostForm = ({ }) => {
         // })
     }, [])
     return (
-        <div className='lostForm-footer-container'>
+        <div className='petform-footer-container'>
             <div className='form-contact-container'>
                 <div className="form-container">
                     <Formik
@@ -158,11 +163,8 @@ const LostForm = ({ }) => {
                         }) => (
                             <form dir='rtl' onSubmit={handleSubmit} noValidate>
                                 {/* page 1 */}
-                                <Alert alertType={"success"} alert={success}>
-                                    הטופס נשלח הצלחה
-                                </Alert>
-                                <Alert alertType={"danger"} alert={fail}>
-                                    שגיאה בשליחת הטופס
+                                <Alert alertType={alertType} alert={alert} >
+                                    {alertMessage}
                                 </Alert>
                                 {page === 0 ? <div className='form-container-page1'>
                                     <div className='form-container-page1-first row'>
@@ -288,8 +290,6 @@ const LostForm = ({ }) => {
                                         <br></br>
                                         <div className='must-asterisk' dir='rtl'>שדות חובה מסומנים ב*</div>
                                     </div>}
-                                <button onClick={() => setSuccess(!success)}>הצלחה</button>
-                                <button onClick={() => serFail(!fail)}>כשלון</button>
                             </form>
                         )}
                     </Formik>
