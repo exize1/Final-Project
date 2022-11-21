@@ -83,41 +83,6 @@ export default function NewDogForm() {
 
     }
 
-
-    // router.post('/register', async function (req, res, next) {
-    //     const { userName, firstName, LastName, password } = req.body
-    //     const userExists = await Users.findOne({ userName });
-
-    //     if (!userExists) {
-    //         const users = {
-    //             userName,
-    //             firstName,
-    //             LastName,
-    //             password
-    //         }
-    //         Users.create(users).then(() => {
-    //             res.json({
-    //                 "error": false,
-    //                 "message": "user registered successfully"
-    //             })
-    //         }).catch(err => {
-    //             res.json({
-    //                 "error": true,
-    //                 "message": "couldn't register user",
-    //                 "m": err
-
-    //             })
-    //         })
-
-    //     } else {
-    //         res.json({
-    //             "error": true,
-    //             "message": "user already registered"
-    //         })
-    //     }
-    //     }
-
-
     // const submit = () => {
     //     setSubmited(true)
     // }

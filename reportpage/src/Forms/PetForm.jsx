@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import axios from "axios";
 ////////socket
 import io from 'socket.io-client'
-import AreaDropdown from '../AreaDropdown/AreaDropDown';
+import neighborhoods from '../Area';
 import Alert from '../alert/Alert';
 const socket = io.connect("http://localhost:3001")
 ///////
@@ -17,6 +17,8 @@ const PetForm = ({ }) => {
     const [dogSize, setDogSize] = useState("")
     const [success, setSuccess] = useState(false)
     const [fail, serFail] = useState(false)
+    const [area, setArea] = useState("")
+    const [filteredList, setFilteredList] = useState(neighborhoods);
     // const [selectedImage, setSelectedImage] = useState([])
     const schema = Yup.object().shape({
         fullName: Yup.string()
@@ -143,7 +145,7 @@ const PetForm = ({ }) => {
                             // extraDetails: "",
                         }}
                         onSubmit={(values) => handleSubmition(values)}
-                        // validationSchema={schema}
+                    // validationSchema={schema}
                     >
                         {({
                             handleSubmit,
@@ -224,8 +226,21 @@ const PetForm = ({ }) => {
                                         <div className='form-container-page2-first row'>
                                             <div className='input-title-container col-sm-4'>
                                                 <p dir='rtl'> שכונה*</p>
-                                                <AreaDropdown></AreaDropdown>
+                                                <div className="dropdown">
+                                                    <div className="input-group mb-3">
+                                                        <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{area ? area : "בחירת שכונה"}</button>
+                                                        <ul className="dropdown-menu scrollable-menu">
+                                                            <li><a class="dropdown-item" dir='rtl' >בחר/י שכונה...</a></li>
+                                                            <li><hr class="dropdown-divider" /></li>
+                                                            {filteredList.map((t, index) =>
+                                                                <li key={index}><a className="dropdown-item" dir='rtl' onClick={() => setArea(t)}>{t}</a></li>
+                                                            )}
+                                                        </ul>
+                                                        {/* <input type="text" className="s" aria-label="Text input with dropdown button" onChange={filterBySearch} /> */}
+                                                    </div>
+                                                </div>
                                             </div>
+
                                             <div className='input-title-container col-sm-3'>
                                                 {/* <p dir='rtl'> רחוב ומספר בית*</p> */}
                                                 <div className="form-floating col">
