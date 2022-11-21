@@ -1,0 +1,8 @@
+.checkbox-container{
+    display: flex;
+    align-items: center;
+}
+
+.opened-input{
+    width: 30%;
+}
