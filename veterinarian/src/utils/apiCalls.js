@@ -178,3 +178,13 @@ export const getDogRequests = (dispatch) => {
 }
     
     
+export const updateOldReqDog = (dispatch, dog) => {
+    const updates = {
+        newReq: false
+    }
+    publicRequest.put(`/api/dogRequests/${dog._id}`, updates)
+    .then((res) => {
+        res.data && console.log("updated");
+        res.data && getDogRequests(dispatch);
+    })
+}

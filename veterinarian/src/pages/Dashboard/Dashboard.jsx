@@ -21,13 +21,15 @@ const Dashboard =()=> {
       <div className='hero '>
         <div className='lines-container'>
 
+        <Link className="remove-underline" to= {"/volunteering"}>
           <div className="pannel-container">
             <div className='pannel teart-btn'>
               <div className="pannel-title-container">
-                <h1 className="pannel-title">פאנל טיפולים</h1>
+                <h1 className="pannel-title">פאנל התנדבויות</h1>
               </div>
             </div>
           </div>
+        </Link>
 
           <Link className="remove-underline" to= {"/adoption"}>
             <div className="pannel-container">

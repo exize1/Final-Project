@@ -57,9 +57,9 @@ const DogPage = ({ dog }) => {
                         }
                     </div>
                     <div dir="rtl" className="col dates-container">
-                        <p className="dog-details" dir="rtl"><b>תאריך פתיחת תיק: </b><span>{dog.dates.initialDate}</span></p>
-                        <p className="dog-details" dir="rtl"><b>תאריך העלאה לאימוץ: </b><span>{dog.dates.addForAdoptingDate.date ? dog.dates.addForAdoptingDate.date : "-"}</span></p>
-                        <p className="dog-details" dir="rtl"><b>תאריך אימוץ: </b><span>{dog.dates.AdoptedDate.date? dog.dates.AdoptedDate.date : "-"}</span></p>
+                        <p className="dog-details" dir="rtl"><b>תאריך פתיחת תיק: </b><span>{dog.dates.initialDate.date}</span></p>
+                        <p className="dog-details" dir="rtl"><b>תאריך העלאה לאימוץ: </b><span>{dog.dates.addForAdoptingDate ? dog.dates.addForAdoptingDate.date : "-"}</span></p>
+                        <p className="dog-details" dir="rtl"><b>תאריך אימוץ: </b><span>{dog.dates.AdoptedDate ? dog.dates.AdoptedDate.date : "-"}</span></p>
                     </div>
                     <div className="col-3 dog-avatar-container">
                         <Avatar src={dog.details.src}/>

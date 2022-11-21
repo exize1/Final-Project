@@ -22,21 +22,41 @@ router.get('/dogs/', ( req, res, next ) => {
     .catch(next)
 })
 
-router.post('/dogs/', (req, res, next) =>{
-    req.body.details.src && req.body.details.dogName  &&  req.body.details.gender  && req.body.details.age && req.body.details.size ?
-    Dog.create(req.body)
-        .then((data) => {
-          res.json(data)
-            // DogRequest.find( {size: data.size} )
+router.post('/dogs/', async (req, res, next) =>{
+  const { details, treatment, dates} = req.body;
+
+  const result = await cloudinary.uploader.upload(req.body.details.src);
+  if (result) {
+    details.src = result
+    const dog = {
+      details,
+      treatment,
+      dates,
+    } 
+    Dog.create(dog)
+    .then(() =>{ 
+      res.json({
+        "error" : false,
+        "message": "תיק כלב נוצר בהצלחה"
+      })
+                  // DogRequest.find( {size: data.size} )
             // .then((datas) => {
             //     datas.map(dog => {
             //         data.gender === dog.gender &&
             //         data.age === dog.age && res.json(dog) && console.log(dog)
             //     })
             // }).catch(next)
-        })
-        .catch(next) :
-          res.json({error: 'this input is empty'})
+    }).catch(err =>{
+      res.json({
+        "error" : true,
+        "message": "לא היה ניתן לפתוח תיק כלב חדש",
+        "m":err
+
+      })
+    })
+  }else{
+    res.json({ error: `this input is empty -> ${req.body}` })
+  }
 })
 
 router.delete('/dogs/:id', ( req, res, next ) => {
@@ -110,6 +130,22 @@ router.post('/dogRequests/', (req, res, next) =>{
         error: true,
         message: 'כל השדות חייבים להיות מלאים'
     })
+})
+
+router.put('/dogRequests/:id', ( req, res, next ) => {
+  const updates = req.body
+  DogRequest.find({dogId: req.params.id})
+  .then((data) => {
+     data.map(dogReq => {
+      console.log(updates)
+      console.log(dogReq)
+      DogRequest.findOneAndUpdate({ _id: dogReq._id }, { $set: updates }, { new: true })
+        .then((data) => console.log(data))
+        .catch(next)
+    })
+    res.json(data)
+  }
+  )
 })
 
 router.delete('/dogRequests/', ( req, res, next ) => {
