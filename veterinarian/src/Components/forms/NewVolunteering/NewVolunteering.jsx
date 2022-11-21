@@ -49,7 +49,6 @@ const NewVolunteering = ({dog}) => {
     const [toDay7, setToDay7] = useState("")
     const [addedActivityHours, setAddedActivityHours] = useState([])
 
-
     const handleAlerts = (data) => {
         setAlert(data.error)
         setAlertType(data.alertType)

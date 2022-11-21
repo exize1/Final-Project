@@ -35,7 +35,7 @@ const Volunteering = () => {
                                         <p className="volunteering-descriptopn">{item.description}</p>
                                     </div>
                                 </div>
-                                <button onClick={()=> deleteVolunteer(dispatch,item)}> <MdDeleteForever /></button>
+                                <button onClick={()=> deleteVolunteer(dispatch,item)} className="delete-btn"> <MdDeleteForever size={"40px"} color={"tomato"}/>  מחיקת התנדבות מהמאגר</button>
                                 <div className="hours">
                                     <p>ימי פעילות:</p>
                                     <p>{item.activityHours.fromDayToDay.map(item => <p>{item[0]+"-"+item[1]}</p>)}</p>
