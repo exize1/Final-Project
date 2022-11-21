@@ -79,3 +79,9 @@
 .form-container-page1-third-dogSize {
   color: grey;
 }
+
+.scrollable-menu {
+  height: auto;
+  max-height: 250px;
+  overflow-x: hidden;
+}
