@@ -215,3 +215,12 @@ export const deleteStatus = (dispatch, value, report) => {
             res.data && getReports(dispatch);
         })
 }
+
+
+export const gotTheAlert = (dispatch, userData, setNewAssignment) => {
+    publicRequest.put(`/api/oldassigmnents/${userData._id}`)
+    .then((res) => {
+        res.data && getAssignments(dispatch);
+        res.data && setNewAssignment(false);
+    })
+}
