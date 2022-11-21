@@ -1,8 +1,9 @@
 import { useEffect } from "react"
 import { useState } from "react"
+import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai"
 import './modal.css'
 
-const Modal = ({ footer, dir, title, size, addOverflow, btnType, modalButtonName, className, inheritedOpen, children,isComplites}) => {
+const Modal = ({ footer, dir, checkbox, title, size, addOverflow, btnType, modalButtonName, className, inheritedOpen, children,isComplites}) => {
 
     const [open, setOpen] = useState(false)
     
@@ -14,7 +15,7 @@ const Modal = ({ footer, dir, title, size, addOverflow, btnType, modalButtonName
     }, [inheritedOpen])
     return(
         <div className='modal-container'>
-            <button type="button" className={`btn btn-${btnType} ${className}`} onClick={() => {handleOpen()}}>{modalButtonName}</button>
+            {checkbox ? <AiOutlineClose onClick={() => {handleOpen()}} style={{color: "red"}}/> :<button type="button" className={`btn btn-${btnType} ${className}`} onClick={() => {handleOpen()}}>{modalButtonName}</button>}
         { open &&
             <div className='modal-background'>
                 <div className={`modal-fade-container ${size}`}>
