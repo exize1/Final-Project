@@ -1,35 +1,65 @@
 import { useState } from 'react'
-import MoreDetailsModal from '../MoreDetailsModal/MoreDetailsModal';
 import './animalCard.css'
 import { IoMdMore } from 'react-icons/io'
 import Modal from '../modal/Modal';
+import { publicRequest } from '../../requestMethods';
 
 function AnimalCard({ report }) {
     const [petStatus, SetPetStatus] = useState("")
+
+
+    const updateStatus = (value, report) => {
+        const updates = {}
+
+        updates.status = value
+
+        publicRequest.put(`/api/reports/${report._id}`, updates)
+            .then((res) => {
+                res.data && console.log(res.data);
+            })
+    }
+    const deleteStatus = (value, report) => {
+        const updates = {}
+
+        updates.status = value
+
+        publicRequest.delete(`/api/reports/${report._id}`, updates)
+            .then((res) => {
+                res.data && console.log(res.data);
+            })
+    }
     return (
-        <div className="card mt-4" style={{ width: "22rem" }}>
-            <img src={report.photo} className="card-img-top pet-card-img" alt="..." />
+        <div className="card mt-4 animalCard">
+            <img src={report.reportDetails.picture.url} className="card-img-top pet-card-img" alt="..." />
+
             <div className="card-body">
-                <h5 className="card-title">{report.type}</h5>
-                <h5 className="card-title">{report.problem}</h5>
-                <h5 className="card-title">{report.place}</h5>
-                <h5 className="card-title">{report.time}</h5>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h5 className="card-title">{report.reporterDetails.fullName}</h5>
+                <h5 className="card-title">{report.reportDetails.details}</h5>
+                <h5 className="card-title">{report.location.place}</h5>
+                <h5 className="card-title">{report.reportDetails.time.date}</h5>
+                <h5 className="card-title">{report.reportDetails.time.hour}</h5>
                 <div className='card-body-btn-container'>
-                    <Modal report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
-                        <div dir='rtl'>סטאטוס:</div>
-                        <div className='modal-img'>
-                            <div className='modal-img-container'>
-                                <img className='modal-img-container-image' src={report.reportDetails.picture} alt="image" />
+                    <Modal addOverflow={true} className='animalModal' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
+                        <div dir='rtl'>סטאטוס: {report.status}</div>
+                        <div className='animalModal-img'>
+                            <div className='animalModal-img-container'>
+                                <img className='animalModal-img-container-image' src={report.reportDetails.picture.url} alt="image" />
                                 {/* <Image cloudName="diggwedxe" publicId={user.avatar.public_id} className="img-thumbnail"/> */}
                             </div>
                         </div>
 
-                        <div dir='rtl'>תיאור: {report.reportDetails.details}</div>
                         <div dir='rtl'>שם מדווח: {report.reporterDetails.fullName}</div>
-                        <div dir='rtl'>טלפון: {report.reporterDetails.phone}</div>
+                        <div dir='rtl'>תיאור: {report.reportDetails.details}</div>
                         <div dir='rtl'>מיקום: {report.location.place}</div>
                         <div dir='rtl'>אלים: {report.dogDetails.violent}</div>
+                        <div dir='rtl'>גודל: {report.dogDetails.size}</div>
+                        <div dir='rtl'>צבע: {report.dogDetails.color}</div>
+                        <div dir='rtl'>טלפון: {report.reporterDetails.phone}</div>
+                        <span>
+                            <h5 className="card-title">{report.reportDetails.time.date}</h5>
+                            <h5 className="card-title">{report.reportDetails.time.hour}</h5>
+                        </span>
+
                     </Modal>
 
                     <div className="btn-group dropup">
@@ -42,17 +72,16 @@ function AnimalCard({ report }) {
                             </div>
                         </button>
                         <ul className="dropdown-menu" dir='rtl'>
-                            <li><a className="dropdown-item" dir='rtl' onClick={() => SetPetStatus("לא נמצא")}>לא נמצא</a></li>
-                            <li><a className="dropdown-item" dir='rtl' onClick={() => SetPetStatus("טופל בשטח ושוחרר")}>טופל בשטח ושוחרר</a></li>
-                            <li><a className="dropdown-item" dir='rtl' onClick={() => SetPetStatus("טופל בשטח והועבר לוטרינריה")}>טופל בשטח והועבר לוטרינריה</a></li>
-                            <li><a className="dropdown-item" dir='rtl' onClick={() => SetPetStatus("הועבר לוטרינירה")}>הועבר לוטרינריה</a></li>
-                            <li><a className="dropdown-item" dir='rtl' onClick={() => SetPetStatus("החיה נמצאה מתה בשטח")}>החיה נמצאה מתה בשטח</a></li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><a className="dropdown-item deteleReport" dir='rtl' onClick={() => SetPetStatus("מחיקת דיווח")}>מחיקת דיווח</a></li>
+                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("לא נמצא", report)}>לא נמצא</a></li>
+                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("טופל בשטח ושוחרר", report)}>טופל בשטח ושוחרר</a></li>
+                            {/* <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("טופל בשטח והועבר לוטרינריה", report)}>טופל בשטח והועבר לוטרינריה</a></li> */}
+                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("הועבר לוטרינירה", report)}>הועבר לוטרינריה</a></li>
+                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("החיה נמצאה מתה בשטח", report)}>החיה נמצאה מתה בשטח</a></li>
+                            {/* <li><hr className="dropdown-divider" /></li> */}
+                            <li><a className="dropdown-item deteleReport " dir='rtl' onClick={() => deleteStatus("מחיקת דיווח", report)}>מחיקת דיווח</a></li>
                         </ul>
                     </div>
                 </div>
-
             </div>
         </div >
     );

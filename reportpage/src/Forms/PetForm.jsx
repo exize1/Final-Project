@@ -21,7 +21,7 @@ const PetForm = ({ }) => {
     const schema = Yup.object().shape({
         fullName: Yup.string()
             .required("נא להכניס שם מלא"),
-        email: Yup.string().email(),
+        // email: Yup.string().email(),
         phone: Yup.string()
             .required("נא להכניס מספר פלאפון")
             .min(10, "Phone number should containe 10 numbers exactly")
@@ -143,7 +143,7 @@ const PetForm = ({ }) => {
                             // extraDetails: "",
                         }}
                         onSubmit={(values) => handleSubmition(values)}
-                        validationSchema={schema}
+                        // validationSchema={schema}
                     >
                         {({
                             handleSubmit,
@@ -170,8 +170,8 @@ const PetForm = ({ }) => {
                                         </div>
                                         <div className="form-floating col-sm">
                                             <input name="email" type="email" className="form-control" id="floatingInput" placeholder="כתובת אי-מייל" onChange={handleChange} value={values.email} onBlur={handleBlur} />
-                                            <label dir='rtl' for="floatingInput" className="form-label" >כתובת אי-מייל*</label>
-                                            <p className="error-message">{errors.email && touched.email && errors.email}</p>
+                                            <label dir='rtl' for="floatingInput" className="form-label" >כתובת אי-מייל</label>
+                                            {/* <p className="error-message">{errors.email && touched.email && errors.email}</p> */}
                                         </div>
                                         <div className="form-floating col-sm">
                                             <input name="phone" type="text" className="form-control" id="floatingInput" placeholder="מספר נייד" onChange={handleChange} value={values.phone} onBlur={handleBlur} />
@@ -280,8 +280,8 @@ const PetForm = ({ }) => {
                                         <br></br>
                                         <div className='must-asterisk' dir='rtl'>שדות חובה מסומנים ב*</div>
                                     </div>}
-                                <button onClick={() => setSuccess(!success)}>הצלחה</button>
-                                <button onClick={() => serFail(!fail)}>כשלון</button>
+                                {/* <button onClick={() => setSuccess(!success)}>הצלחה</button>
+                                <button onClick={() => serFail(!fail)}>כשלון</button> */}
                             </form>
                         )}
                     </Formik>

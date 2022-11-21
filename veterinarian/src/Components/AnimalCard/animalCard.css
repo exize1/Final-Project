@@ -1,20 +1,25 @@
+.animalCard {
+  height: 23rem;
+  width: 16rem;
+}
+
 .pet-card-img {
   max-height: 200px;
   min-height: 200px;
   object-fit: cover;
 }
 
-.modal-img {
+.animalModal-img {
   display: flex;
   justify-content: center;
 }
-.modal-img-container {
+.animalModal-img-container {
   max-width: 300px;
   min-width: 300px;
   border-radius: 15px;
 }
 
-.modal-img-container-image {
+.animalModal-img-container-image {
   border-radius: 15px;
   object-fit: cover;
   max-height: 200px;

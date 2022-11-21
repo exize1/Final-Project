@@ -13,6 +13,7 @@ const handleError = require("../utils/eventErrors")
 const Report = require('../models/reports')
 const cloudinary = require('../utils/cloudinary')
 const DogHandler = require('../models/DogHandler')
+const Volunteering = require('../models/Volunteering')
 
 
 router.get('/dogs/', ( req, res, next ) => {
@@ -78,29 +79,31 @@ router.get('/dogRequests/', ( req, res, next ) => {
 })
 
 router.post('/dogRequests/', (req, res, next) =>{
-    req.body.fullName && req.body.email  && req.body.phone &&  req.body.gender  && req.body.age && req.body.size ?
-    DogRequest.find( {size: req.body.size} )
+
+    req.body.fullName && req.body.email  && req.body.phone &&  req.body.details.gender  && req.body.details.age && req.body.details.size ?
+    DogRequest.find( {isInDB: false} )
     .then((datas) => {
         let isAlreadtRequested = false
         datas.map(dogReq => {
-            if (req.body.gender === dogReq.gender &&
-                req.body.age === dogReq.age &&
+            if (req.body.details.gender === dogReq.details.gender &&
+                req.body.details.age === dogReq.details.age &&
+                req.body.details.size === dogReq.details.size &&
                 req.body.email === dogReq.email &&
                 req.body.phone === dogReq.phone ){
-
-                isAlreadtRequested = true
+                  isAlreadtRequested = true
             }
-        })
-        isAlreadtRequested ? res.json({
-            error: true,
-            message: 'נראה שהנתונים שלך כבר במערכת שלנו'
         }) 
-        :                 
-        DogRequest.create(req.body)
-        .then((data) => {
-            res.json(data)
-        })
-        .catch(next)
+        isAlreadtRequested ?
+        res.json({
+          error: true,
+          message: 'נראה שהנתונים שלך כבר במערכת שלנו'
+      }) :
+      DogRequest.create(req.body)
+      .then((data) => {
+          res.json(data)
+      })
+      .catch(err => res.json(err))
+
     }).catch(next)
     :
     res.json({
@@ -455,4 +458,57 @@ router.patch('/assigmnents/:id',(req,res,next)=>{
   )
   .catch(next)
 })
+
+router.get('/volunteering',(req,res,next)=>{
+  Volunteering.find({})
+  .then((data) => res.json(data))
+  .catch(next)
+}) 
+
+router.post('/volunteering', async (req,res,next) => {
+
+  const {  titleName, description, activityHours, contactNum} = req.body;
+
+      const addVolunteering = {
+        titleName, 
+        description, 
+        activityHours,
+        contactNum,
+      } 
+      Volunteering.create(addVolunteering)
+      .then(() =>{ 
+        res.json({
+          "error" : true,
+          "alertType": "success",
+          "message": "ההתנדבות התקבלה בהצלחה"
+        })
+      }).catch(err =>{
+        res.json({
+          "error" : true,
+          "alertType": "danger",
+          "message": "לא היה ניתן לשלוח את ההתנדבות",
+          "m":err
+
+        })
+      })
+    })
+    router.delete('/volunteering/:id', ( req,res,next) => {
+      console.log("delete");
+      Volunteering.findOneAndDelete({_id: req.params.id })
+          .then((data) => res.json(data))
+          .catch(next)
+  })
+
+  router.put('/volunteering/:id',(req,res,next)=>{
+    const id = req.params.id
+    const updates = {}
+    const status = req.body.status
+    if(status) updates.status = req.body.status
+  
+      Volunteering.findOneAndUpdate({_id: id }, { $set: updates }, { new: true })
+        .then((data) => res.json(data))
+        .catch(next)
+    })
+
+
 module.exports = router

@@ -14,18 +14,38 @@ const DogRequestSchema = mongoose.Schema({
         type : String,
         required : true
     },
-    gender: {
+    isInDB: {
+        type : Boolean,
+        default : true
+    },
+    dogId: {
         type : String,
-        required : true 
-    }, 
-    age: {
+    },
+    details: {
+        gender: {
+            type : String,
+            required : true 
+        }, 
+        age: {
+            type : String,
+            required : true
+        }, 
+        size: {
+            type : String,
+            required : true
+        }, 
+    },
+    addedMessage: {
         type : String,
+    },
+    dates: {
+        type : Object,
         required : true
-    }, 
-    size: {
-        type : String,
-        required : true
-    }, 
+    },
+    newReq:{
+        type : Boolean,
+        default : true
+    }
 })
 
 const DogRequest = mongoose.model('dogRequest', DogRequestSchema)

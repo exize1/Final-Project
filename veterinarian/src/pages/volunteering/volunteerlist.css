@@ -42,3 +42,15 @@
 .hours{
     margin-top: 10vh;
 }
+
+.delete-btn{
+    font-weight: 700;
+    height: -moz-fit-content;
+    height: fit-content;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    width: fit-content;
+    width: fit-content;
+    text-decoration: underline;
+}

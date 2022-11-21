@@ -11,10 +11,10 @@ import "./Components/calendar//style/global.scss"
 import AddEvents from "./Components/calendar/AddEvents";
 import UpdateEvent from "./Components/calendar/UpdateEvent";
 import DogPage from './pages/DogPage/DogPage';
-import { publicRequest } from './requestMethods';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectDog, updateDogData } from './Redux/slicer/DogSlice';
-import { getAssignments, getDogs, getUsers } from './utils/apiCalls';
+import { selectDog } from './Redux/slicer/DogSlice';
+import { getAssignments, getDogRequests, getDogs, getUsers, getVolunteers } from './utils/apiCalls';
+
 import io from 'socket.io-client'
 import ReportsPannel from './pages/Reports/ReportsPanel';
 import VolunteerPannel from './pages/volunteering/VolunteerPannel';
@@ -29,18 +29,17 @@ export const socket = io.connect("http://localhost:3001")
 function App() {
   const [room,setRoom]=useState("1")
   const user = useSelector(selectUser)
-  const [pannel, setPannel] = useState("")
   useEffect(()=>{
-
+    getVolunteers(dispatch);
     getDogs(dispatch)
     getAssignments(dispatch)
     getUsers(dispatch)
+    getDogRequests(dispatch)
     
-   
-      if (room!=="") {
-        socket.emit("join_room","1")
-        console.log("connected");
-      }
+    if (room!=="") {
+      socket.emit("join_room","1")
+      console.log("connected");
+    }
       
 },[])
 const dispatch = useDispatch()
@@ -49,7 +48,7 @@ const dogs = useSelector(selectDog)
   return (
     <div className="App">
       {user.loggedIn ? <>
-        <NewNavbar setPannel={setPannel}/>
+        <NewNavbar/>
 
           <div className='padding-all-components'>
             <Routes>
@@ -77,7 +76,7 @@ const dogs = useSelector(selectDog)
         </div>
         </>
       : <>
-        <NewNavbar setPannel={setPannel}/>
+        <NewNavbar/>
 
           <div className='padding-all-components'>
             <Routes>

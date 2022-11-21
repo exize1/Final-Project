@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import emailjs from '@emailjs/browser';
 import { useState, useRef } from 'react';
 import Alert from '../alert/Alert';
-
+import axios from 'axios'
 
 const NewDogModal = ({dog}) => {
     const schema = Yup.object().shape({
@@ -23,8 +23,42 @@ const NewDogModal = ({dog}) => {
 
     const [open, setOpen] = useState(false)
     const [alert, setAlert] = useState(false)
+    const [error, setError] = useState(false)
     const [disableButton, setDisableButton] = useState(false)
+    const [message, setMessage] = useState("")
+    const {REACT_APP_SERVER_URL} = process.env;
 
+    const sendData = (fullName, userEmail, phone, addedMessage) => {
+        const currentDate = new Date()
+        const data = { 
+            fullName: fullName,
+            email: userEmail,
+            phone: phone,
+            details:{
+                gender: dog.details.gender, 
+                age: dog.details.age, 
+                size: dog.details.size 
+            },
+            isInDB: true,
+            dogId: dog._id,
+            addedMessage: addedMessage,
+            dates: {
+                date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
+                hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
+            }
+        };
+          axios
+            .post(`${REACT_APP_SERVER_URL}/api/dogRequests`, data)
+            .then((res) => {
+                console.log(res.data);
+                setMessage(res.data.message)
+                setError(res.data.error)
+                setAlert(true)
+                setDisableButton(true)
+                sendEmail()
+            })
+            .catch((err) => console.log(err));
+      };
     const form = useRef();
     const sendEmail = () => {
         emailjs.sendForm('service_fexworp', 'template_qyvn527', form.current, 'a-l6-BOufBazyXFlh')
@@ -35,13 +69,12 @@ const NewDogModal = ({dog}) => {
         });
     };
 
-    const handleSubmition = () => {
-      setAlert(true)
-      setDisableButton(true)
-      setTimeout(() => {
-        setAlert(false);
-        setDisableButton(false)
-      }, 2000);
+    const handleSubmition = (values) => {
+        sendData(values.fullName, values.email, values.phone, values.addedMessage)
+        setTimeout(() => {
+            setAlert(false);
+            setDisableButton(false)
+        }, 2000);
   }
 
     const handleOpen = () => {
@@ -69,10 +102,10 @@ const NewDogModal = ({dog}) => {
                     <div className='add-overflow'>
                         <div className='modal-body-container'>
                             <div className='modal-dog-img-container'>
-                                <img  className='modal-dog-img' src={dog.src} alt="" />
+                                <img  className='modal-dog-img' src={dog.details.src} alt="" />
                             </div>
-                            <p className='right-to-left'>{dog.description}</p>
-                            <h3 className='right-to-left'>רוצים לאמץ את {dog.dogName} ?</h3>
+                            <p className='right-to-left'>{dog.details.description}</p>
+                            <h3 className='right-to-left'>רוצים לאמץ את {dog.details.dogName} ?</h3>
                             <p className='right-to-left'>מלאו את פרטיכם או התקשרו *4955</p>
                             <p className='right-to-left'>*אימוץ מתבצע על ידי בן משפחה בן 18 פלוס</p>
                             <Formik
@@ -81,9 +114,9 @@ const NewDogModal = ({dog}) => {
                                     email: "",
                                     phone: "",
                                 }}
-                                onSubmit={() => {
+                                onSubmit={(values) => {
                                     sendEmail()
-                                    handleSubmition()
+                                    handleSubmition(values)
                                 }}
                                 validationSchema={schema}
                             >
@@ -114,8 +147,8 @@ const NewDogModal = ({dog}) => {
                                         <p className="error-message">{errors.phone && touched.phone && errors.phone}</p>
                                     </div>
                                     <div className="form-floating mb-3 right-to-left">
-                                        <textarea type="email" className="form-control" id="floatingInput" placeholder="הודעה אישית*"/>
-                                        <label for="floatingInput">הודעה אישית*</label>
+                                        <textarea name="addedMessage" className="form-control" id="floatingInput" onChange={handleChange} value={values.addedMessage} placeholder="הודעה אישית"/>
+                                        <label for="floatingInput">הודעה אישית</label>
                                     </div>
                                     <button type="submit" disabled={disableButton} className="btn btn-primary right-to-left mb-4">שליחה</button>
                                     <Alert alertType={"success"} alert={alert}>תודה שבחרתם לאמץ, נחזור אליכם בהקדם!</Alert>
