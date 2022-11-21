@@ -25,7 +25,7 @@ const NewVolunteering = ({dog}) => {
     const duplicateArr = (counter) => {
         const arr = []
         for (let index = 0; index < counter; index++) {
-            arr[index] = "x" ;
+            arr[index] = counter ;
         }
         setAddedActivityHours(arr)
         console.log(arr);
