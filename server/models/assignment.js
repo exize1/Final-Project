@@ -28,12 +28,15 @@ const AssignmentSchema = mongoose.Schema({
     },
     WhoComplited: {
         type : String,
-        required : true
     },
     dogNumber: {
         type : String,
         required : true
     },
+    isNewAssignment : {
+        type : Boolean,
+        default : true
+    }
     
 })
 

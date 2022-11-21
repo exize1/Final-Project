@@ -464,7 +464,6 @@ router.post('/assigmnents', async (req, res, next) => {
     complited,
     dogNumber,
     WhoComplited: ""
-
   }
   Assigmnent.create(report)
     .then(() => {
@@ -483,6 +482,20 @@ router.post('/assigmnents', async (req, res, next) => {
 
 
 })
+
+router.put('/oldassigmnents/:id', (req, res, next) => {
+  const id = req.params.id
+  Assigmnent.find({ dogHandlerID: id })
+  .then( data => {
+    data.map(assignment => {
+      Assigmnent.findOneAndUpdate({ _id: assignment._id }, { $set: {isNewAssignment: false} }, { new: true })
+        .then((data) => console.log(data))
+        .catch(next)
+    })
+    res.json("done")
+  })
+})
+
 
 router.patch('/assigmnents/:id', (req, res, next) => {
   const id = req.params.id

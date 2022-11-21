@@ -81,8 +81,8 @@ const dogs = useSelector(selectDog)
 
           <div className='padding-all-components'>
             <Routes>
-            <Route path='/' element={<Dashboard/>} />
                   <Route path='/*' element={<Login/>} />
+            {/* <Route path='/' element={<Dashboard/>} />
                   <Route path='/login' element={<Login/>} />
                   <Route path='/register' element={<RegisterInspector/>} />
         
@@ -100,7 +100,7 @@ const dogs = useSelector(selectDog)
                   <Route path="/volunteering" element={<VolunteerPannel/>}/>
                   <Route path="/reports" element={<ReportsPannel/>}/>
                   <Route path="/register" element={<RegisterInspector/>}/>
-                  <Route path="/assignments" element={<Assignments/>}/>
+                  <Route path="/assignments" element={<Assignments/>}/> */}
             </Routes>
           </div>
       </>

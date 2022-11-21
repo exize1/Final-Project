@@ -17,8 +17,27 @@
     flex-direction: row;
     align-items: center;
     position: absolute;
+    /* justify-content: space-between; */
     right: 0%;
     top: 13%;
+    /* width: 100%; */
+}
+
+.assignment-alert-container{
+    display: flex;
+    /* justify-content: flex-end; */
+    /* width: 50%; */
+}
+
+
+.assignment-alert{
+    width: 100%;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.logo-title-container{
+    display: flex;
 }
 
 .logo{
@@ -138,3 +157,5 @@
 .assighments-container{
 
 }
+
+
