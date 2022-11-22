@@ -15,7 +15,6 @@ const cloudinary = require('../utils/cloudinary')
 const DogHandler = require('../models/DogHandler')
 const Volunteering = require('../models/Volunteering')
 
-
 router.get('/dogs/', (req, res, next) => {
   Dog.find({})
     .then((data) => res.json(data))
@@ -34,18 +33,21 @@ router.post('/dogs/', async (req, res, next) => {
       dates,
     }
     Dog.create(dog)
-      .then(() => {
-        res.json({
-          "error": false,
-          "message": "תיק כלב נוצר בהצלחה"
-        })
-        // DogRequest.find( {size: data.size} )
-        // .then((datas) => {
-        //     datas.map(dog => {
-        //         data.gender === dog.gender &&
-        //         data.age === dog.age && res.json(dog) && console.log(dog)
-        //     })
-        // }).catch(next)
+      .then((data) => {
+        // res.json({
+        //   "error": false,
+        //   "message": "תיק כלב נוצר בהצלחה"
+        // })
+        DogRequest.find( {isInDB: false} )
+        .then((datas) => {
+            datas.map(dogReq => {
+                data.details.size === dogReq.details.size &&
+                data.details.gender === dogReq.details.gender && 
+                data.details.age === dogReq.details.age && console.log(dogReq);
+
+
+            })
+        }).catch(next)
       }).catch(err => {
         res.json({
           "error": true,
