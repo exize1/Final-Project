@@ -10,9 +10,9 @@ const NewTreatment = ({dog}) => {
 
     // let windoWidth = window.innerWidth;
 
-    const [alert] = useState(true)
-    const [alertType] = useState("")
-    const [alertMessage] = useState("")
+    const [alert, setAlert] = useState(true)
+    const [alertType,setAlertType] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
     const [vaccine, setVaccine] = useState(false)
     const [treatment, setTreatment] = useState("")
     const [inheritedOpen, setInheritedOpen] = useState(false)
