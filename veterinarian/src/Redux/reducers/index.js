@@ -11,6 +11,7 @@ import  AssignmentsReducer  from "../slicer/Assignments"
 import  usersReducer  from "../slicer/Users"
 import VolunteerReducer from "../slicer/VolunteerSlice";
 import AdoptionReducer from "../slicer/DogReqSlice";
+import ReportReducer from "../slicer/ReportsSlice";
 
 
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     dogRequests: AdoptionReducer,
     users: usersReducer,
     dogs: DogReducer,
+    reports: ReportReducer,
     volunteer: VolunteerReducer,
     events: EventsReducer,
     modalStatus: modalReducer,

@@ -1,37 +1,37 @@
-.lostForm-footer-container {
+.petform-footer-container {
   background-color: #dbe0ed;
 
   /* display: flex;
   flex-direction: row;
-  background-color: brown;
-  background: brown; /* fallback for old browsers */
-  /* background: -webkit-linear-gradient(
-    to right,
-    brown,
-    brown  */
+  background-color: wheat; */
+  /* background: wheat; fallback for old browsers */
+  /* background: -webkit-linear-gradient( */
+  /* to right,
+    wheat,
+    wheat */
   /* ); Chrome 10-25, Safari 5.1-6 */
-  /* background: linear-gradient(
-    to right,
-    brown,
-    brown
-  ); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: linear-gradient( */
+  /* to right,
+    wheat,
+    wheat */
+  /* ); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   /* width: 100vw; */
 }
 
 .footer-container-without-mt {
   display: flex;
   flex-direction: row;
-  background-color: #6fa1ea;
-  background: #56ccf2; /* fallback for old browsers */
+  background-color: wheat;
+  background: wheat; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #2f80ed,
-    #56ccf2
+    wheat,
+    wheat
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to right,
-    #2f80ed,
-    #56ccf2
+    wheat,
+    wheat
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   width: 100vw;
   height: 87vh;
@@ -66,9 +66,22 @@
 
 .input-title-container p {
   color: grey;
-  text-align: right;
 }
 
 .must-asterisk {
   color: red;
+}
+
+.radio-btns-container p {
+  color: grey;
+}
+
+.form-container-page1-third-dogSize {
+  color: grey;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 250px;
+  overflow-x: hidden;
 }

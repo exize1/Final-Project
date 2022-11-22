@@ -5,6 +5,8 @@ import { useState } from 'react';
 import './newDogForm.css'
 import Alert from '../../alert/Alert';
 import { publicRequest } from '../../../requestMethods';
+import { useDispatch } from 'react-redux';
+import { getDogs } from '../../../utils/apiCalls';
 
 
 
@@ -25,17 +27,50 @@ export default function NewDogForm() {
             .required("נא להכניס את משקל הכלב"),
         dogAge: Yup.string()
             .required("נא לכניס את גיל הכלב"),
-        treatment: Yup.string()
-            .required("נא להכניס את הטיפול הניתן לכלב"),
-        // dogSize: Yup.string()
-        //     .required("נא להכניס את גודל הכלב")
     });
-    // const pet  = Yup.object().shape({
-
-    // });
 
     const handleSubmition = (values) => {
         const currentDate = new Date()
+
+        const treatment = []
+        const treatmentData = {
+            type: "אחר",
+            treatmentName: "טיפול ראשוני",
+            treatmentDate: {
+                date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
+                hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
+            },
+            description: values.treatment
+        }
+        const vaccineData = {
+            type: "חיסון",
+            treatmentName: values.vaccineName,
+            treatmentDate: {
+                date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
+                hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
+            },
+            amount: values.vaccineAmount,
+            description: values.vaccineDescription
+        }
+        const drugData = {
+            type: "תרופה",
+            treatmentName: values.drugName,
+            treatmentDate: {
+                date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
+                hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
+            },
+            amount: values.drugAmount,
+            description: values.drugDescription
+        }
+        if(values.treatment){
+            treatment.push(treatmentData)
+        }
+        if(vaccine) {
+            treatment.push(vaccineData)
+        }
+        if(drug) {
+            treatment.push(drugData)
+        }
         const value = {
             details: {
                 dogName: values.dogName,
@@ -51,9 +86,9 @@ export default function NewDogForm() {
                     date: `${currentDate.getDate()}.${currentDate.getMonth() + 1}.${currentDate.getFullYear()}`,
                     hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
                 }
-            }
+            },
+            treatment: treatment
         };
-
         createDog(value);
     }
 
@@ -78,64 +113,12 @@ export default function NewDogForm() {
     const createDog = (body) => {
         publicRequest.post(`/api/dogs/`, body)
             .then((res) => {
-                res.data && console.log(res.data);
+                res.data && getDogs(dispatch);
             })
 
     }
 
-
-    // router.post('/register', async function (req, res, next) {
-    //     const { userName, firstName, LastName, password } = req.body
-    //     const userExists = await Users.findOne({ userName });
-
-    //     if (!userExists) {
-    //         const users = {
-    //             userName,
-    //             firstName,
-    //             LastName,
-    //             password
-    //         }
-    //         Users.create(users).then(() => {
-    //             res.json({
-    //                 "error": false,
-    //                 "message": "user registered successfully"
-    //             })
-    //         }).catch(err => {
-    //             res.json({
-    //                 "error": true,
-    //                 "message": "couldn't register user",
-    //                 "m": err
-
-    //             })
-    //         })
-
-    //     } else {
-    //         res.json({
-    //             "error": true,
-    //             "message": "user already registered"
-    //         })
-    //     }
-    //     }
-
-
-    // const submit = () => {
-    //     setSubmited(true)
-    // }
-
-    // useEffect(() => {
-    //     if (submited !== false) {
-    //         postReport(value)
-    //         alert("הדיווח נשלח")
-    //     }
-    // })
-
-    // const postReport = (report) => {
-    //     Axios.post(`${process.env.REACT_APP_SECRET_NAME_url}/api/animals`, report)
-    //         .then(console.log(report))
-    // }
-
-
-    // dispatch(update(value));
+    const dispatch = useDispatch()
     return (
         <div className='petform-footer-container'>
             <div className='form-contact-container'>
@@ -162,12 +145,12 @@ export default function NewDogForm() {
                             touched,
                         }) => (
                             <form dir='rtl' onSubmit={handleSubmit} noValidate>
-                                <Alert alertType={"success"} alert={success}>
+                                {/* <Alert alertType={"success"} alert={success}>
                                     הטופס נשלח הצלחה
                                 </Alert>
-                                <Alert alertType={"danger"} alert={fail}>
+                                <Alert alertType={"danger"} alert={fail} >
                                     שגיאה בשליחת הטופס
-                                </Alert>
+                                </Alert> */}
                                 <div className='form-container-page1'>
                                     <div className='form-container-page1-first row'>
                                         <div className="form-floating col-sm">
@@ -197,22 +180,26 @@ export default function NewDogForm() {
                                         <p className="error-message">{errors.treatment && touched.treatment && errors.treatment}</p>
                                     </div>
                                     <div className='form-container-page1-third row mt-4 mb-4 ms-4' >
-                                        <div className='form-container-page1-third-checkbox-drug col-sm-2'>
-                                            <p dir='rtl'>קיבל תרופה?</p>
-                                            <input class="form-check-input mt-0 " type="checkbox" value="" aria-label="Checkbox for following text input" onClick={() => setDrug(!drug)} />
+                                        <div className='checkbox-container col-sm-6 ps-0'>
+                                            <input className="form-check-input mt-0 " type="checkbox" value="" aria-label="Checkbox for following text input" onClick={() => setDrug(!drug)} />
+                                            <p dir='rtl' className='mb-1 me-1 opened-input'>קיבל תרופה?</p>
+                                            <input name="drugName" type="text" className="form-control " placeholder="שם תרופה" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!drug} />
                                         </div>
-                                        <div className='form-container-page1-third-checkbox-drug col-sm-3'>
-                                            <input type="text" class="form-control input-sm" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" hidden={!drug} />
+                                        <div className='checkbox-container col-sm-6 ps-0'>
+                                            <input className="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" onClick={() => setVaccine(!vaccine)} />
+                                            <p dir='rtl' className='mb-1 me-1 opened-input'>קיבל חיסון?</p>
+                                            <input name="vaccineName" type="text" id="floatingInput" className="form-control " placeholder="שם חיסון" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!vaccine} />
                                         </div>
-
-                                        <div className='form-container-page1-third-checkbox-vaccine col-sm-2'>
-                                            <p dir='rtl'>קיבל חיסון?</p>
-                                            <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" onClick={() => setVaccine(!vaccine)} />
+                                    </div>
+                                    <div className='form-container-page1-third row mt-4 mb-4 ms-4' >
+                                        <div className='checkbox-container col-sm-6 ps-0'>
+                                            <input name="drugAmount" type="text" className="form-control ms-3" placeholder="כמות" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!drug} />
+                                            <input name="drugDescription" type="text" className="form-control " placeholder="פירוט" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!drug} />
                                         </div>
-                                        <div className='form-container-page1-third-checkbox-drug col-sm-3' >
-                                            <input type="text" class="form-control input-sm" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" hidden={!vaccine} />
+                                        <div className='checkbox-container col-sm-6 ps-0'>
+                                            <input name="vaccineAmount" type="text" className="form-control ms-3" placeholder="כמות" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!vaccine} />
+                                            <input name="vaccineDescription" type="text" className="form-control " placeholder="פירוט" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!vaccine} />
                                         </div>
-
                                     </div>
                                     <div className='form-container-page1-fourth row'>
                                         <div className="dropdown col-sm">
@@ -228,18 +215,6 @@ export default function NewDogForm() {
                                                 </ul>
                                             </div>
                                         </div>
-                                        {/* <div className="form-floating col-sm">
-                                            <input name="gender" type="text" className="form-control" id="floatingInput" placeholder="מין החיה" onChange={handleChange} value={values.gender} onBlur={handleBlur} />
-                                            <label dir='rtl' for="floatingInput" className="form-label">מין החיה*</label>
-                                            <p className="error-message">{errors.gender && touched.gender && errors.gender}</p>
-                                        </div> */}
-
-                                        {/* <div className="form-floating col-sm">
-                                    <input name="dogSize" type="text" className="form-control" id="floatingInput" placeholder="גודל הכלב" onChange={handleChange} value={values.dogSize} onBlur={handleBlur} />
-                                    <label dir='rtl' for="floatingInput" className="form-label">גודל הכלב*</label>
-                                    <p className="error-message">{errors.dogSize && touched.dogSize && errors.dogSize}</p>
-                                </div> */}
-
                                         <div className="dropdown col-sm">
                                             <div className="input-group mb-3 me-5">
                                                 <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSize ? dogSize : "גודל הכלב"}</button>
@@ -250,7 +225,6 @@ export default function NewDogForm() {
                                                     <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
                                                     <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני/ת")}>{"בינוני/ת"}</a></li>
                                                     <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול/ה")}>{"גדול/ה"}</a></li>
-                                                    {/* how to catch the value of the the dropdown? should we use yup?*/}
                                                 </ul>
                                             </div>
                                         </div>
@@ -258,13 +232,11 @@ export default function NewDogForm() {
                                     </div>
                                     <div className='form-container-page1-fifth row'>
                                         <div className="input-group mb-3 col-sm-3 ">
-                                            <p dir='rtl'>העלאתתמונה</p>
-                                            {/* <label dir='rtl' className="input-group-text" for="inputGroupFile01">בחרו קובץ</label> */}
                                             <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
                                                 // onSelectfile(e)
                                                 handleProductImageUpload(e)
                                             }}
-                                                // value={values.picture} 
+                                                value={values.picture} 
                                                 onBlur={handleBlur}
                                             />
                                         </div>

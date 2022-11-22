@@ -66,7 +66,7 @@ const dispatch = useDispatch()
                                 <li><a class="dropdown-item" dir='rtl' >בחר/י סוג טיפול...</a></li>
                                 <li><hr class="dropdown-divider" /></li>
 
-                                <li><a className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("תרופתי", true )}}>{"תרופתי"}</a></li>
+                                <li><a className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("תרופה", true )}}>{"תרופה"}</a></li>
                                 <li><a className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("חיסון", true)}}>{"חיסון"}</a></li>
                                 <li><a className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("אחר")}}>{"אחר"}</a></li>
                             </ul>

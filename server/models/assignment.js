@@ -34,6 +34,10 @@ const AssignmentSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    isNewAssignment : {
+        type : Boolean,
+        default : true
+    }
     
 })
 

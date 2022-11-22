@@ -1,7 +1,5 @@
 import "./volunteerlist.css"
 import hand from './handlogo.png'
-import { useEffect, useState } from "react"
-import { getVolunteers } from "../../utils/apiCalls"
 import { useDispatch, useSelector } from 'react-redux';
 import { selectVolunteer } from "../../Redux/slicer/VolunteerSlice";
 import {MdDeleteForever} from 'react-icons/md'
@@ -9,10 +7,6 @@ import {deleteVolunteer} from '../../utils/apiCalls'
 
 
 const Volunteering = () => {
-
-// useEffect(()=> {
-//     getVolunteers(dispatch)
-// }, [])]
 
     const dispatch = useDispatch()
     const volunteerings = useSelector(selectVolunteer)
@@ -35,13 +29,28 @@ const Volunteering = () => {
                                         <p className="volunteering-descriptopn">{item.description}</p>
                                     </div>
                                 </div>
-                                <button onClick={()=> deleteVolunteer(dispatch,item)} className="delete-btn"> <MdDeleteForever size={"40px"} color={"tomato"}/>  מחיקת התנדבות מהמאגר</button>
-                                <div className="hours">
-                                    <p>ימי פעילות:</p>
-                                    <p>{item.activityHours.fromDayToDay.map(item => <p>{item[0]+"-"+item[1]}</p>)}</p>
-                                    <p>{item.activityHours.fromHourToHour.map(item => <p>{item[0]+"-"+item[1]}</p>)}</p>
-                                    <p >{item.contactNum}</p>
-                                    
+                                <div className="hours-activity-container">
+                                    <div className="hours">
+                                        <div className="delete-btn-container">
+                                            <p className="mb-1">ימי פעילות:</p>
+                                            <button onClick={()=> deleteVolunteer(dispatch,item)} className="delete-btn"> <MdDeleteForever className="delete-icon" /></button>
+                                        </div>
+                                        {item.activityHours.fromDayToDay.map((day, i) => {
+                                            if (day[1]) return (
+                                                <div className="hours-and-days">
+                                                    <p className="mb-1 ms-4">{`${day[0]} - ${day[1]}`}</p>
+                                                    {item.activityHours.fromHourToHour.map((hour, index) => <p className="mb-1">{index === i && `${hour[0]}-${hour[1]}`}</p>)}
+                                                </div>
+                                                )
+                                            else return (
+                                                <div className="hours-and-days">
+                                                    <p className="mb-1 ms-4">{day[0]}</p>
+                                                    {item.activityHours.fromHourToHour.map((hour, index) => <p className="mb-1">{index === i && `${hour[0]}-${hour[1]}`}</p>)}
+                                                </div>
+                                            )
+                                        })}
+                                        <p >{item.contactNum}</p>
+                                    </div>
                                 </div>
                             </div>
                         </ul>
