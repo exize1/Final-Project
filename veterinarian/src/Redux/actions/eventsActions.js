@@ -2,6 +2,7 @@
 import { event } from "../Axios/event"
 import * as moment from "moment"
 import { addError, removeError } from "./errorsAction"
+import { useNavigate } from "react-router-dom"
 export const showEvent = (event)=>{
     console.log("event to be shown on the modal: ", event)
     return{
@@ -96,7 +97,8 @@ const addEvent = (newEvent)=>{
 
 
 export const addEventApi = (values) => async dispatch =>{
-    await event.post("/calendar", {
+    console.log(values);
+    const result = await event.post("/calendar", {
          title: values.title,
          start: values.start,
          end: values.end,
@@ -141,7 +143,7 @@ export const updateEventApi = (values, id) => async dispatch =>{
             describe: values.describe
           })
          console.log(result)
-        //   const response = result.data;
+          const response = result.data;
           dispatch(removeError())
           return "response was successful";
     }catch(err){

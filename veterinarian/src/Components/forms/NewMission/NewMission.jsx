@@ -82,29 +82,18 @@ const NewMission = ({ className, }) => {
                                 return(
                                     <option key={index} value={`${user._id}`}>{user.firstName} {user.lastName}</option>
                                 )
-                            })
-                        }
-                       
-                    </select>
-                    <label className="input-group-text" htmlFor="inputGroupSelect02">    כלבן</label>
-                </div>
-                <div className="input-group">
-                    <select name="dogNumber" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.category} onBlur={handleBlur}>
-                    {dogs.map((dog, index) => {
-                            if (dog.display) return <option key={index} value={`${dog.details.chipNumber}`}>{dog.details.chipNumber} {dog.details.dogName}</option>
-                            else return null
-                    })}
-                        
-                        
-                    </select>
-                    <label className="input-group-text" htmlFor="inputGroupSelect02">בחר כלב</label>
-                </div>
-                
-                <button type="submit" className="btn btn-primary my-4">הוספה</button>
-                <div className={`alert alert-${alertType} popup-alert mb-4`} role="alert" hidden={alert}>
-                    {alertMessage}
-                </div>
-            </form>
+                            })}
+
+
+                        </select>
+                        <label className="input-group-text" htmlFor="inputGroupSelect02">בחר כלב</label>
+                    </div>
+
+                    <button type="submit" className="btn btn-primary my-4">הוספה</button>
+                    <div className={`alert alert-${alertType} popup-alert mb-4`} role="alert" hidden={alert}>
+                        {alertMessage}
+                    </div>
+                </form>
             )}
         </Formik>
     )

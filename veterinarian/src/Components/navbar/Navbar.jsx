@@ -7,14 +7,24 @@ import { HiBellAlert, HiOutlineBell } from 'react-icons/hi2'
 import { BiLogOut } from 'react-icons/bi'
 // import { publicRequest } from "../../requestMethods";
 import { updateUserData } from "../../Redux/slicer/UserSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { socket } from "../../App";
-import { selectDog } from "../../Redux/slicer/DogSlice";
 
 const NewNavbar = () =>{
 
 
-    const dogs = useSelector(selectDog)
+    const [dogs, setDogs] = useState([])
+    // useEffect(()=>{
+    //     // const getDogs = () => {
+    //     //     publicRequest.get(`/api/dogs`)
+    //     //         .then((res) => {
+    //     //             // res.data && dispatch(updateDogData(res.data))
+    //     //             res.data && setDogs(res.data)
+    //     //         })
+    //     //         .catch((err) => console.log(err));
+    //     // }
+    //     // getDogs()
+    // },[])
     const [haveNewReport, setHaveNewReport] = useState(false);
     const [counterNotfiction, setCounterNotfiction] = useState(0);
 

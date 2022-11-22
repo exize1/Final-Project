@@ -60,8 +60,7 @@ export default function AssignmentSection() {
                       <Assigment userID={user._id} assignmentID={assignment._id} complited={assignment.complited} workerName={assignment.dogHandlerName} assignment={assignment.details} dateToFinish={assignment.dateToEnd}/>
                     </div>
                   )
-                  else return null
-              }else return null
+              }
         })
         }
       </div>
