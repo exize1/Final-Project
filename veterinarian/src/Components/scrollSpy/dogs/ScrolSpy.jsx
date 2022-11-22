@@ -156,7 +156,7 @@ const ScrollSpy = ({ addOverflow }) =>{
                                 </div>            
                             </div>
                         </Link>
-                    )}}
+                    )}else return null}
                 )}
             </div>
         </div>
