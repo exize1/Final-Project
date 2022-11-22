@@ -69,7 +69,7 @@ const ReportSchema = mongoose.Schema({
    status:{
     type: String,
     required: true,
-    default: "reported"
+    default: "התקבל דיווח"
    },
 
    lost: {

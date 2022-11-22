@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import Avatar from "../../Components/avatar/Avatar"
 import GeneralBody from "../../Components/generalBody/GeneralBody"
 import Modal from "../../Components/modal/Modal"
-import { approveAdotion, deleteDog, sendForAdoptionSite } from "../../utils/apiCalls"
+import { approveAdotion, deleteDog, RemoveFromAdoption, sendForAdoptionSite } from "../../utils/apiCalls"
 import "./dogPage.css"
 import { SiDatadog } from 'react-icons/si'
 import ScrollSpyTreatment from "../../Components/scrollSpy/treatments/ScrollspyTreatment"
@@ -23,7 +23,7 @@ const DogPage = ({ dog }) => {
             
             <GeneralBody actions={[<NewTreatment dog={dog}/>, <EditDogProfile dog={dog}/>]} panelTitle="פרופיל כלב">
                 <div className="row">
-                    <div className="col-3 adoption-btn">
+                    <div className="col-4 adoption-btn">
                         {!dog.forAdopting && 
                         <Modal modalButtonName="לשלוח לאימוץ?" btnType="success" inheritedOpen={inheritedOpen} >
                             <h3><b>?האם את/ה בטוח/ה</b></h3>
@@ -37,6 +37,7 @@ const DogPage = ({ dog }) => {
                         </Modal>}
                         
                         {dog.forAdopting && !dog.adopted && 
+                        <>
                         <Modal modalButtonName="אומץ?" btnType="success" inheritedOpen={inheritedOpen}>
                             <h4 dir="rtl"><b>האם את/ה בטוח/ה שאימצו אותי?</b></h4>
                             <div className="are-you-sure-btn-container mb-5">
@@ -47,6 +48,19 @@ const DogPage = ({ dog }) => {
                                 }}>כן</button>
                             </div>
                         </Modal>
+                        <div className="ms-2">
+                            <Modal modalButtonName="להוריד מאתר אימוץ?" btnType="danger" inheritedOpen={inheritedOpen}>
+                                <h4 dir="rtl"><b>האם את/ה בטוח/ה שצריך להוריד אותי מהאתר אימוץ?</b></h4>
+                                <div className="are-you-sure-btn-container mb-5">
+                                    <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
+                                    <button className="btn btn-success px-4" onClick={() => {
+                                        RemoveFromAdoption(dispatch, dog)
+                                        setInheritedOpen(!inheritedOpen)
+                                    }}>כן</button>
+                                </div>
+                            </Modal>
+                        </div>
+                        </>
                         }
                         { dog.adopted && 
                         <div>
