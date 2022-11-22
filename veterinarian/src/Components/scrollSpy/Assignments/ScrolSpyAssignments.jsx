@@ -17,14 +17,14 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
     const user = useSelector(selectUser)
     console.log(user);
     console.log(assignments);
-    const [type] = useState("")
+    const [type, setType] = useState("")
     // const [openCompite, setOpenCompite] = useState(false)
     const [inheritedOpen, setInheritedOpen] = useState(false)
     // const [assignmentSelectedId, setassignmentSelectedId] = useState("")
 
     // const [genderKey, setGenderKey] = useState("")
-    const [ setAdoptedrKey] = useState("")
-    const [ setForAdoptingKey] = useState("")
+    const [adoptedKey, setAdoptedrKey] = useState("")
+    const [forAdoptingKey setForAdoptingKey] = useState("")
     const dispatch = useDispatch()
     const filtered = (filterKey) => {
         return(
