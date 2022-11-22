@@ -25,6 +25,8 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
     // const [genderKey, setGenderKey] = useState("")
     const [adoptedKey, setAdoptedrKey] = useState("")
     const [forAdoptingKey, setForAdoptingKey] = useState("")
+    const [complitedOpen, setComplitedOpen] = useState(false)
+    const [complitedOpenId, setComplitedOpenId] = useState("")
     const dispatch = useDispatch()
     const filtered = (filterKey) => {
         return(
@@ -160,7 +162,17 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                                     <p className="bid-details" id={assignment.complited}>
                                         {
                                         assignment.complited ? 
-                                        <AiOutlineCheck style={{color: "green"}}/> 
+                                        <div>
+                                            <AiOutlineCheck style={{color: "green"}} onClick={()=>
+                                                {setComplitedOpen(true)
+                                                 setComplitedOpenId(assignment._id)
+                                                }}/>
+                                            {
+                                        complitedOpen && assignment._id===complitedOpenId?
+                                        <div>בוצע ע"י: {assignment.WhoComplited}</div>
+                                        :console.log() 
+                                            }
+                                        </div>
                                         : 
                                         <Modal checkbox={true} modalButtonName="משימה בוצעה?" inheritedOpen={inheritedOpen} >
                                                 <h3><b>?האם את/ה בטוח/ה</b></h3>
@@ -172,8 +184,9 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                                                      }}>כן</button>
                                                       </div>
                                         </Modal>
-                                     }
+                                      }
                                     </p>
+                                    
                                 </div>            
                             </div>
                         )

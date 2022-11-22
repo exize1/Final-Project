@@ -33,7 +33,7 @@ export const addAssignment = (newAssignment,dispatch) => {
 }
 export const finishAssignment = (dispatch, id, whoComplited) => {
     const report={
-        whoComplited:whoComplited,
+        WhoComplited:whoComplited,
         status:true
     }
     publicRequest.patch(`/api/assigmnents/${id}`,report)
