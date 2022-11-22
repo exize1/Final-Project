@@ -409,8 +409,10 @@ router.delete("/assigmnents/:id", async(req, res)=>{
 
 router.post('/assigmnents', async (req,res,next) => {
 
-  const { dogHandlerName,dogHandlerID, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
-
+  const { dogHandlerID, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
+      const User = await DogHandler.findOne({_id:dogHandlerID})
+      .then((data)=>{
+        const dogHandlerName = data.firstName
       const report = {
         dogHandlerName,
         dogHandlerID,
@@ -422,12 +424,14 @@ router.post('/assigmnents', async (req,res,next) => {
         WhoComplited:""
 
       } 
+      
       Assigmnent.create(report)
       .then(() =>{ 
         res.json({
           "error" : false,
           "message": "המשימה נשלחה בהצלחה"
         })
+        console.log(report);
       }).catch(err =>{
         res.json({
           "error" : true,
@@ -436,6 +440,8 @@ router.post('/assigmnents', async (req,res,next) => {
 
         })
       })
+      })
+     
     
    
 })
@@ -458,7 +464,19 @@ router.patch('/assigmnents/:id',(req,res,next)=>{
   )
   .catch(next)
 })
+//////delete all assignment 
+router.delete('/assigmnents', ( req,res,next) => {
+  console.log("delete");
+  Assigmnent.find({})
+      .then((data) => data.map( assigmnent => {
+        Assigmnent.findOneAndDelete({_id: assigmnent._id})
+        .then(data => console.log("delete"))
+      }))
+      .catch(next)
+})
 
+
+//////////////////
 router.get('/volunteering',(req,res,next)=>{
   Volunteering.find({})
   .then((data) => res.json(data))
