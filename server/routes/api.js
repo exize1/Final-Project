@@ -64,7 +64,20 @@ router.delete('/dogs/:id', (req, res, next) => {
     .then((data) => res.json(data))
     .catch(next)
 })
-
+router.delete('/dogs', (req, res, next) => {
+  Dog.find({})
+    .then((data) =>{
+      for (let i = 11; i < data.length; i++) {
+        Dog.findOneAndDelete({ _id: data[i]._id })
+    .then((data) => res.json(data))
+    .catch(next)
+        
+      }
+      
+    })
+    .catch(next)
+  
+})
 router.put('/dogs/:id', (req, res, next) => {
   const updates = {}
   if (req.body.forAdopting) {
@@ -265,9 +278,9 @@ router.get("/events/calendar/:id/show", async (req, res) => {
 });
 
 router.post("/events/calendar", async (req, res) => {
-
+  console.log(req.body);
   const newEvent = await new Event(req.body)
-
+  
   try {
     await newEvent.save((err, event) => {
       if (err) {
