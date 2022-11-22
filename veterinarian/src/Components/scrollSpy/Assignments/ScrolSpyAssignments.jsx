@@ -8,11 +8,7 @@ import { selectAssignments } from "../../../Redux/slicer/Assignments"
 import Modal from "../../modal/Modal"
 import { finishAssignment } from "../../../utils/apiCalls"
 import { selectUser } from "../../../Redux/slicer/UserSlice"
-
-
-
 const ScrolSpyAssignments = ({ addOverflow }) =>{
-
     const assignments = useSelector(selectAssignments)
     const user = useSelector(selectUser)
     console.log(user);
@@ -21,10 +17,11 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
     // const [openCompite, setOpenCompite] = useState(false)
     const [inheritedOpen, setInheritedOpen] = useState(false)
     // const [assignmentSelectedId, setassignmentSelectedId] = useState("")
-
     // const [genderKey, setGenderKey] = useState("")
     const [adoptedKey, setAdoptedrKey] = useState("")
     const [forAdoptingKey, setForAdoptingKey] = useState("")
+    const [complitedOpen, setComplitedOpen] = useState(false)
+    const [complitedOpenId, setComplitedOpenId] = useState("")
     const dispatch = useDispatch()
     const filtered = (filterKey) => {
         return(
@@ -135,7 +132,6 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                     </div>
                 </div>
             </div>
-
             <div dir="rtl" className="text-start list-container scrollspy-asignment bg-light px-3 mt-0" tabindex="0" >
                 {assignments.map((assignment, index) => {
                         serial -= 1
@@ -159,29 +155,39 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                                 <div className="col-1">
                                     <p className="bid-details" id={assignment.complited}>
                                         {
-                                        assignment.complited ? 
-                                        <AiOutlineCheck style={{color: "green"}}/> 
-                                        : 
-                                        <Modal checkbox={true} modalButtonName="משימה בוצעה?" inheritedOpen={inheritedOpen} >
-                                                <h3><b>?האם את/ה בטוח/ה</b></h3>
-                                               <div className="are-you-sure-btn-container mb-5">
-                                               <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
-                                                 <button className="btn btn-success px-4" onClick={() => {
-                                                 finishAssignment(dispatch,assignment._id,user._id)
-                                                 setInheritedOpen(!inheritedOpen)
-                                                     }}>כן</button>
-                                                      </div>
-                                        </Modal>
+                                        assignment.complited ?
+                                        <div>
+                                        <AiOutlineCheck style={{color: "green"}} onClick={()=>
+                                            {setComplitedOpen(true)
+                                             setComplitedOpenId(assignment._id)
+                                            }}/>
+                                        {
+                                    complitedOpen && assignment._id===complitedOpenId?
+                                    <div>בוצע ע"י: {assignment.WhoComplited}</div>
+                                    :console.log() 
+                                        }
+                                    </div>
+                                    : 
+                                    <Modal checkbox={true} modalButtonName="משימה בוצעה?" inheritedOpen={inheritedOpen} >
+                                            <h3><b>?האם את/ה בטוח/ה</b></h3>
+                                           <div className="are-you-sure-btn-container mb-5">
+                                           <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
+                                             <button className="btn btn-success px-4" onClick={() => {
+                                             finishAssignment(dispatch,assignment._id,user._id)
+                                             setInheritedOpen(!inheritedOpen)
+                                                 }}>כן</button>
+                                                  </div>
+                                    </Modal>
                                      }
-                                    </p>
-                                </div>            
-                            </div>
-                        )
-                    }
-                )}
-            </div>
-        </div>
-    )
-}
-
-export default ScrolSpyAssignments
+                                     </p>
+ 
+                                 </div>            
+                             </div>
+                         )
+                     }
+                 )}
+             </div>
+         </div>
+     )
+ }
+ export default ScrolSpyAssignments
