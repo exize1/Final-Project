@@ -24,7 +24,8 @@ function AnimalCard({ report }) {
                 <div className='card-body-btn-container'>
 
                     <Modal addOverflow={true} className='animal-modal' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
-                          <div className='card-body-btn-container-status' dir='rtl'>
+                        <div className='card-body-btn-container-status' dir='rtl'>
+
                             <h6 dir='rtl'>סטאטוס:</h6>
                             <p>{report.status}</p>
                         </div>
@@ -35,7 +36,10 @@ function AnimalCard({ report }) {
                             </div>
                         </div>
                         <div className='modal-container-details'>
-                            <div dir='rtl'>שם מדווח: {report.reporterDetails.fullName}</div>
+                            <div dir='rtl'>
+                                <h6 dir='rtl'>שם מדווח:</h6>
+                                <p>{report.reporterDetails.fullName}</p>
+                            </div>
                             <div dir='rtl'>תיאור: {report.reportDetails.details}</div>
                             <div dir='rtl'>מיקום: {report.location.place}</div>
                             <div dir='rtl'>אלים: {report.dogDetails.violent}</div>
@@ -66,7 +70,7 @@ function AnimalCard({ report }) {
                             <li><a href='#teart' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "טופל בשטח ושוחרר", report)}>טופל בשטח ושוחרר</a></li>
                             {/* <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "טופל בשטח והועבר לוטרינריה", report)}>טופל בשטח והועבר לוטרינריה</a></li> */}
                             <li><a href='#vet' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "הועבר לוטרינירה", report)}>הועבר לוטרינריה</a></li>
-                            <li><a href= '#dead'className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "החיה נמצאה מתה בשטח", report)}>החיה נמצאה מתה בשטח</a></li>
+                            <li><a href='#dead' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "החיה נמצאה מתה בשטח", report)}>החיה נמצאה מתה בשטח</a></li>
                             <li><hr className="dropdown-divider" /></li>
                             <li><a href='delete' className="dropdown-item detele-report " dir='rtl' onClick={() => deleteStatus(dispatch, "מחיקת דיווח", report)}>מחיקת דיווח</a></li>
                         </ul>

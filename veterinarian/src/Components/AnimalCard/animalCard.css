@@ -67,6 +67,76 @@
   color: red;
 }
 
+.animal-card {
+  height: 23rem;
+  width: 16rem;
+}
+
+.pet-card-img {
+  max-height: 200px;
+  min-height: 200px;
+  object-fit: cover;
+}
+
+.animal-modal-img {
+  display: flex;
+  justify-content: center;
+}
+
+.animal-modal-img-container {
+  max-width: 300px;
+  min-width: 300px;
+  border-radius: 15px;
+}
+
+.animal-modal-img-container-image {
+  border-radius: 15px;
+  object-fit: cover;
+  max-height: 200px;
+  min-height: 200px;
+  width: 100%;
+}
+
+.more-options-icon-container {
+  font-size: 1.6rem;
+  color: rgba(0, 0, 0, 0.603);
+  margin-right: 4%;
+}
+
+.popper {
+  position: absolute;
+  height: 0px;
+  font-size: 0;
+}
+
+.remove-borders:hover .popper {
+  color: white;
+  display: block;
+  position: absolute;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.911);
+  border-radius: 8px;
+  height: 30px;
+  width: max-content;
+  padding: 3px 10px 0 10px;
+  right: -150%;
+  font-size: 1rem;
+}
+
+.more-options-icon-container {
+  font-size: 1.2rem;
+}
+
+.card-body-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detele-report {
+  color: red;
+}
+
+
 .card-body-details {
   text-align: right;
 }
@@ -88,4 +158,3 @@
   display: flex;
   justify-content: center;
 }
-

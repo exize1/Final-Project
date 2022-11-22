@@ -11,17 +11,23 @@ import NewTreatment from "../../Components/forms/NewTreatment/NewTreatment"
 import EditDogProfile from "../../Components/forms/EditDogProfile/EditDogProfile"
 import { useNavigate } from "react-router-dom"
 import ScrollSpyAdoption from "../../Components/scrollSpy/AdoptionRequests/AdoptionScrollspy"
+import Alert from "../../Components/alert/Alert"
 
 const DogPage = ({ dog }) => {
     const [inheritedOpen, setInheritedOpen] = useState(false)
     const [displayTreatments, setDisplayTreatments] = useState(true)
+    const [alert, setAlert] = useState(true)
+    const [alertType, setAlertType] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
-    return(
+    return (
         <div className='general-body-container'>
-            
-            <GeneralBody actions={[<NewTreatment dog={dog}/>, <EditDogProfile dog={dog}/>]} panelTitle="פרופיל כלב">
+            <Alert alertType={alertType} alert={alert} setAlert={setAlert} >
+                {alertMessage}
+            </Alert>
+            <GeneralBody actions={[<NewTreatment dog={dog} />, <EditDogProfile dog={dog} />]} panelTitle="פרופיל כלב">
                 <div className="row">
                     <div className="col-4 adoption-btn">
                         {!dog.forAdopting && 
@@ -62,11 +68,11 @@ const DogPage = ({ dog }) => {
                         </div>
                         </>
                         }
-                        { dog.adopted && 
-                        <div>
-                            <SiDatadog className="adopted-dog-icon"/>
-                            <h5 dir="rtl" className="adopted-dog">אימצו אותי!</h5>
-                        </div> 
+                        {dog.adopted &&
+                            <div>
+                                <SiDatadog className="adopted-dog-icon" />
+                                <h5 dir="rtl" className="adopted-dog">אימצו אותי!</h5>
+                            </div>
 
                         }
                     </div>
@@ -82,16 +88,16 @@ const DogPage = ({ dog }) => {
                         </div>
                     </div>
                     <div className="col-3 dog-avatar-container">
-                        <Avatar src={dog.details.src}/>
+                        <Avatar src={dog.details.src} />
                     </div>
                 </div>
                 <div className="row">
                   
                     <div className="treatment-scrollspy-container col">
-                        {displayTreatments ? <ScrollSpyTreatment dog={dog}/> : <ScrollSpyAdoption dog={dog}/>}
+                        {displayTreatments ? <ScrollSpyTreatment dog={dog} /> : <ScrollSpyAdoption dog={dog} />}
                     </div>
                     <div className="delete-dog-button-container col-3">
-                        <div className="dog-details-container">                        
+                        <div className="dog-details-container">
                             <p className="dog-details" dir="rtl"><b> שם: </b><span>{dog.details.dogName}</span></p>
                             <p className="dog-details" dir="rtl"><b> מין: </b><span>{dog.details.gender}</span></p>
                             <p className="dog-details" dir="rtl"><b> גודל: </b><span>{dog.details.size}</span></p>
@@ -99,7 +105,7 @@ const DogPage = ({ dog }) => {
                             <p className="dog-details" dir="rtl"><b> גיל: </b><span>{dog.details.age}</span></p>
                             <p className="dog-details" dir="rtl"><b> משקל:</b><span>{dog.details.weight}</span></p>
                         </div>
-                        <Modal  modalButtonName="מחיקת פרופיל" btnType="danger" className={"delete-dog-button"} inheritedOpen={inheritedOpen}>
+                        <Modal modalButtonName="מחיקת פרופיל" btnType="danger" className={"delete-dog-button"} inheritedOpen={inheritedOpen}>
                             <h3><b>?האם את/ה בטוח/ה</b></h3>
                             <div className="are-you-sure-btn-container mb-5">
                                 <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
@@ -112,7 +118,7 @@ const DogPage = ({ dog }) => {
                         </Modal>
                     </div>
                 </div>
-                
+
             </GeneralBody>
         </div>
     )
