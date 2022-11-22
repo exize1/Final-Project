@@ -97,6 +97,7 @@ const addEvent = (newEvent)=>{
 
 
 export const addEventApi = (values) => async dispatch =>{
+    console.log(values);
     const result = await event.post("/calendar", {
          title: values.title,
          start: values.start,

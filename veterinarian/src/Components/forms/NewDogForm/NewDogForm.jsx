@@ -6,11 +6,12 @@ import './newDogForm.css'
 import Alert from '../../alert/Alert';
 import { publicRequest } from '../../../requestMethods';
 import { useDispatch } from 'react-redux';
-import { getDogs } from '../../../utils/apiCalls';
+import { addEventWhenAddDog, getDogs } from '../../../utils/apiCalls';
+import { addEventApi } from "../../../Redux/actions";
 
 
 
-export default function NewDogForm() {
+export default function NewDogForm({addEventApivs}) {
     const [dogSize, setDogSize] = useState("")
     const [dogImage, setDogImage] = useState("")
     const [dogSex, setDogSex] = useState("")
@@ -18,6 +19,9 @@ export default function NewDogForm() {
     const [vaccine, setVaccine] = useState(false)
     const [success, setSuccess] = useState(false)
     const [fail, serFail] = useState(false)
+
+    const [rerender, setRerender] = useState(false);
+
     // const [submited, setSubmited] = useState(false)
     // let windowWidth = window.innerWidth;
     const schema = Yup.object().shape({
@@ -89,9 +93,28 @@ export default function NewDogForm() {
             },
             treatment: treatment
         };
+        addNewEvent(values)
         createDog(value);
     }
+    const addNewEvent = (values) =>{
+        let date = new Date();
+        date.setDate(date.getDate() + 14);
+        
+        const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr);
+       const nowTime=`${date.getFullYear()}-${padL(date.getMonth()+1)}-${padL(date.getDate())}T${padL(date.getHours())}:${padL(date.getMinutes())}:${padL(date.getSeconds())}.000Z`
 
+
+       const endTime=`${date.getFullYear()}-${padL(date.getMonth()+1)}-${padL(date.getDate())}T${padL(date.getHours()+1)}:${padL(date.getMinutes())}:${padL(date.getSeconds())}.000Z`
+
+        const newEvent={
+            title:`${values.chipNumber} :מספר שבב  ${values.dogName}להוציא את `,
+            start:nowTime,
+            end:endTime,
+            describe:""
+        }
+        console.log(newEvent);
+        addEventWhenAddDog(dispatch,newEvent)
+    }
     const handleProductImageUpload = (e) => {
         const file = e.target.files[0]
         transformFile(file)

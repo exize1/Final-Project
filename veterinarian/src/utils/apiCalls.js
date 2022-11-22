@@ -6,6 +6,7 @@ import { updateAdoption } from "../Redux/slicer/DogReqSlice";
 import { publicRequest } from "../requestMethods";
 import { updateReportData } from "../Redux/slicer/ReportsSlice";
 
+import { addError, removeError } from "../Redux/actions/errorsAction"
 
 
 export const getDogs = (dispatch) => {
@@ -243,4 +244,38 @@ export const gotTheAlert = (dispatch, userData, setNewAssignment) => {
         res.data && getAssignments(dispatch);
         res.data && setNewAssignment(false);
     })
+}
+
+const addEvent = (newEvent)=>{
+    return{
+      type: "ADD_EVENT",
+      payload: newEvent
+    }
+}
+
+export const addEventWhenAddDog =async (dispatch,values) =>{
+    const result = await publicRequest.post("api/events/calendar", {
+        title: values.title,
+        start: values.start,
+        end: values.end,
+        describe: values.describe
+      })
+      .then(res=>{
+       
+       if(res && res.data){
+           console.log("event from the api going to the reducer: ", res.data)
+           dispatch(addEvent(res.data)) 
+           dispatch(removeError())
+           
+           return  "success";
+       }
+      })
+      .catch(res=>{
+       console.log("catch response, ", res)
+       if(res.response.data){
+           
+           console.log(res.response.data)
+           dispatch(addError(res.response.data));
+       }
+   })
 }
