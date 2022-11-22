@@ -58,7 +58,7 @@ const EditDogProfile = ({ dog }) => {
 
         value.src = dog.details.src
         value.description = dog.details.description
-        counter !== 0 && updateDogProfile(dispatch, value, dog)
+        counter !== 0 && updateDogProfile(dispatch, value, dog, setAlert, setAlertMessage, setAlertType)
         counter !== 0 && setInheritedOpen(!inheritedOpen)
 
     }
@@ -88,6 +88,9 @@ const EditDogProfile = ({ dog }) => {
                     touched,
                 }) => (
                     <form dir='rtl' onSubmit={handleSubmit} noValidate>
+                        <Alert alertType={alertType} alert={alert} setAlert={setAlert} >
+                            {alertMessage}
+                        </Alert>
                         <div className='form-container-page1'>
                             <div className='form-container-page1-first row'>
                                 <div className="form-floating col-sm">
