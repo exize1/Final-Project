@@ -126,3 +126,7 @@
 .error-message{
     color: red;
 }
+
+.btn{
+    border-color: rgb(155, 147, 147);
+}
