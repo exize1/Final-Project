@@ -2,12 +2,10 @@ import './adoption.css'
 import { useEffect, useState } from "react"
 import DogCard from "../../components/adoption/DogCard"
 import FilterSection from "../../components/adoption/FilterSection"
-import axios from 'axios'
 import dog from '../../components/home-sections/about/doglogo.png'
 import NoResoultModal from '../../components/adoption/NoResoultModal'
 
-const Adoption = () => {
-    const {REACT_APP_SERVER_URL} = process.env;
+const Adoption = ({dogs}) => {
 
     const [searchGender, setSearchGender] = useState("");
     const [searchAge, setSearchAge] = useState("");
@@ -15,11 +13,14 @@ const Adoption = () => {
 
    
 
-    const [dogs, setDogs] = useState([])
 
     const filtered = () => {
         return(
             dogs.filter((val) => {
+                if(val.forAdopting){
+                    return val;
+                }else return null
+            }).filter((val) => {
                 if(searchGender === ""){
                     return val;
                 }else if(val.gender.includes(searchGender)){
@@ -41,16 +42,7 @@ const Adoption = () => {
         )
     }
     
-    useEffect(()=>{
-        const getDogs = () => {
-            axios.get(`${REACT_APP_SERVER_URL}/api/dogs`)
-                .then((res) => {
-                    res.data && setDogs(res.data)
-                })
-                .catch((err) => console.log(err));
-        }
-        getDogs()
-    },[REACT_APP_SERVER_URL])
+
 
     return(
         <div className="adoption-container container">
