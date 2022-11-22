@@ -13,28 +13,20 @@ function AnimalCard({ report }) {
 
             <div className="card-body">
                 <div className='card-body-details'>
-                    <div className='modal-container-details-text' dir='rtl'>
-                        <p dir='rtl' className='modal-container-details-text-title'>שם מדווח: </p>
-                        <p>{report.reporterDetails.fullName}</p>
-                    </div>
-
-                    <div className='modal-container-details-text' dir='rtl'>
-                        <p dir='rtl' className='modal-container-details-text-title'>תיאור:</p>
-                        <p>{report.reportDetails.details}</p>
-                    </div>
-                    <div className='modal-container-details-text' dir='rtl'>
-                        <p dir='rtl' className='modal-container-details-text-title'>שכונה:</p>
-                        <p>{report.location.neighborhood}</p>
-                    </div>
+                    <p className="card-title" dir='rtl'>שם מדווח: {report.reporterDetails.fullName}</p>
+                    <p className="card-title" dir='rtl'>תיאור: {report.reportDetails.details}</p>
+                    <p className="card-title" dir='rtl'>מיקום:{report.location.place}</p>
                 </div>
                 <div className='card-body-datetime'>
-                    <h5 className="card-title" dir='rtl'>{report.reportDetails.time.date}</h5>
-                    <h5 className="card-title" dir='rtl'>{report.reportDetails.time.hour}</h5>
+                    <p className="card-title" dir='rtl'>{report.reportDetails.time.date}</p>
+                    <p className="card-title" dir='rtl'>{report.reportDetails.time.hour}</p>
                 </div>
                 <div className='card-body-btn-container'>
-                    <Modal addOverflow={true} className='animal-modal' dir='rtl' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
+
+                    <Modal addOverflow={true} className='animal-modal' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
                         <div className='card-body-btn-container-status' dir='rtl'>
-                            <p dir='rtl' className='card-body-btn-container-status-title'>סטאטוס:</p>
+
+                            <h6 dir='rtl'>סטאטוס:</h6>
                             <p>{report.status}</p>
                         </div>
                         <div className='animal-modal-img'>
@@ -44,50 +36,21 @@ function AnimalCard({ report }) {
                             </div>
                         </div>
                         <div className='modal-container-details'>
-                            <div className='modal-container-details-text' dir='rtl'>
-                                <p dir='rtl' className='modal-container-details-text-title'>שם מדווח:</p>
+                            <div dir='rtl'>
+                                <h6 dir='rtl'>שם מדווח:</h6>
                                 <p>{report.reporterDetails.fullName}</p>
                             </div>
-                            <div className='modal-container-details-text' dir='rtl'>
-                                <p dir='rtl' className='modal-container-details-text-title'>תיאור:</p>
-                                <p>{report.reportDetails.details}</p>
-                            </div>
-
-
-                            <div className='modal-container-details-text' dir='rtl'>
-                                <p dir='rtl' className='modal-container-details-text-title'>שכונה:</p>
-                                <p>{report.location.neighborhood}</p>
-                            </div>
-
-                            <div className='modal-container-details-text' dir='rtl'>
-                                <p dir='rtl' className='modal-container-details-text-title'>רחוב:</p>
-                                <p>{report.location.street}</p>
-                            </div>
-
-                            <div className='modal-container-details-text' dir='rtl'>
-                                <p dir='rtl' className='modal-container-details-text-title'>אלים:</p>
-                                <p>{report.dogDetails.violent}</p>
-                            </div>
-
-                            <div className='modal-container-details-text' dir='rtl'>
-                                <p dir='rtl' className='modal-container-details-text-title'>גודל:</p>
-                                <p>{report.dogDetails.size}</p>
-                            </div>
-
-                            <div className='modal-container-details-text' dir='rtl'>
-                                <p dir='rtl' className='modal-container-details-text-title'>צבע:</p>
-                                <p>{report.dogDetails.color}</p>
-                            </div>
-
-                            <div className='modal-container-details-text' dir='rtl'>
-                                <p dir='rtl' className='modal-container-details-text-title'>טלפון:</p>
-                                <p>{report.reporterDetails.phone}</p>
-                            </div>
+                            <div dir='rtl'>תיאור: {report.reportDetails.details}</div>
+                            <div dir='rtl'>מיקום: {report.location.place}</div>
+                            <div dir='rtl'>אלים: {report.dogDetails.violent}</div>
+                            <div dir='rtl'>גודל: {report.dogDetails.size}</div>
+                            <div dir='rtl'>צבע: {report.dogDetails.color}</div>
+                            <div dir='rtl'>טלפון: {report.reporterDetails.phone}</div>
                         </div>
                         <br></br>
                         <div className='modal-container-datetime'>
-                            <h5 className="card-title">{report.reportDetails.time.date}</h5>
-                            <h5 className="card-title">{report.reportDetails.time.hour}</h5>
+                            <p className="card-title">{report.reportDetails.time.date}</p>
+                            <p className="card-title">{report.reportDetails.time.hour}</p>
                         </div>
 
 

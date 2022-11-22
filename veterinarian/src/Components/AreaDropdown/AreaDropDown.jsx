@@ -1,8 +1,7 @@
 // import { useState } from 'react'
 import './areaDropdown.css'
 import neighborhoods from './Area.js';
-
-function AreaDropdown({ setFilterKey, filterKey }) {
+function AreaDropdown({setFilterKey, filterKey}) {
   // const [filteredList, setFilteredList] = useState(neighborhoods);
   // const filterBySearch = (e) => {
   //   const query = e.target.value;
