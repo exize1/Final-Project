@@ -2,7 +2,7 @@ import Modal from '../modal/Modal';
 import NewDogForm from '../forms/NewDogForm/NewDogForm';
 import NewMission from '../forms/NewMission/NewMission';
 import "./allPagesBtns.css"  
-import AddEvents from '../calendar/AddEvents';
+// import AddEvents from '../calendar/AddEvents';
 
 const AllPagesBtns = ( ) => {
  return(
@@ -15,7 +15,7 @@ const AllPagesBtns = ( ) => {
     </div>
     <div className='new-dog'>
         <Modal addOverflow={true} modalButtonName={"כלב חדש "}  className="add-new-dog-btn" footer={true} size="large" title="הוספת כלב חדש למאגר העירוני">
-            <NewDogForm></NewDogForm>
+            <NewDogForm/>
         </Modal>
     </div>
 

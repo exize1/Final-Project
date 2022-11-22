@@ -3,21 +3,26 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from 'react';
 import './newDogForm.css'
-import Alert from '../../alert/Alert';
+// import Alert from '../../alert/Alert';
 import { publicRequest } from '../../../requestMethods';
 import { useDispatch } from 'react-redux';
-import { getDogs } from '../../../utils/apiCalls';
+import { addEventWhenAddDog, getDogs } from '../../../utils/apiCalls';
+import { addEventApi } from "../../../Redux/actions";
 
 
 
-export default function NewDogForm() {
+export default function NewDogForm({addEventApivs}) {
     const [dogSize, setDogSize] = useState("")
     const [dogImage, setDogImage] = useState("")
     const [dogSex, setDogSex] = useState("")
+    const [dogAge, setDogAge] = useState("")
     const [drug, setDrug] = useState(false)
     const [vaccine, setVaccine] = useState(false)
     const [success, setSuccess] = useState(false)
     const [fail, serFail] = useState(false)
+
+    const [rerender, setRerender] = useState(false);
+
     // const [submited, setSubmited] = useState(false)
     // let windowWidth = window.innerWidth;
     const schema = Yup.object().shape({
@@ -25,8 +30,6 @@ export default function NewDogForm() {
             .required("נא להכניס את שם הכלב"),
         dogWeight: Yup.string()
             .required("נא להכניס את משקל הכלב"),
-        dogAge: Yup.string()
-            .required("נא לכניס את גיל הכלב"),
     });
 
     const handleSubmition = (values) => {
@@ -75,7 +78,7 @@ export default function NewDogForm() {
             details: {
                 dogName: values.dogName,
                 weight: values.dogWeight,
-                age: values.dogAge,
+                age: dogAge,
                 gender: dogSex,
                 size: dogSize,
                 chipNumber: values.chipNumber,
@@ -89,9 +92,28 @@ export default function NewDogForm() {
             },
             treatment: treatment
         };
+        addNewEvent(values)
         createDog(value);
     }
+    const addNewEvent = (values) =>{
+        let date = new Date();
+        date.setDate(date.getDate() + 14);
+        
+        const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr);
+       const nowTime=`${date.getFullYear()}-${padL(date.getMonth()+1)}-${padL(date.getDate())}T${padL(date.getHours())}:${padL(date.getMinutes())}:${padL(date.getSeconds())}.000Z`
 
+
+       const endTime=`${date.getFullYear()}-${padL(date.getMonth()+1)}-${padL(date.getDate())}T${padL(date.getHours()+1)}:${padL(date.getMinutes())}:${padL(date.getSeconds())}.000Z`
+
+        const newEvent={
+            title:`${values.chipNumber} :מספר שבב  ${values.dogName}להוציא את `,
+            start:nowTime,
+            end:endTime,
+            describe:""
+        }
+        console.log(newEvent);
+        addEventWhenAddDog(dispatch,newEvent)
+    }
     const handleProductImageUpload = (e) => {
         const file = e.target.files[0]
         transformFile(file)
@@ -127,7 +149,6 @@ export default function NewDogForm() {
                         initialValues={{
                             dogName: "",
                             dogWeight: "",
-                            dogAge: "",
                             gender: "",
                             treatment: "",
                             dogSize: "",
@@ -168,11 +189,6 @@ export default function NewDogForm() {
                                             <label dir='rtl' for="floatingInput" className="form-label" >משקל הכלב*</label>
                                             <p className="error-message">{errors.dogWeight && touched.dogWeight && errors.dogWeight}</p>
                                         </div>
-                                        <div className="form-floating col-sm">
-                                            <input name="dogAge" type="text" className="form-control" id="floatingInput" placeholder="גיל הכלב" onChange={handleChange} value={values.dogAge} onBlur={handleBlur} />
-                                            <label dir='rtl' for="floatingInput" className="form-label"> גיל הכלב*</label>
-                                            <p className="error-message">{errors.dogAge && touched.dogAge && errors.dogAge}</p>
-                                        </div>
                                     </div>
                                     <div className="form-floating">
                                         <textarea name='treatment' className="form-control" id="floatingInput" rows="3" placeholder="טיפול שניתן לכלב" onChange={handleChange} value={values.treatment} onBlur={handleBlur}></textarea>
@@ -206,11 +222,11 @@ export default function NewDogForm() {
                                             <div className="input-group mb-3 me-5">
                                                 <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSex ? dogSex : "מין החיה"}</button>
                                                 <ul className="dropdown-menu scrollable-menu">
-                                                    <li><a class="dropdown-item" dir='rtl' >בחר/י מין...</a></li>
+                                                    <li><a href='sex' class="dropdown-item" dir='rtl' >בחר/י מין...</a></li>
                                                     <li><hr class="dropdown-divider" /></li>
 
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSex("זכר")}>{"זכר"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSex("נקבה")}>{"נקבה"}</a></li>
+                                                    <li><a href='male' className="dropdown-item" dir='rtl' onClick={() => setDogSex("זכר")}>{"זכר"}</a></li>
+                                                    <li><a href='female' className="dropdown-item" dir='rtl' onClick={() => setDogSex("נקבה")}>{"נקבה"}</a></li>
                                                     {/* how to catch the value of the the dropdown? should we use yup?*/}
                                                 </ul>
                                             </div>
@@ -219,12 +235,24 @@ export default function NewDogForm() {
                                             <div className="input-group mb-3 me-5">
                                                 <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSize ? dogSize : "גודל הכלב"}</button>
                                                 <ul className="dropdown-menu scrollable-menu">
-                                                    <li><a class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
+                                                    <li><a href='size' class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
                                                     <li><hr class="dropdown-divider" /></li>
 
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני/ת")}>{"בינוני/ת"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול/ה")}>{"גדול/ה"}</a></li>
+                                                    <li><a href="small "className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
+                                                    <li><a href='medium' className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני/ת")}>{"בינוני/ת"}</a></li>
+                                                    <li><a href='large' className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול/ה")}>{"גדול/ה"}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div className="dropdown col-sm">
+                                            <div className="input-group mb-3 me-5">
+                                                <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogAge ? dogAge : "גיל הכלב"}</button>
+                                                <ul className="dropdown-menu scrollable-menu">
+                                                    <li><a class="dropdown-item" dir='rtl' >בחר/י גיל...</a></li>
+                                                    <li><hr class="dropdown-divider" /></li>
+
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogAge("מעל שנה")}>{"מעל שנה"}</a></li>
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogAge("עד שנה")}>{"עד שנה"}</a></li>
                                                 </ul>
                                             </div>
                                         </div>

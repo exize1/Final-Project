@@ -4,6 +4,7 @@
     /* background-color: #3140a3d3; */
     box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
     position: fixed;
+    background-color: #6ba2c6d3;
     z-index: 100;
     flex-wrap: wrap;
 }
@@ -13,7 +14,7 @@
     justify-content: space-between;
     flex-direction: row-reverse;
     width: 100%;
-    margin: 0 2%;
+    margin: 0 2%
     /* color: white; */
 }
 

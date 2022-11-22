@@ -1,4 +1,4 @@
-import Assignments, { updateAssignments } from "../Redux/slicer/Assignments";
+import  { updateAssignments } from "../Redux/slicer/Assignments";
 import { updateDogData } from "../Redux/slicer/DogSlice";
 import { updateUsers } from "../Redux/slicer/Users";
 import { updateVolunteerData } from "../Redux/slicer/VolunteerSlice";
@@ -6,6 +6,7 @@ import { updateAdoption } from "../Redux/slicer/DogReqSlice";
 import { publicRequest } from "../requestMethods";
 import { updateReportData } from "../Redux/slicer/ReportsSlice";
 
+import { addError, removeError } from "../Redux/actions/errorsAction"
 
 
 export const getDogs = (dispatch) => {
@@ -30,6 +31,12 @@ export const addAssignment = (newAssignment, setAlert, setAlertMessage, setAlert
             res.data && setAlert(res.data.error)
             res.data && setAlertMessage(res.data.message)
             res.data && setAlertType(res.data.alertType)
+            res.data && getAssignments(dispatch);
+
+export const addAssignment = (newAssignment,dispatch) => {
+    publicRequest.post(`/api/assigmnents`,newAssignment)
+        .then((res) => {
+            res.data && getAssignments(dispatch);
         })
         .catch((err) => console.log(err));
 }
@@ -94,7 +101,28 @@ export const approveAdotion = (dispatch, dog) => {
 
 }
 
-export const updateDogProfile = (dispatch, value, dog, setAlert, setAlertMessage, setAlertType) => {
+
+export const RemoveFromAdoption = (dispatch, dog) => {
+    const updates = {
+        removeFromAdoption: true,
+        forAdopting: false,
+        dates: {
+            initialDate: dog.dates.initialDate,
+            addForAdoptingDate: {
+                date: "",
+                hour: ""
+            },
+            AdoptedDate: dog.dates.AdoptedDate
+        }
+    }
+    publicRequest.put(`/api/dogs/${dog._id}`, updates)
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getDogs(dispatch);
+        })
+}
+
+export const updateDogProfile = (dispatch, value, dog) => {
     const updates = {}
 
     if (Object.values(value).length !== 0) updates.details = value
@@ -236,8 +264,42 @@ export const deleteStatus = (dispatch, value, report) => {
 
 export const gotTheAlert = (dispatch, userData, setNewAssignment) => {
     publicRequest.put(`/api/oldassigmnents/${userData._id}`)
-        .then((res) => {
-            res.data && getAssignments(dispatch);
-            res.data && setNewAssignment(false);
-        })
+    .then((res) => {
+        res.data && getAssignments(dispatch);
+        res.data && setNewAssignment(false);
+    })
+}
+
+const addEvent = (newEvent)=>{
+    return{
+      type: "ADD_EVENT",
+      payload: newEvent
+    }
+}
+
+export const addEventWhenAddDog =async (dispatch,values) =>{
+    const result = await publicRequest.post("api/events/calendar", {
+        title: values.title,
+        start: values.start,
+        end: values.end,
+        describe: values.describe
+      })
+      .then(res=>{
+       
+       if(res && res.data){
+           console.log("event from the api going to the reducer: ", res.data)
+           dispatch(addEvent(res.data)) 
+           dispatch(removeError())
+           
+           return  "success";
+       }
+      })
+      .catch(res=>{
+       console.log("catch response, ", res)
+       if(res.response.data){
+           
+           console.log(res.response.data)
+           dispatch(addError(res.response.data));
+       }
+   })
 }

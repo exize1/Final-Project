@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import Avatar from "../../Components/avatar/Avatar"
 import GeneralBody from "../../Components/generalBody/GeneralBody"
 import Modal from "../../Components/modal/Modal"
-import { approveAdotion, deleteDog, sendForAdoptionSite } from "../../utils/apiCalls"
+import { approveAdotion, deleteDog, RemoveFromAdoption, sendForAdoptionSite } from "../../utils/apiCalls"
 import "./dogPage.css"
 import { SiDatadog } from 'react-icons/si'
 import ScrollSpyTreatment from "../../Components/scrollSpy/treatments/ScrollspyTreatment"
@@ -29,30 +29,44 @@ const DogPage = ({ dog }) => {
             </Alert>
             <GeneralBody actions={[<NewTreatment dog={dog} />, <EditDogProfile dog={dog} />]} panelTitle="פרופיל כלב">
                 <div className="row">
-                    <div className="col-3 adoption-btn">
-                        {!dog.forAdopting &&
-                            <Modal modalButtonName="לשלוח לאימוץ?" btnType="success" inheritedOpen={inheritedOpen} >
-                                <h3><b>?האם את/ה בטוח/ה</b></h3>
+                    <div className="col-4 adoption-btn">
+                        {!dog.forAdopting && 
+                        <Modal modalButtonName="לשלוח לאימוץ?" btnType="success" inheritedOpen={inheritedOpen} >
+                            <h3><b>?האם את/ה בטוח/ה</b></h3>
+                            <div className="are-you-sure-btn-container mb-5">
+                                <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
+                                <button className="btn btn-success px-4" onClick={() => {
+                                    sendForAdoptionSite(dispatch, dog)
+                                    setInheritedOpen(!inheritedOpen)
+                                }}>כן</button>
+                            </div>
+                        </Modal>}
+                        
+                        {dog.forAdopting && !dog.adopted && 
+                        <>
+                        <Modal modalButtonName="אומץ?" btnType="success" inheritedOpen={inheritedOpen}>
+                            <h4 dir="rtl"><b>האם את/ה בטוח/ה שאימצו אותי?</b></h4>
+                            <div className="are-you-sure-btn-container mb-5">
+                                <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
+                                <button className="btn btn-success px-4" onClick={() => {
+                                    approveAdotion(dispatch, dog)
+                                    setInheritedOpen(!inheritedOpen)
+                                }}>כן</button>
+                            </div>
+                        </Modal>
+                        <div className="ms-2">
+                            <Modal modalButtonName="להוריד מאתר אימוץ?" btnType="danger" inheritedOpen={inheritedOpen}>
+                                <h4 dir="rtl"><b>האם את/ה בטוח/ה שצריך להוריד אותי מהאתר אימוץ?</b></h4>
                                 <div className="are-you-sure-btn-container mb-5">
                                     <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
                                     <button className="btn btn-success px-4" onClick={() => {
-                                        sendForAdoptionSite(dispatch, dog)
-                                        setInheritedOpen(!inheritedOpen)
-                                    }}>כן</button>
-                                </div>
-                            </Modal>}
-
-                        {dog.forAdopting && !dog.adopted &&
-                            <Modal modalButtonName="אומץ?" btnType="success" inheritedOpen={inheritedOpen}>
-                                <h4 dir="rtl"><b>האם את/ה בטוח/ה שאימצו אותי?</b></h4>
-                                <div className="are-you-sure-btn-container mb-5">
-                                    <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
-                                    <button className="btn btn-success px-4" onClick={() => {
-                                        approveAdotion(dispatch, dog)
+                                        RemoveFromAdoption(dispatch, dog)
                                         setInheritedOpen(!inheritedOpen)
                                     }}>כן</button>
                                 </div>
                             </Modal>
+                        </div>
+                        </>
                         }
                         {dog.adopted &&
                             <div>
@@ -63,17 +77,22 @@ const DogPage = ({ dog }) => {
                         }
                     </div>
                     <div dir="rtl" className="col dates-container">
-                        <p className="dog-details" dir="rtl"><b>תאריך פתיחת תיק: </b><span>{dog.dates.initialDate.date}</span></p>
-                        <p className="dog-details" dir="rtl"><b>תאריך העלאה לאימוץ: </b><span>{dog.dates.addForAdoptingDate ? dog.dates.addForAdoptingDate.date : "-"}</span></p>
-                        <p className="dog-details" dir="rtl"><b>תאריך אימוץ: </b><span>{dog.dates.AdoptedDate ? dog.dates.AdoptedDate.date : "-"}</span></p>
+                        <div>
+                            <p className="dog-details" dir="rtl"><b>תאריך פתיחת תיק: </b><span>{dog.dates.initialDate.date}</span></p>
+                            <p className="dog-details" dir="rtl"><b>תאריך העלאה לאימוץ: </b><span>{dog.dates.addForAdoptingDate ? dog.dates.addForAdoptingDate.date : "-"}</span></p>
+                            <p className="dog-details" dir="rtl"><b>תאריך אימוץ: </b><span>{dog.dates.AdoptedDate ? dog.dates.AdoptedDate.date : "-"}</span></p>
+                        </div>
+                        <div className="mb-1">
+                            <button onClick={() => setDisplayTreatments(true)} className={`btn btn-${displayTreatments ?  "" : "outline-"}secondary ms-2`}>טיפולים</button>
+                            <button onClick={() => setDisplayTreatments(false)} className={`btn btn-${displayTreatments ?  "outline-" : ""}secondary`}>בקשות אימוץ</button>
+                        </div>
                     </div>
                     <div className="col-3 dog-avatar-container">
                         <Avatar src={dog.details.src} />
                     </div>
                 </div>
-                <button onClick={() => setDisplayTreatments(false)} className="col-1">בקשות אימוץ</button>
-                <button onClick={() => setDisplayTreatments(true)} className="col-1">טיפולים</button>
                 <div className="row">
+                  
                     <div className="treatment-scrollspy-container col">
                         {displayTreatments ? <ScrollSpyTreatment dog={dog} /> : <ScrollSpyAdoption dog={dog} />}
                     </div>

@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useState } from "react"
-import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai"
+import { AiOutlineClose} from "react-icons/ai"
 import './modal.css'
 
 const Modal = ({ footer, dir, checkbox, title, size, addOverflow, btnType, modalButtonName, className, inheritedOpen, children,isComplites}) => {

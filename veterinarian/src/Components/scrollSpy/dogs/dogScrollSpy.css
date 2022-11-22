@@ -1,0 +1,11 @@
+.max-height{
+    max-height: 180px;
+}
+
+.scrollspy-dog-container{
+    height: 280px;
+    max-height: 280px;
+    margin-top: 0.5rem;
+    overflow: auto;  
+    scroll-behavior: smooth;
+}

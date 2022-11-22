@@ -14,10 +14,9 @@ const NewNavbar = ({setDonation}) =>{
 
     const navLinks = [
         ["volunteering", "התנדבות"], 
-        ["adoption", "אימוץ כלב"], 
-        ["", "חדשות"],
+        ["adoption", "אימוץ כלב"],
         ["", "צרו קשר"],
-        ["donation", "תרומה"]
+        
     ]
   
     return(
@@ -58,9 +57,7 @@ const NewNavbar = ({setDonation}) =>{
                 {windoWidth > 992 && 
                 <>
                 <div className="right-side">
-                    <Link to='Login'>
-                        <button className="btn login-btn me-3" >התחברות לאיזור האישי</button>
-                    </Link>
+    
                     <Link to={"/"} className="navbar-brand">
                         <img className='logoimg' src={logo} alt="logo"/> 
                     </Link>

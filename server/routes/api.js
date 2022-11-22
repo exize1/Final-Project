@@ -15,7 +15,6 @@ const cloudinary = require('../utils/cloudinary')
 const DogHandler = require('../models/DogHandler')
 const Volunteering = require('../models/Volunteering')
 
-
 router.get('/dogs/', (req, res, next) => {
   Dog.find({})
     .then((data) => res.json(data))
@@ -34,18 +33,21 @@ router.post('/dogs/', async (req, res, next) => {
       dates,
     }
     Dog.create(dog)
-      .then(() => {
-        res.json({
-          "error": false,
-          "message": "תיק כלב נוצר בהצלחה"
-        })
-        // DogRequest.find( {size: data.size} )
-        // .then((datas) => {
-        //     datas.map(dog => {
-        //         data.gender === dog.gender &&
-        //         data.age === dog.age && res.json(dog) && console.log(dog)
-        //     })
-        // }).catch(next)
+      .then((data) => {
+        // res.json({
+        //   "error": false,
+        //   "message": "תיק כלב נוצר בהצלחה"
+        // })
+        DogRequest.find( {isInDB: false} )
+        .then((datas) => {
+            datas.map(dogReq => {
+                data.details.size === dogReq.details.size &&
+                data.details.gender === dogReq.details.gender && 
+                data.details.age === dogReq.details.age && console.log(dogReq);
+
+
+            })
+        }).catch(next)
       }).catch(err => {
         res.json({
           "error": true,
@@ -64,10 +66,26 @@ router.delete('/dogs/:id', (req, res, next) => {
     .then((data) => res.json(data))
     .catch(next)
 })
-
+router.delete('/dogs', (req, res, next) => {
+  Dog.find({})
+    .then((data) =>{
+      for (let i = 11; i < data.length; i++) {
+        Dog.findOneAndDelete({ _id: data[i]._id })
+    .then((data) => res.json(data))
+    .catch(next)
+        
+      }
+      
+    })
+    .catch(next)
+  
+})
 router.put('/dogs/:id', (req, res, next) => {
   const updates = {}
   if (req.body.forAdopting) {
+    updates.forAdopting = req.body.forAdopting
+    updates.dates = req.body.dates
+  }else if(req.body.removeFromAdoption){
     updates.forAdopting = req.body.forAdopting
     updates.dates = req.body.dates
   }
@@ -300,9 +318,9 @@ router.get("/events/calendar/:id/show", async (req, res) => {
 });
 
 router.post("/events/calendar", async (req, res) => {
-
+  console.log(req.body);
   const newEvent = await new Event(req.body)
-
+  
   try {
     await newEvent.save((err, event) => {
       if (err) {
@@ -468,6 +486,7 @@ router.delete('/reports/', (req, res, next) => {
     }))
     .catch(next)
 
+
 })
 
 ///////////assigmnents
@@ -548,6 +567,7 @@ router.post('/assigmnents', async (req, res, next) => {
           "alertType": "danger"
         })
     })()
+
 })
 
 // // delete below after using it
@@ -621,6 +641,18 @@ router.patch('/assigmnents/:id', (req, res, next) => {
     )
     .catch(next)
 })
+//////delete all assignment 
+router.delete('/assigmnents', ( req,res,next) => {
+  console.log("delete");
+  Assigmnent.find({})
+      .then((data) => data.map( assigmnent => {
+        Assigmnent.findOneAndDelete({_id: assigmnent._id})
+        .then(data => console.log("delete"))
+      }))
+      .catch(next)
+})
+
+
 
 router.get('/volunteering', (req, res, next) => {
   Volunteering.find({})

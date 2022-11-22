@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
-import { selectDog } from "../../../Redux/slicer/DogSlice"
+// import { selectDog } from "../../../Redux/slicer/DogSlice"
 import "./ScrolSpyAssignments.css"
-import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai"
-import { Link } from "react-router-dom"
+import {  AiOutlineCheck } from "react-icons/ai"
+// import { Link } from "react-router-dom"
 import { useState } from "react"
 import { selectAssignments } from "../../../Redux/slicer/Assignments"
 import Modal from "../../modal/Modal"
@@ -18,11 +18,11 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
     console.log(user);
     console.log(assignments);
     const [type, setType] = useState("")
-    const [openCompite, setOpenCompite] = useState(false)
+    // const [openCompite, setOpenCompite] = useState(false)
     const [inheritedOpen, setInheritedOpen] = useState(false)
-    const [assignmentSelectedId, setassignmentSelectedId] = useState("")
+    // const [assignmentSelectedId, setassignmentSelectedId] = useState("")
 
-    const [genderKey, setGenderKey] = useState("")
+    // const [genderKey, setGenderKey] = useState("")
     const [adoptedKey, setAdoptedrKey] = useState("")
     const [forAdoptingKey, setForAdoptingKey] = useState("")
     const dispatch = useDispatch()
@@ -79,12 +79,9 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                 <h2 className="text-start">משימות לביצוע</h2>
                 <p className="mb-0 me-2">מס' משימות: {assignments.length}</p>
             </div>
-            <div className="text-end bg-light top-list-container px-2" tabIndex="0" >
-                <div dir="rtl" className="row ps-4">
-                    <div className="col">
-                        <p className="m-0">מס"ד</p>
-                    </div>    
-                    <div className="col">
+            <div className="text-end bg-light top-list-container px-3" tabIndex="0" >
+                <div dir="rtl" className="row ps-3">
+                    <div className="col-2">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false"> שם העובד</a>
                         <ul className={addOverflow ? 'dropdown-menu add-overflow' : "dropdown-menu"}>
                         {removeNameDuplicate().map((assignment, index) => {
@@ -94,7 +91,7 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                         )}
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col-2">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">מספר שיבוב</a>
                         <ul className={addOverflow ? 'dropdown-menu add-overflow' : "dropdown-menu"}>
                         {removeNameDuplicate().map((assignment, index) => {
@@ -104,7 +101,7 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                         )}
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col-2">
                     <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">תאריך</a>
                         <ul className="dropdown-menu">
                         {removeNameDuplicate().map((treatment, index) => {
@@ -114,7 +111,7 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                         )}
                         </ul>
                     </div>                      
-                    <div className="col">
+                    <div className="col-2">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">תאריך יעד</a>
                         <ul className="dropdown-menu">
                         <li><button className="dropdown-item" onClick={() => setForAdoptingKey(true)} >הכי קרוב</button></li>
@@ -123,11 +120,11 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                             <li><button className="dropdown-item" onClick={() => setForAdoptingKey("")} >הכל</button></li>
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col-2">
                         <a dir="rtl" className="nav-link " data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">פרטים </a>
                         
                     </div>
-                    <div className="col">
+                    <div className="col-1">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">בוצע </a>
                         <ul className="dropdown-menu">
                         <li><button className="dropdown-item" onClick={() => setAdoptedrKey(true)} >בוצע</button></li>
@@ -141,30 +138,25 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
 
             <div dir="rtl" className="text-start list-container scrollspy-asignment bg-light px-3 mt-0" tabindex="0" >
                 {assignments.map((assignment, index) => {
-                    // if (dog.display) {
                         serial -= 1
                         return(
-                        // <Link to={assignment._id} className="remove-underline">
                             <div className="row bid-details-container">
-                                <div className="col">
-                                    <p className="bid-details">{serial}.</p>
+                                <div className="col-2">
+                                    <p className="bid-details" id={assignment.dogHandlerName}><span className="ms-2">{serial}.</span>{assignment.dogHandlerName}</p>
                                 </div>            
-                                <div className="col">
-                                    <p className="bid-details" id={assignment.dogHandlerName}>{assignment.dogHandlerName}</p>
-                                </div>            
-                                <div className="col">
+                                <div className="col-2">
                                     <p className="bid-details" id={assignment.dogNumber}>{assignment.dogNumber}</p>
                                 </div>
-                                <div className="col">
+                                <div className="col-2">
                                     <p className="bid-details" id={assignment.dateUpload}>{assignment.dateUpload}</p>
                                 </div>            
-                                <div className="col">
+                                <div className="col-2">
                                     <p className="bid-details" id={assignment.dateToEnd}>{assignment.dateToEnd}</p>
                                 </div>            
-                                <div className="col">
+                                <div className="col-2">
                                     <p className="bid-details" id={assignment.details}>{assignment.details}</p>
                                 </div>            
-                                <div className="col">
+                                <div className="col-1">
                                     <p className="bid-details" id={assignment.complited}>
                                         {
                                         assignment.complited ? 
@@ -175,33 +167,17 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                                                <div className="are-you-sure-btn-container mb-5">
                                                <button className="btn btn-danger px-4" onClick={() => setInheritedOpen(!inheritedOpen)}>לא</button>
                                                  <button className="btn btn-success px-4" onClick={() => {
-                                                   // sendForAdoptionSite(dispatch, dog)
                                                  finishAssignment(dispatch,assignment._id,user._id)
                                                  setInheritedOpen(!inheritedOpen)
                                                      }}>כן</button>
                                                       </div>
                                         </Modal>
-                                        // <AiOutlineClose style={{color: "red"}} onClick={()=>{
-                                        //     setOpenCompite(true)
-                                        //     setassignmentSelectedId(assignment._id)
-                                        //   }}>
-                                         
-                                        //   </AiOutlineClose>
-                                          
                                      }
                                     </p>
                                 </div>            
-                                {openCompite &&assignmentSelectedId===assignment._id? 
-                                           <Modal  btnType="success" >
-                                        
-                                                     </Modal>
-                                          :
-                                               console.log()}      
                             </div>
-                        // </Link>
-                    )
-                // }
-            }
+                        )
+                    }
                 )}
             </div>
         </div>

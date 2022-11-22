@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 
 const AssignmentSchema = mongoose.Schema({
     dogHandlerName: {
-        type: String,
-        required: true
+        type : String,
+        required : false
+
     },
     dogHandlerID: {
         type: String,
@@ -28,6 +29,7 @@ const AssignmentSchema = mongoose.Schema({
     },
     WhoComplited: {
         type: String,
+
     },
     dogNumber: {
         type: String,

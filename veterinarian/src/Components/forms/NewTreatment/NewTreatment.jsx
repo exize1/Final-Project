@@ -10,8 +10,12 @@ import Alert from "../../alert/Alert";
 
 const NewTreatment = ({ dog, setAlertMessage, setAlert, setAlertType }) => {
 
-    let windoWidth = window.innerWidth;
+    // let windoWidth = window.innerWidth;
 
+
+    const [alert, setAlert] = useState(true)
+    const [alertType,setAlertType] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
     const [vaccine, setVaccine] = useState(false)
     const [treatment, setTreatment] = useState("")
     const [inheritedOpen, setInheritedOpen] = useState(false)
@@ -55,7 +59,6 @@ const NewTreatment = ({ dog, setAlertMessage, setAlert, setAlertType }) => {
                     errors,
                     touched,
                 }) => (
-
                     <form onSubmit={handleSubmit} noValidate>
                         <div className="dropdown col-sm">
                             <div className="input-group mb-3 me-5">
