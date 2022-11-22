@@ -23,10 +23,10 @@ export const getAssignments = (dispatch) => {
         .catch((err) => console.log(err));
 }
 
-export const addAssignment = (newAssignment) => {
+export const addAssignment = (newAssignment,dispatch) => {
     publicRequest.post(`/api/assigmnents`,newAssignment)
         .then((res) => {
-            res.data && console.log(res.data);
+            res.data && getAssignments(dispatch);
         })
         .catch((err) => console.log(err));
 }

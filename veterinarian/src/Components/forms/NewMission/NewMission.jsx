@@ -1,8 +1,8 @@
 import './newMission.css'
 import { Formik } from "formik";
 import { useState } from 'react';
-import { addAssignment } from '../../../utils/apiCalls';
-import { useSelector } from 'react-redux';
+import { addAssignment, getAssignments } from '../../../utils/apiCalls';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUsers } from '../../../Redux/slicer/Users';
 import { selectDog } from '../../../Redux/slicer/DogSlice';
 
@@ -17,7 +17,9 @@ const NewMission = ({className}) => {
     const [alert, setAlert] = useState(true)
     const [alertType, setAlertType] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
+    const dispatch = useDispatch()
     const handleSubmition = (values) => {
+
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -26,26 +28,27 @@ const NewMission = ({className}) => {
         
         const value = {
             dogHandlerName:values.dogHandlerName,
-            dogHandlerID:"1",
+            dogHandlerID:values.dogHandlerID,
             dateUpload:today,
             dateToEnd:values.dateToEnd,
             details:values.details,
             complited:false,
-            dogNumber:values.dogNumber
+            dogNumber:values.dogNumber,
+            
         };
-        addAssignment(value)
+        addAssignment(value,dispatch)
   }
 
     return(
         <Formik
             initialValues={{
-            dogHandlerName:"",
+            dogHandlerName:"aa",
             dogHandlerID:"",
             dateUpload:"",
             dateToEnd:"",
             details:"",
             complited:"",
-            dogNumber:""
+            dogNumber:"",
             }}
             onSubmit={(values) => {
                 handleSubmition(values)
@@ -70,13 +73,13 @@ const NewMission = ({className}) => {
                     <label htmlFor="floatingInput">תאריך סיום המשימה</label>
                 </div>
                 <div className="input-group">
-                    <select name="dogHandlerName" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.dogHandlerName} onBlur={handleBlur}>
+                    <select name="dogHandlerID" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.dogHandlerName} onBlur={handleBlur}>
                         <option defaultValue>כולם</option>
                         {
 
-                            users.map((user) => {
+                            users.map((user,index) => {
                                 return(
-                                    <option value={`${user.firstName}`}>{user.firstName} {user.lastName}</option>
+                                    <option key={index} value={`${user._id}`}>{user.firstName} {user.lastName}</option>
                                 )
                             })
                         }

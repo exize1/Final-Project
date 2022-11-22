@@ -1,0 +1,22 @@
+.complet-report{
+    height: 40px;
+    width: 100%;
+    background-color: rgba(227, 227, 227, 0.6);
+    border: 1px solid rgba(117, 117, 117, 0.199);
+    text-align: start;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+.text-report{
+   font-size:  0.55rem ;
+}
+.phone{
+   text-align: end;
+   font-size:  0.55rem ;
+   margin-left: 3px;
+}
+.withCheck{
+   display: flex;
+   justify-content: space-between;
+}
