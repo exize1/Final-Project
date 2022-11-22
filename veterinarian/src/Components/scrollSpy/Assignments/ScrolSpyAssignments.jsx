@@ -24,7 +24,7 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
 
     // const [genderKey, setGenderKey] = useState("")
     const [adoptedKey, setAdoptedrKey] = useState("")
-    const [forAdoptingKey setForAdoptingKey] = useState("")
+    const [forAdoptingKey, setForAdoptingKey] = useState("")
     const dispatch = useDispatch()
     const filtered = (filterKey) => {
         return(
