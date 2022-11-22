@@ -9,7 +9,7 @@ const ScrollSpyAdoption = ({ addOverflow, dog, displayTreatments }) =>{
 
     const dogRequests = useSelector(selectAdoption)
     // const dogs = useSelector(selectDog)
-    const [type] = useState("")
+    const [type, setType] = useState("")
     const filtered = (filterKey) => {
         return(
             dog.treatments.filter((val) => {
