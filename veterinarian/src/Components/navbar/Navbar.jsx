@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiBellAlert, HiOutlineBell } from 'react-icons/hi2'
 import { BiLogOut } from 'react-icons/bi'
-import { publicRequest } from "../../requestMethods";
+// import { publicRequest } from "../../requestMethods";
 import { updateUserData } from "../../Redux/slicer/UserSlice";
 import { useDispatch } from "react-redux";
 
 const NewNavbar = () =>{
 
-    const [dogs, setDogs] = useState([])
+    const [dogs] = useState([])
     useEffect(()=>{
         // const getDogs = () => {
         //     publicRequest.get(`/api/dogs`)

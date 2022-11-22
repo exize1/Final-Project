@@ -1,7 +1,7 @@
 import './newMission.css'
 import { Formik } from "formik";
 import { useState } from 'react';
-import { addAssignment, getAssignments } from '../../../utils/apiCalls';
+import { addAssignment } from '../../../utils/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUsers } from '../../../Redux/slicer/Users';
 import { selectDog } from '../../../Redux/slicer/DogSlice';
@@ -12,11 +12,11 @@ const NewMission = ({className}) => {
     const dogs = useSelector(selectDog)
 
     console.log(dogs);
-    let windoWidth = window.innerWidth;
+    // let windoWidth = window.innerWidth;
 
-    const [alert, setAlert] = useState(true)
-    const [alertType, setAlertType] = useState("")
-    const [alertMessage, setAlertMessage] = useState("")
+    // const [alert, setAlert] = useState(true)
+    const [alertType] = useState("")
+    const [alertMessage] = useState("")
     const dispatch = useDispatch()
     const handleSubmition = (values) => {
 

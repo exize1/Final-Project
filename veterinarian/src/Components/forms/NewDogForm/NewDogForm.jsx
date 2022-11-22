@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from 'react';
 import './newDogForm.css'
-import Alert from '../../alert/Alert';
+// import Alert from '../../alert/Alert';
 import { publicRequest } from '../../../requestMethods';
 import { useDispatch } from 'react-redux';
 import { getDogs } from '../../../utils/apiCalls';
@@ -206,11 +206,11 @@ export default function NewDogForm() {
                                             <div className="input-group mb-3 me-5">
                                                 <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSex ? dogSex : "מין החיה"}</button>
                                                 <ul className="dropdown-menu scrollable-menu">
-                                                    <li><a class="dropdown-item" dir='rtl' >בחר/י מין...</a></li>
+                                                    <li><a href='sex' class="dropdown-item" dir='rtl' >בחר/י מין...</a></li>
                                                     <li><hr class="dropdown-divider" /></li>
 
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSex("זכר")}>{"זכר"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSex("נקבה")}>{"נקבה"}</a></li>
+                                                    <li><a href='male' className="dropdown-item" dir='rtl' onClick={() => setDogSex("זכר")}>{"זכר"}</a></li>
+                                                    <li><a href='female' className="dropdown-item" dir='rtl' onClick={() => setDogSex("נקבה")}>{"נקבה"}</a></li>
                                                     {/* how to catch the value of the the dropdown? should we use yup?*/}
                                                 </ul>
                                             </div>
@@ -219,12 +219,12 @@ export default function NewDogForm() {
                                             <div className="input-group mb-3 me-5">
                                                 <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSize ? dogSize : "גודל הכלב"}</button>
                                                 <ul className="dropdown-menu scrollable-menu">
-                                                    <li><a class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
+                                                    <li><a href='size' class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
                                                     <li><hr class="dropdown-divider" /></li>
 
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני/ת")}>{"בינוני/ת"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול/ה")}>{"גדול/ה"}</a></li>
+                                                    <li><a href="small "className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
+                                                    <li><a href='medium' className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני/ת")}>{"בינוני/ת"}</a></li>
+                                                    <li><a href='large' className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול/ה")}>{"גדול/ה"}</a></li>
                                                 </ul>
                                             </div>
                                         </div>

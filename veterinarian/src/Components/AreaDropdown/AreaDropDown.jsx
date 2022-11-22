@@ -18,10 +18,10 @@ function AreaDropdown() {
         <input type="text" className="s" aria-label="Text input with dropdown button" onChange={filterBySearch} />
         <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{area ? area : "סינון לפי שכונות"}</button>
         <ul className="dropdown-menu scrollable-menu">
-          <li><a class="dropdown-item" dir='rtl' >בחר/י שכונה...</a></li>
+          <li><a href='choose-place' class="dropdown-item" dir='rtl' >בחר/י שכונה...</a></li>
           <li><hr class="dropdown-divider" /></li>
           {filteredList.map((t, index) =>
-            <li key={index}><a className="dropdown-item" dir='rtl' onClick={() => setArea(t)}>{t}</a></li>
+            <li key={index}><a href='#set' className="dropdown-item" dir='rtl' onClick={() => setArea(t)}>{t}</a></li>
           )}
         </ul>
       </div>
