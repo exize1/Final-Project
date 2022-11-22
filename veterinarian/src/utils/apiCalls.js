@@ -16,6 +16,17 @@ export const getDogs = (dispatch) => {
         })
         .catch((err) => console.log(err));
 }
+
+export const createDog = (dispatch, body, setAlert, setAlertType, setAlertMessage) => {
+    publicRequest.post(`/api/dogs/`, body)
+        .then((res) => {
+            res.data && getDogs(dispatch);
+            res.data && setAlert(res.data.error)
+            res.data && setAlertMessage(res.data.message)
+            res.data && setAlertType(res.data.alertType)
+        })
+}
+
 export const getAssignments = (dispatch) => {
     publicRequest.get(`/api/assigmnents`)
         .then((res) => {
@@ -124,7 +135,7 @@ export const updateDogProfile = (dispatch, value, dog) => {
         })
 }
 
-export const addDogTreatment = (dispatch, values, dog, treatment) => {
+export const addDogTreatment = (dispatch, values, dog, treatment, setAlertMessage, setAlert, setAlertType) => {
     const dogTreatments = dog.treatments
     const newDogTreatments = [...dogTreatments]
 
@@ -147,6 +158,9 @@ export const addDogTreatment = (dispatch, values, dog, treatment) => {
         .then((res) => {
             res.data && console.log("updated");
             res.data && getDogs(dispatch);
+            res.data && setAlert(res.data.error);
+            res.data && setAlertMessage(res.data.message);
+            res.data && setAlertType(res.data.alertType);
         })
 }
 

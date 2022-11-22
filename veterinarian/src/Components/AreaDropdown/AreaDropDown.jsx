@@ -20,7 +20,7 @@ function AreaDropdown({setFilterKey, filterKey}) {
           <li><a href='choose-place' class="dropdown-item" dir='rtl' >בחר/י שכונה...</a></li>
           <li><hr class="dropdown-divider" /></li>
           {filteredList.map((area, index) =>
-            <li key={index}><a href='#set' className="dropdown-item" dir='rtl' onClick={() => area === "הכל" ? setFilterKey("") : setFilterKey(area)}>{area}</li>
+            <li key={index}><a href='#set' className="dropdown-item" dir='rtl' onClick={() => area === "הכל" ? setFilterKey("") : setFilterKey(area)}>{area}</a></li>
 
           )}
         </ul>

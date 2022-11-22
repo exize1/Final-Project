@@ -14,8 +14,21 @@
     justify-content: space-between;
     flex-direction: row-reverse;
     width: 100%;
-    margin: 0 2%
+    padding: 0 2%
     /* color: white; */
+}
+
+@media only screen and (max-width: 500px){
+    .navbar-contianer{
+        padding: 0;
+        background-color: transparent;
+        box-shadow: 0px 0px 0px 0px transparent;
+    }
+
+    .navabr-fluid{
+        box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px;
+        background-color: #6ba2c6d3;
+    }
 }
 
 .navbar-title{
@@ -58,8 +71,9 @@
 }
 
 .navbar-nav-open{
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
+    padding-right: 0;
 }
 
 .remove-underline{
@@ -134,7 +148,8 @@
 
 .logout-icon-container{
     font-size: 1.4rem;
-    /* color: white; */
+    display: flex;
+    justify-content: flex-end;
 }
 
 .popper {
@@ -173,6 +188,13 @@
     
 }
 
+.logout-btn-open{
+    color: tomato;
+    align-self: flex-start;
+    justify-self: flex-end;
+    width: 100%;
+}
+
 .my-badge{
     background-color: rgb(247, 12, 12);
     padding: 0.1% 0.35%;
@@ -187,8 +209,76 @@
     left: 88px;
 }
 
+.emojy-btns-nav-links-container{
+    width: 100%;
+}
 
+.logout-rounded{
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50% !important;
+    margin: 10px 8px 0 0;
+    padding: 5px;
+    box-shadow: rgb(4 17 29 / 25%) 1px 1px 4px 0px;
+    animation: mymove 0.3s linear;
+}
 
+.rounded{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50% !important;
+    margin: 10px 8px 0 0;
+    box-shadow: rgb(4 17 29 / 25%) 1px 1px 4px 0px;
+    animation: rotate  0.3s ease-out;
+}
+
+@keyframes rotate {
+    from {transform: rotate(170deg);}
+    to {transform: rotate(360deg);}
+  }
+
+@keyframes mymove {
+    0% {margin-top: -10px}
+    100% {margin-top: 0px}
+  }
+
+.emoji-container{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    animation: mymove 0.3s linear;
+}
+
+.emoji{
+    font-size: 1rem;
+}
+
+.explain{
+    font-size: 0.8rem;
+    font-weight: 600;
+    height: fit-content;
+    width: 70px;
+    padding: 0 8px;
+    border-radius: 17px;
+    background-color: rgba(136, 136, 136, 0.247);
+    margin: 16px 6px 0 0;
+}
+
+.nav-btn-container{
+    display: flex;
+    align-items: center;
+}
+
+.decreas-size{
+    font-size: 0.7rem;
+    height: 75%;
+    padding: 5px;
+}
 
 
 

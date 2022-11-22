@@ -3,28 +3,29 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from 'react';
 import './newDogForm.css'
-// import Alert from '../../alert/Alert';
+import Alert from '../../alert/Alert';
 import { publicRequest } from '../../../requestMethods';
 import { useDispatch } from 'react-redux';
-import { addEventWhenAddDog, getDogs } from '../../../utils/apiCalls';
+import { addEventWhenAddDog, createDog, getDogs } from '../../../utils/apiCalls';
 import { addEventApi } from "../../../Redux/actions";
 
 
 
-export default function NewDogForm({addEventApivs}) {
+export default function NewDogForm() {
     const [dogSize, setDogSize] = useState("")
     const [dogImage, setDogImage] = useState("")
     const [dogSex, setDogSex] = useState("")
     const [dogAge, setDogAge] = useState("")
     const [drug, setDrug] = useState(false)
+
     const [vaccine, setVaccine] = useState(false)
-    const [success, setSuccess] = useState(false)
-    const [fail, serFail] = useState(false)
+
+    const [alert, setAlert] = useState(false)
+    const [alertType, setAlertType] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
 
     const [rerender, setRerender] = useState(false);
 
-    // const [submited, setSubmited] = useState(false)
-    // let windowWidth = window.innerWidth;
     const schema = Yup.object().shape({
         dogName: Yup.string()
             .required("נא להכניס את שם הכלב"),
@@ -93,7 +94,7 @@ export default function NewDogForm({addEventApivs}) {
             treatment: treatment
         };
         addNewEvent(values)
-        createDog(value);
+        createDog(dispatch, value, setAlert, setAlertType, setAlertMessage);
     }
     const addNewEvent = (values) =>{
         let date = new Date();
@@ -114,6 +115,7 @@ export default function NewDogForm({addEventApivs}) {
         console.log(newEvent);
         addEventWhenAddDog(dispatch,newEvent)
     }
+
     const handleProductImageUpload = (e) => {
         const file = e.target.files[0]
         transformFile(file)
@@ -132,13 +134,7 @@ export default function NewDogForm({addEventApivs}) {
         }
     }
 
-    const createDog = (body) => {
-        publicRequest.post(`/api/dogs/`, body)
-            .then((res) => {
-                res.data && getDogs(dispatch);
-            })
 
-    }
 
     const dispatch = useDispatch()
     return (
@@ -257,27 +253,25 @@ export default function NewDogForm({addEventApivs}) {
                                             </div>
                                         </div>
 
-                                    </div>
-                                    <div className='form-container-page1-fifth row'>
-                                        <div className="input-group mb-3 col-sm-3 ">
-                                            <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
-                                                // onSelectfile(e)
-                                                handleProductImageUpload(e)
-                                            }}
-                                                value={values.picture} 
-                                                onBlur={handleBlur}
-                                            />
-                                        </div>
-                                    </div>
-                                    <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
-                                </div>
-                                <button onClick={() => setSuccess(!success)}>הצלחה</button>
-                                <button onClick={() => serFail(!fail)}>כשלון</button>
-                            </form>
-                        )}
-                    </Formik>
-                </div>
-            </div>
-        </div >
+                        </div>
+                        <div className='form-container-page1-fifth row'>
+                            <div className="input-group mb-3 col-sm-3 ">
+                                <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
+                                    // onSelectfile(e)
+                                    handleProductImageUpload(e)
+                                }}
+                                    value={values.picture} 
+                                    onBlur={handleBlur}
+                                />
+                            </div>
+                        </div>
+                        <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
+                    </div>
+                </form>
+            )}
+        </Formik>
+        </div>
+    </div>
+</div >
     )
 }

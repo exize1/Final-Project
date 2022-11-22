@@ -11,10 +11,7 @@ const NewMission = ({className}) => {
     const users = useSelector(selectUsers)
     const dogs = useSelector(selectDog)
 
-    console.log(dogs);
-    // let windoWidth = window.innerWidth;
-
-    // const [alert, setAlert] = useState(true)
+    const [alert, setAlert] = useState(true)
     const [alertType, setAlertType] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
     const dispatch = useDispatch()
@@ -27,16 +24,15 @@ const NewMission = ({className}) => {
         today = mm + '/' + dd + '/' + yyyy;
         
         const value = {
-            dogHandlerName:values.dogHandlerName,
-            dogHandlerID:values.dogHandlerID,
-            dateUpload:today,
-            dateToEnd:values.dateToEnd,
-            details:values.details,
-            complited:false,
-            dogNumber:values.dogNumber,
+            dogHandlerID: values.dogHandlerID,
+            dateUpload: today,
+            dateToEnd: values.dateToEnd,
+            details: values.details,
+            complited: false,
+            dogNumber: values.dogNumber,
             
         };
-        addAssignment(value,dispatch)
+        addAssignment(value, dispatch, setAlert, setAlertMessage, setAlertType)
   }
 
     return(
@@ -65,19 +61,17 @@ const NewMission = ({className}) => {
 
             <form onSubmit={handleSubmit} noValidate>
                 <div className="form-floating mb-3">
-                    <input name="details" type="text"  className="form-control" id="floatingInput" placeholder="תיאור המשימה" onChange={handleChange} value={values.details}  onBlur={handleBlur}/>
+                    <input name="details" type="text" className="form-control" id="floatingInput" placeholder="תיאור המשימה" onChange={handleChange} value={values.details}  onBlur={handleBlur}/>
                     <label htmlFor="floatingInput">תיאור המשימה</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input name="dateToEnd" type="date"  className="form-control" id="floatingInput" placeholder="תאריך סיום המשימה" onChange={handleChange} value={values.dateToEnd} onBlur={handleBlur}/>
+                    <input name="dateToEnd" type="date" className="form-control" id="floatingInput" placeholder="תאריך סיום המשימה" onChange={handleChange} value={values.dateToEnd} onBlur={handleBlur}/>
                     <label htmlFor="floatingInput">תאריך סיום המשימה</label>
                 </div>
                 <div className="input-group">
-                    <select name="dogHandlerID" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.dogHandlerName} onBlur={handleBlur}>
+                    <select name="dogHandlerID" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.dogHandlerID} onBlur={handleBlur}>
                         <option defaultValue>כולם</option>
-                        {
-
-                            users.map((user,index) => {
+                        {users.map((user,index) => {
                                 return(
                                     <option key={index} value={`${user._id}`}>{user.firstName} {user.lastName}</option>
                                 )
@@ -85,7 +79,7 @@ const NewMission = ({className}) => {
                         }
                        
                     </select>
-                    <label className="input-group-text" htmlFor="inputGroupSelect02">    כלבן</label>
+                    <label className="input-group-text" htmlFor="inputGroupSelect02"> כלבן</label>
                 </div>
                 <div className="input-group">
                     <select name="dogNumber" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.category} onBlur={handleBlur}>
@@ -95,8 +89,6 @@ const NewMission = ({className}) => {
                                 <option key={index} value={`${dog.details.chipNumber}`}>{dog.details.chipNumber} {dog.details.dogName}</option>
                         )
                     })}
-                        
-                        
                     </select>
                     <label className="input-group-text" htmlFor="inputGroupSelect02">בחר כלב</label>
                 </div>
