@@ -79,18 +79,18 @@ const ScrollSpyAdoption = ({ addOverflow, dog, displayTreatments }) =>{
                 <h2 className="text-start">המאמצים העתידיים שלי</h2>
                 <p className="mb-0 me-2">מס' בקשות אימוץ: {filteredReq(dog._id).length}</p>
             </div>
-            <div className="text-end bg-light top-list-container px-2" tabIndex="0" >
-                <div dir="rtl" className="row ps-4">
-                    <div className="col">
-                        <p className="m-0">מס"ד ושם</p>
+            <div className="text-end bg-light top-list-container px-3" tabIndex="0" >
+                <div dir="rtl" className="row ps-3">
+                    <div className="col-2">
+                        <p className="m-0">שם</p>
                     </div>    
-                    <div className="col">
+                    <div className="col-5">
                         <p className="m-0">אימייל</p>
                     </div>   
-                    <div className="col">
+                    <div className="col-3">
                         <p className="m-0">פלאפון</p>
                     </div>                        
-                    <div className="col">
+                    <div className="col-2">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">תאריך</a>
                         <ul className="dropdown-menu">
                         {/* {removeDateDuplicate().map((treatment, index) => {
@@ -108,16 +108,16 @@ const ScrollSpyAdoption = ({ addOverflow, dog, displayTreatments }) =>{
                     return(
                         // <Link to={dog._id} className="remove-underline">
                             <div className="row bid-details-container">
-                                <div className="col">
+                                <div className="col-2">
                                     <p className="bid-details" id={dogReq.fullName}>{dogReqSerial}. {dogReq.fullName}</p>
                                 </div>            
-                                <div className="col">
+                                <div className="col-5">
                                     <p className="bid-details" id={dogReq.email}>{dogReq.email}</p>
                                 </div>
-                                <div className="col">
+                                <div className="col-3">
                                     <p className="bid-details" id={dogReq.phone}>{dogReq.phone}</p>
                                 </div>            
-                                <div className="col">
+                                <div className="col-2">
                                     <p className="bid-details" id={dogReq.dates && dogReq.dates.date}>{dogReq.dates && dogReq.dates.date}</p>
                                 </div>            
                             </div>
