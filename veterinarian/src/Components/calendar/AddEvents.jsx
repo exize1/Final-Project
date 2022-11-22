@@ -7,7 +7,7 @@ import { addEventApi } from "../../../src/Redux/actions";
 import { connect } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
-import { set } from "date-fns";
+// import { set } from "date-fns";
 
 //schema to validate event inputs 
 const schema = yup.object({

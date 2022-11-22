@@ -8,10 +8,10 @@ import * as Yup from "yup";
 
 const NewTreatment = ({dog}) => {
 
-    let windoWidth = window.innerWidth;
+    // let windoWidth = window.innerWidth;
 
     const [alert, setAlert] = useState(true)
-    const [alertType, setAlertType] = useState("")
+    const [alertType,setAlertType] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
     const [vaccine, setVaccine] = useState(false)
     const [treatment, setTreatment] = useState("")
@@ -63,12 +63,12 @@ const dispatch = useDispatch()
                         <div className="input-group mb-3 me-5">
                             <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{treatment ? treatment : "סוג טיפול"}</button>
                             <ul className="dropdown-menu scrollable-menu">
-                                <li><a class="dropdown-item" dir='rtl' >בחר/י סוג טיפול...</a></li>
+                                <li><a href="choose-treatment" class="dropdown-item" dir='rtl' >בחר/י סוג טיפול...</a></li>
                                 <li><hr class="dropdown-divider" /></li>
 
-                                <li><a className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("תרופה", true )}}>{"תרופה"}</a></li>
-                                <li><a className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("חיסון", true)}}>{"חיסון"}</a></li>
-                                <li><a className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("אחר")}}>{"אחר"}</a></li>
+                                <li><a href="drag" className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("תרופה", true )}}>{"תרופה"}</a></li>
+                                <li><a href="vaccine" className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("חיסון", true)}}>{"חיסון"}</a></li>
+                                <li><a  href =" other"className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("אחר")}}>{"אחר"}</a></li>
                             </ul>
                         </div>
                     </div>

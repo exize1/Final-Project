@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { selectDog } from "../../../Redux/slicer/DogSlice"
+// import { selectDog } from "../../../Redux/slicer/DogSlice"
 import { useState } from "react"
 import { selectAdoption } from "../../../Redux/slicer/DogReqSlice"
 
@@ -8,7 +8,7 @@ import { selectAdoption } from "../../../Redux/slicer/DogReqSlice"
 const ScrollSpyAdoption = ({ addOverflow, dog, displayTreatments }) =>{
 
     const dogRequests = useSelector(selectAdoption)
-    const dogs = useSelector(selectDog)
+    // const dogs = useSelector(selectDog)
     const [type, setType] = useState("")
     const filtered = (filterKey) => {
         return(
@@ -71,7 +71,7 @@ const ScrollSpyAdoption = ({ addOverflow, dog, displayTreatments }) =>{
             return treatmentsWithoutDup
     }
 
-    let serial = dog.treatments.length + 1
+    // let serial = dog.treatments.length + 1
     let dogReqSerial = filteredReq(dog._id).length + 1
     return( 
         <div className="">

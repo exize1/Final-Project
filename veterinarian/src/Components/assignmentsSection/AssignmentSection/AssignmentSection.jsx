@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react'
 import "./AssignmentSection.css"
 import Assigment from '../assignments/Assigment'
-import { socket } from '../../../App';
+// import { socket } from '../../../App';
 import { selectAssignments } from '../../../Redux/slicer/Assignments';
 import { selectUser } from '../../../Redux/slicer/UserSlice';
 import { useSelector } from 'react-redux';
 ////////socket
 ///////
 export default function AssignmentSection() {
-    const [reports,setReports]=useState([
+    // const [reports,setReports]=useState([
      
-        {place:"first", phone: "053-2597316", problem:"rhwtrsthsrh  srthsrhtsrth fdsd gsgs"},
-        {place:"second", phone: "053-2597316", problem:"srthbs fts thbsftns sthsth sh rsjtu"},
-        {place:"three", phone: "053-2597316", problem:"h rsthsrthsrhrt s herhttrh"},
-        {place:"four", phone: "053-2597316", problem:"rsth srths hsrt srh tsrth ty j "},
-        {place:"five", phone: "053-2597316", problem:"h wrhr whw rhw  wrhtr hwthwj rthwr "}
-    ]);
+    //     {place:"first", phone: "053-2597316", problem:"rhwtrsthsrh  srthsrhtsrth fdsd gsgs"},
+    //     {place:"second", phone: "053-2597316", problem:"srthbs fts thbsftns sthsth sh rsjtu"},
+    //     {place:"three", phone: "053-2597316", problem:"h rsthsrthsrhrt s herhttrh"},
+    //     {place:"four", phone: "053-2597316", problem:"rsth srths hsrt srh tsrth ty j "},
+    //     {place:"five", phone: "053-2597316", problem:"h wrhr whw rhw  wrhtr hwthwj rthwr "}
+    // ]);
     const assignments = useSelector(selectAssignments)
     console.log(assignments);
     const user = useSelector(selectUser)
-    const [reverReport,setReversReport]=useState([]);
+    // const [reverReport,setReversReport]=useState([]);
     ////////////socket
   
-  const [messageRecived,setMessageRecived]=useState("")
+  // const [messageRecived,setMessageRecived]=useState("")
   // const sendM =(message, room)=>{
   //   socket.emit("send_msg",{message,room})
     

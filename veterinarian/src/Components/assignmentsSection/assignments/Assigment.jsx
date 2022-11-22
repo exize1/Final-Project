@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { AiOutlineCheck } from 'react-icons/ai'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectAssignments } from '../../../Redux/slicer/Assignments'
+// import { AiOutlineCheck } from 'react-icons/ai'
+import { useDispatch } from 'react-redux'
+// import { selectAssignments } from '../../../Redux/slicer/Assignments'
 import { finishAssignment } from '../../../utils/apiCalls'
 import Modal from '../../modal/Modal'
 import "./Assigment.css"
 export default function Assigment(props) {
-  const assignments = useSelector(selectAssignments)
+  // const assignments = useSelector(selectAssignments)
   const dispatch = useDispatch()
   const [inheritedOpen, setInheritedOpen] = useState(false)
 

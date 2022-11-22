@@ -1,4 +1,4 @@
-import Assignments, { updateAssignments } from "../Redux/slicer/Assignments";
+import  { updateAssignments } from "../Redux/slicer/Assignments";
 import { updateDogData } from "../Redux/slicer/DogSlice";
 import { updateUsers } from "../Redux/slicer/Users";
 import { updateVolunteerData } from "../Redux/slicer/VolunteerSlice";

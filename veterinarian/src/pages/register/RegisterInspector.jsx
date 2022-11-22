@@ -1,8 +1,8 @@
 import "./RegisterInspector.css"
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
 // import { updateUserData } from "../../redux/slicers/UserSlice";
 // import { publicRequest } from "../../requestMethods";
 import { useState } from "react";

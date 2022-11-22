@@ -7,11 +7,11 @@ import Modal from "../../modal/Modal";
 
 const EditDogProfile = ({dog}) => {
 
-    let windoWidth = window.innerWidth;
+    // let windoWidth = window.innerWidth;
 
-    const [alert, setAlert] = useState(true)
-    const [alertType, setAlertType] = useState("")
-    const [alertMessage, setAlertMessage] = useState("")
+    // const [alert, setAlert] = useState(true)
+    // const [alertType, setAlertType] = useState("")
+    // const [alertMessage, setAlertMessage] = useState("")
     const [dogSize, setDogSize] = useState("")
     const [inheritedOpen, setInheritedOpen] = useState(false)
 
@@ -127,12 +127,12 @@ const EditDogProfile = ({dog}) => {
                                     <div className="input-group mb-3 me-5">
                                         <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSize ? dogSize : "גודל הכלב"}</button>
                                         <ul className="dropdown-menu scrollable-menu">
-                                            <li><a class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
+                                            <li><a href="size" class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
                                             <li><hr class="dropdown-divider" /></li>
 
-                                            <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן")}>{"קטן"}</a></li>
-                                            <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני")}>{"בינוני"}</a></li>
-                                            <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול")}>{"גדול"}</a></li>
+                                            <li><a href="small" className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן")}>{"קטן"}</a></li>
+                                            <li><a href="medium" className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני")}>{"בינוני"}</a></li>
+                                            <li><a href="big" className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול")}>{"גדול"}</a></li>
                                             {/* how to catch the value of the the dropdown? should we use yup?*/}
                                             {/* how to set dropdown going down instead of up> */}
                                             {/* to implement the fixxed dropdonw in the 2 other forms */}

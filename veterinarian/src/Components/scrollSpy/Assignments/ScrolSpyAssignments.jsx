@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
-import { selectDog } from "../../../Redux/slicer/DogSlice"
+// import { selectDog } from "../../../Redux/slicer/DogSlice"
 import "./ScrolSpyAssignments.css"
-import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai"
-import { Link } from "react-router-dom"
+import {  AiOutlineCheck } from "react-icons/ai"
+// import { Link } from "react-router-dom"
 import { useState } from "react"
 import { selectAssignments } from "../../../Redux/slicer/Assignments"
 import Modal from "../../modal/Modal"
@@ -18,11 +18,11 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
     console.log(user);
     console.log(assignments);
     const [type, setType] = useState("")
-    const [openCompite, setOpenCompite] = useState(false)
+    // const [openCompite, setOpenCompite] = useState(false)
     const [inheritedOpen, setInheritedOpen] = useState(false)
-    const [assignmentSelectedId, setassignmentSelectedId] = useState("")
+    // const [assignmentSelectedId, setassignmentSelectedId] = useState("")
 
-    const [genderKey, setGenderKey] = useState("")
+    // const [genderKey, setGenderKey] = useState("")
     const [adoptedKey, setAdoptedrKey] = useState("")
     const [forAdoptingKey, setForAdoptingKey] = useState("")
     const dispatch = useDispatch()

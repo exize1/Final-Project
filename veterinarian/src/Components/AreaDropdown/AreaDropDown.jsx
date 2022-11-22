@@ -17,10 +17,11 @@ function AreaDropdown({setFilterKey, filterKey}) {
         {/* <input type="text" className="s" aria-label="Text input with dropdown button" onChange={filterBySearch} /> */}
         <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{filterKey ? filterKey : "סינון לפי שכונות"}</button>
         <ul className="dropdown-menu scrollable-menu">
-          <li><a class="dropdown-item" dir='rtl' >בחר/י שכונה...</a></li>
+          <li><a href='choose-place' class="dropdown-item" dir='rtl' >בחר/י שכונה...</a></li>
           <li><hr class="dropdown-divider" /></li>
           {filteredList.map((area, index) =>
-            <li key={index}><a className="dropdown-item" dir='rtl' onClick={() => area === "הכל" ? setFilterKey("") : setFilterKey(area)}>{area}</a></li>
+            <li key={index}><a href='#set' className="dropdown-item" dir='rtl' onClick={() => area === "הכל" ? setFilterKey("") : setFilterKey(area)}>{area}</li>
+
           )}
         </ul>
       </div>
