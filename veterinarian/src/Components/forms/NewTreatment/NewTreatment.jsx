@@ -8,7 +8,7 @@ import Alert from "../../alert/Alert";
 
 
 
-const NewTreatment = ({ dog, setAlertMessage, setAlert, setAlertType }) => {
+const NewTreatment = ({ dog }) => {
 
     // let windoWidth = window.innerWidth;
 
