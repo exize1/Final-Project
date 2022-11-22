@@ -1,216 +1,234 @@
-.dashboard-container{
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  /* position: fixed; */
+  background: hsla(209, 79%, 85%, 1);
+  background: linear-gradient(
+    90deg,
+    hsla(209, 79%, 85%, 1) 0%,
+    hsla(206, 70%, 96%, 1) 65%,
+    hsla(206, 70%, 96%, 1) 85%,
+    hsla(203, 100%, 97%, 1) 100%,
+    hsla(203, 100%, 97%, 1) 100%,
+    hsla(203, 100%, 97%, 1) 100%
+  );
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(209, 79%, 85%, 1) 0%,
+    hsla(206, 70%, 96%, 1) 65%,
+    hsla(206, 70%, 96%, 1) 85%,
+    hsla(203, 100%, 97%, 1) 100%,
+    hsla(203, 100%, 97%, 1) 100%,
+    hsla(203, 100%, 97%, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(209, 79%, 85%, 1) 0%,
+    hsla(206, 70%, 96%, 1) 65%,
+    hsla(206, 70%, 96%, 1) 85%,
+    hsla(203, 100%, 97%, 1) 100%,
+    hsla(203, 100%, 97%, 1) 100%,
+    hsla(203, 100%, 97%, 1) 100%
+  );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#B9D9F7", endColorstr="#EEF6FC", GradientType=1 );
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  /* justify-content: space-between; */
+  right: 0%;
+  top: 13%;
+  /* width: 100%; */
+}
+
+.assignment-alert-container {
+  display: flex;
+  /* justify-content: flex-end; */
+  /* width: 50%; */
+}
+
+.assignment-alert {
+  width: 100%;
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.logo-title-container {
+  display: flex;
+}
+
+.logo {
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Dimona_COA.svg/1200px-Dimona_COA.svg.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 9vw;
+  height: 16vh;
+}
+
+.main-title {
+  margin-right: 10px;
+  font-size: 2.7rem;
+}
+
+.hero {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 95%;
+  flex-direction: column;
+}
+
+.lines-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pannel-container {
+  margin: 5px;
+  max-width: 300px;
+  min-width: 300px;
+  overflow: hidden;
+}
+
+.pannel {
+  min-height: 150px;
+  max-height: 150px;
+  transition: transform 0.5s;
+  font-size: 1rem;
+}
+
+.pannel:hover {
+  transform: scale(1.2);
+}
+
+.teart-btn {
+  background-image: url(https://ww7.io/MxzrWK);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.dog-btn {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('http://cdn.shopify.com/s/files/1/0565/7080/6458/collections/Pug-Pattern-Dog-Wallpaper-Mural-Room.jpg?v=1660198980');
+}
+
+.report-btn {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('https://c0.wallpaperflare.com/preview/34/761/184/smartphone-call-answer-contact.jpg');
+}
+
+.tasks-btn {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('https://www.icount.co.il/wp-content/uploads/Depositphotos_43411845_l-2015-1-1.jpg');
+}
+
+.pannel-title-container {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(185, 185, 185, 0.5);
+}
+
+.pannel-title {
+  font-size: 2rem;
+}
+
+.calendar-container {
+  max-width: 350px;
+  height: fit-content;
+  background-color: bllue;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 95%;
+}
+
+.calendar {
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 320px;
+}
+
+.reports-in-realtime-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 75px;
+}
+
+@media screen and (max-width: 850px) {
+  .lines-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dashboard-container {
     display: flex;
     height: 100vh;
     align-items: center;
-    flex-direction: row-reverse;
-    justify-content: space-evenly;
-    /* position: fixed; */
-    background: hsla(209, 79%, 85%, 1);
-    background: linear-gradient(90deg, hsla(209, 79%, 85%, 1) 0%, hsla(206, 70%, 96%, 1) 65%, hsla(206, 70%, 96%, 1) 85%, hsla(203, 100%, 97%, 1) 100%, hsla(203, 100%, 97%, 1) 100%, hsla(203, 100%, 97%, 1) 100%);
-    background: -moz-linear-gradient(90deg, hsla(209, 79%, 85%, 1) 0%, hsla(206, 70%, 96%, 1) 65%, hsla(206, 70%, 96%, 1) 85%, hsla(203, 100%, 97%, 1) 100%, hsla(203, 100%, 97%, 1) 100%, hsla(203, 100%, 97%, 1) 100%);
-    background: -webkit-linear-gradient(90deg, hsla(209, 79%, 85%, 1) 0%, hsla(206, 70%, 96%, 1) 65%, hsla(206, 70%, 96%, 1) 85%, hsla(203, 100%, 97%, 1) 100%, hsla(203, 100%, 97%, 1) 100%, hsla(203, 100%, 97%, 1) 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#B9D9F7", endColorstr="#EEF6FC", GradientType=1 );
-}
+    flex-direction: column-reverse;
+    justify-content: space-around;
+  }
 
-.logo-container{
+  .reports-in-realtime-container {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding-bottom: 0vh;
+    padding-top: 5vh;
+    flex-wrap: nowrap;
+    margin-top: 20vh;
+    margin-bottom: 3vh;
+    align-items: flex-end;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
     position: absolute;
-    /* justify-content: space-between; */
-    right: 0%;
-    top: 13%;
+    justify-content: center;
+    /* right: 25%; */
+    top: 8%;
+    left: 20%;
+    /* margin-bottom: 60vh; */
     /* width: 100%; */
-}
+    flex-wrap: nowrap;
+    align-content: space-between;
+  }
 
-.assignment-alert-container{
-    display: flex;
-    /* justify-content: flex-end; */
-    /* width: 50%; */
-}
-
-
-.assignment-alert{
+  .assignment-alert {
+    margin-top: -25%;
+    margin-bottom: 20%;
     width: 100%;
     padding-right: 50px;
     padding-left: 50px;
-}
+  }
 
-.logo-title-container{
-    display: flex;
-}
-
-.logo{
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Dimona_COA.svg/1200px-Dimona_COA.svg.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 9vw;
-    height: 16vh;
-}
-
-.main-title{
-    margin-right: 10px;
-    font-size: 2.7rem;
-}
-
-.hero{
-    display: flex;
-    justify-content: flex-end; 
-    align-items: center;
-    height: 95%;
-    flex-direction: column;
-}
-
-.lines-container{
-    display: flex;
-    justify-content: space-between;
-}
-
-.pannel-container{
-    margin: 5px;
-    max-width: 300px;
-    min-width: 300px;
-    overflow: hidden;
-}
-
-.pannel{
-    min-height: 150px;
-    max-height: 150px;
-    transition: transform .5s; 
-    font-size: 1rem;
-}
-
-.pannel:hover{
-    transform: scale(1.2);
-}
-
-
-.teart-btn{
-    background-image: url(https://ww7.io/MxzrWK);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.dog-btn{
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url('http://cdn.shopify.com/s/files/1/0565/7080/6458/collections/Pug-Pattern-Dog-Wallpaper-Mural-Room.jpg?v=1660198980');
-}
-
-
-.report-btn{
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url('https://c0.wallpaperflare.com/preview/34/761/184/smartphone-call-answer-contact.jpg');
-}
-
-.tasks-btn{
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url('https://www.icount.co.il/wp-content/uploads/Depositphotos_43411845_l-2015-1-1.jpg');
-}
-
-.pannel-title-container{
-    width: 100%;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(185, 185, 185, 0.5);
-}
-
-.pannel-title{
-    font-size: 2rem;
-}
-
-.calendar-container{
-    max-width: 350px; 
-    height: fit-content;
-    background-color:bllue;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 95%;
-}
-
-.calendar{
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 320px;
-}
-
-.reports-in-realtime-container{
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
-    height: 100%;
-    padding-top: 75px;
-}
-
-.assighments-container{
-
-}
-
-@media screen and (max-width: 850px){
-    
-    .lines-container {
-        display: flex;
-        flex-direction: column;}
-
-        .dashboard-container {
-            display: flex;
-            height: 100vh;
-            align-items: center;
-            flex-direction: column-reverse;
-            justify-content: space-around;}
-
-            .reports-in-realtime-container {
-                display: flex;
-                justify-content: space-between;
-                height: 100%;
-                padding-bottom: 0vh;
-                padding-top: 5vh;
-                flex-wrap: nowrap;
-                margin-top: 20vh;
-                margin-bottom: 3vh;
-                align-items: flex-end;}
-
-            .logo-container {
-                display: flex;
-                flex-direction: column-reverse;
-                align-items: flex-start;
-                position: absolute;
-                justify-content: center;
-                /* right: 25%; */
-                top: 8%;
-                left: 20%;
-                /* margin-bottom: 60vh; */
-                /* width: 100%; */
-                flex-wrap: nowrap;
-                align-content: space-between;}
-
-                .assignment-alert {
-                    margin-top: -25%;
-                    margin-bottom: 20%;
-                    width: 100%;
-                    padding-right: 50px;
-                    padding-left: 50px;}
-
-                    
-.dashboard-container {
+  .dashboard-container {
     display: flex;
     height: fit-content;
     align-items: center;
     flex-direction: column-reverse;
-    justify-content: space-around;}
-
+    justify-content: space-around;
+  }
 }
-
-

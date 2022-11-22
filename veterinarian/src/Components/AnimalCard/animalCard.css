@@ -136,7 +136,6 @@
   color: red;
 }
 
-
 .card-body-details {
   text-align: right;
 }
@@ -172,3 +171,13 @@
   font-weight: bold;
 }
 
+@media screen and (max-width: 850px) {
+  body {
+    font-size: medium;
+  }
+
+  .animal-card {
+    height: 26rem;
+    width: 16rem;
+  }
+}

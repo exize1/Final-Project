@@ -1,74 +1,94 @@
-.explaination-contianer{
-    background-color: white;
-    direction: rtl;
+.explaination-contianer {
+  background-color: white;
+  direction: rtl;
 }
 
-.volunteering-text{
-    font-size: 130%;
-    margin: 3% 0;
-    
+.volunteering-text {
+  font-size: 130%;
+  margin: 3% 0;
 }
 
-.vulonteertitle{
-    color: #336ec3;
-    font-size: 7vh;
+.vulonteertitle {
+  color: #336ec3;
+  font-size: 7vh;
 }
 
-.hole{
-    height: 10vh;
+.hole {
+  height: 10vh;
 }
 
-.volunteering-details-container{
-    display: flex;
-    justify-content: center;
-    text-align: start;
-    flex-direction: row;
+.volunteering-details-container {
+  display: flex;
+  justify-content: center;
+  text-align: start;
+  flex-direction: row;
 }
 
-.volunteering-details{
+.volunteering-details {
+  display: flex;
+  justify-content: flex-start;
+  width: 70%;
+}
+
+.volunteering-descriptopn {
+  width: 80%;
+}
+
+.hand-logo {
+  height: 8vh;
+}
+
+.hours-activity-container {
+  width: 25%;
+}
+
+.hours {
+}
+
+.delete-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-btn {
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: underline;
+}
+
+.delete-icon {
+  font-size: 40px;
+  color: tomato;
+}
+
+.delete-btn:hover .delete-icon {
+  color: rgb(207, 74, 51);
+}
+
+.hours-and-days {
+  display: flex;
+}
+
+@media screen and (max-width: 850px) {
+  .vulonteertitle {
+    font-size: x-large;
+  }
+
+  .volunteering-details {
     display: flex;
     justify-content: flex-start;
-    width: 70%;
-}
+    width: 100%;
+  }
 
-.volunteering-descriptopn{
-    width: 80%;
-}
+  .volunteering-descriptopn {
+    width: 100%;
+  }
 
-.hand-logo{
-    height: 8vh;
-}
-
-.hours-activity-container{
-    width: 25%;
-}
-
-.hours{
-}
-
-.delete-btn-container{
+  .explaination-contianer {
     display: flex;
-    justify-content: space-between;
-}
-
-.delete-btn{
-    font-weight: 700;
-    background-color: transparent;
-    border: none;
-    display: flex;
-    justify-content: flex-end;
-    text-decoration: underline;
-}
-
-.delete-icon{
-    font-size: 40px;
-    color: tomato;
-}
-
-.delete-btn:hover .delete-icon{
-    color: rgb(207, 74, 51);
-}
-
-.hours-and-days{
-    display: flex;
+    flex-direction: column;
+  }
 }
