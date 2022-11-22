@@ -6,7 +6,7 @@ import ReportNavbar from '../reportNavbar/ReportNavbar'
 import './mainPage.css'
 
 export default function MainPage() {
-    const [petForm, setPetForm] = useState(false)
+    const [petForm, setPetForm] = useState(true)
 
     return (
 
@@ -23,13 +23,12 @@ export default function MainPage() {
                     </h1>
                 </div>
                 <div className='buttons-container'>
-
-                    <button type="button" className={petForm ? "btn btn-success" : "btn btn-outline- success"} onClick={() => setPetForm(true)} >טופס דיווח חיה משוטטת</button>
                     <button type="button" className={petForm ? "btn btn-outline-success" : "btn btn-success"} onClick={() => setPetForm(false)} >טופס דיווח חיית מחמד אבודה</button>
+                    <button type="button" className={petForm ? "btn btn-success" : "btn btn-outline- success"} onClick={() => setPetForm(true)} >טופס דיווח חיה משוטטת</button>
                 </div>
             </div>
             <div className='form-container'>
-                {petForm ? <LostForm /> : <PetForm />}
+                {petForm ? <PetForm /> : <LostForm />}
             </div>
         </div>
     )
