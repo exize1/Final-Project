@@ -90,10 +90,8 @@ const NewMission = ({className}) => {
                 <div className="input-group">
                     <select name="dogNumber" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.category} onBlur={handleBlur}>
                     {dogs.map((dog, index) => {
-                            if (dog.display) return(
-                                
-                                <option key={index} value={`${dog.details.chipNumber}`}>{dog.details.chipNumber} {dog.details.dogName}</option>
-                        )
+                            if (dog.display) return <option key={index} value={`${dog.details.chipNumber}`}>{dog.details.chipNumber} {dog.details.dogName}</option>
+                            else return null
                     })}
                         
                         

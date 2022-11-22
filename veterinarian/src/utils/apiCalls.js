@@ -254,7 +254,7 @@ const addEvent = (newEvent)=>{
 }
 
 export const addEventWhenAddDog =async (dispatch,values) =>{
-    const result = await publicRequest.post("api/events/calendar", {
+    await publicRequest.post("api/events/calendar", {
         title: values.title,
         start: values.start,
         end: values.end,

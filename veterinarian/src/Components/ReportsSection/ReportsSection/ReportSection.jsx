@@ -48,6 +48,7 @@ export default function ReportSection() {
                 <Report placeNeber={report.location?.neighborhood} placeStreet={report.location?.street} problem={report.reportDetails?.details} phone={report.reporterDetails?.phone}/>
               </div>
             )
+            else return null
         })
         }
       </div>
