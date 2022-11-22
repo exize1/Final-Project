@@ -24,7 +24,7 @@ export const getAssignments = (dispatch) => {
         .catch((err) => console.log(err));
 }
 
-export const addAssignment = (newAssignment, setAlert, setAlertMessage, setAlertType) => {
+export const addAssignment = (dispatch, newAssignment, setAlert, setAlertMessage, setAlertType) => {
     publicRequest.post(`/api/assigmnents`, newAssignment)
         .then((res) => {
             res.data && console.log(res.data);
@@ -32,14 +32,9 @@ export const addAssignment = (newAssignment, setAlert, setAlertMessage, setAlert
             res.data && setAlertMessage(res.data.message)
             res.data && setAlertType(res.data.alertType)
             res.data && getAssignments(dispatch);
-
-export const addAssignment = (newAssignment,dispatch) => {
-    publicRequest.post(`/api/assigmnents`,newAssignment)
-        .then((res) => {
-            res.data && getAssignments(dispatch);
         })
-        .catch((err) => console.log(err));
-}
+    }
+
 export const finishAssignment = (dispatch, id, whoComplited) => {
     const report = {
         whoComplited: whoComplited,
@@ -131,9 +126,6 @@ export const updateDogProfile = (dispatch, value, dog) => {
         .then((res) => {
             res.data && console.log("updated");
             res.data && getDogs(dispatch);
-            res.data && setAlert(res.data.error)
-            res.data && setAlertMessage(res.data.message)
-            res.data && setAlertType(res.data.alertType)
         })
 }
 
