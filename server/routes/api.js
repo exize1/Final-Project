@@ -70,6 +70,9 @@ router.put('/dogs/:id', (req, res, next) => {
   if (req.body.forAdopting) {
     updates.forAdopting = req.body.forAdopting
     updates.dates = req.body.dates
+  }else if(req.body.removeFromAdoption){
+    updates.forAdopting = req.body.forAdopting
+    updates.dates = req.body.dates
   }
   if (req.body.adopted) {
     updates.adopted = req.body.adopted

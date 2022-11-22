@@ -66,3 +66,26 @@
 .detele-report {
   color: red;
 }
+
+.card-body-details {
+  text-align: right;
+}
+.card-body-datetime {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-container-details {
+  text-align: right;
+}
+
+.modal-container-datetime {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-body-btn-container-status {
+  display: flex;
+  justify-content: center;
+}
+

@@ -8,28 +8,47 @@ import { BiLogOut } from 'react-icons/bi'
 // import { publicRequest } from "../../requestMethods";
 import { updateUserData } from "../../Redux/slicer/UserSlice";
 import { useDispatch } from "react-redux";
+import { socket } from "../../App";
 
 const NewNavbar = () =>{
 
-    const [dogs] = useState([])
+
+    const [dogs, setDogs] = useState([])
+    // useEffect(()=>{
+    //     // const getDogs = () => {
+    //     //     publicRequest.get(`/api/dogs`)
+    //     //         .then((res) => {
+    //     //             // res.data && dispatch(updateDogData(res.data))
+    //     //             res.data && setDogs(res.data)
+    //     //         })
+    //     //         .catch((err) => console.log(err));
+    //     // }
+    //     // getDogs()
+    // },[])
+    const [haveNewReport, setHaveNewReport] = useState(false);
+    const [counterNotfiction, setCounterNotfiction] = useState(0);
+
+    const clearNotfiction = () =>{
+        setHaveNewReport(false)
+        setCounterNotfiction(0)
+    }
     useEffect(()=>{
-        // const getDogs = () => {
-        //     publicRequest.get(`/api/dogs`)
-        //         .then((res) => {
-        //             // res.data && dispatch(updateDogData(res.data))
-        //             res.data && setDogs(res.data)
-        //         })
-        //         .catch((err) => console.log(err));
-        // }
-        // getDogs()
-    },[])
+        const newNotfiction = () =>{
+            setHaveNewReport(true)
+            let counter = counterNotfiction+1
+            console.log(counter);
+            setCounterNotfiction(counter)
+        }
+      socket.on("recive_msg",(data)=>{
+        newNotfiction()
+      })
+    },[counterNotfiction])
     const navigate = useNavigate();
     let windoWidth = window.innerWidth;
 
     const [open, setOpen] = useState(false) 
     const [searchTerm, setSearchTerm] = useState("");
-    const [haveMission, setHaveMission] = useState(false);
-
+      
       const routes = [["בית", ""], ["כלבים", "adoption"], ["משימות", "assignments"], ["דיווחים", "reports"],  ["התנדבויות", "volunteering"], ["יומן", "calendar"] ]
       const filterSearchDogs = (filterKey) => {
         return(
@@ -102,14 +121,14 @@ const NewNavbar = () =>{
                 {windoWidth > 992 && 
                 <>
                 <div dir="rtl" className="right-side">
-                    {haveMission ? 
+                    {haveNewReport ? 
                         <div className="badge-container">
-                            <span className="my-badge">1</span>
-                            <HiBellAlert onClick={() => setHaveMission(false)} style={{fontSize: "1.4rem"}}/>
+                            <span className="my-badge">{counterNotfiction}</span>
+                            <HiBellAlert onClick={() => clearNotfiction()} style={{fontSize: "1.4rem"}}/>
                         </div>
                         :
                         <div>
-                            <HiOutlineBell onClick={() => setHaveMission(true)} style={{fontSize: "1.4rem"}}/>
+                            <HiOutlineBell  style={{fontSize: "1.4rem"}}/>
                         </div>
                     }
                     <button className=" me-3 remove-borders" 

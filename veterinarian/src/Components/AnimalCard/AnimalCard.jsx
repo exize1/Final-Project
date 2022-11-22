@@ -12,32 +12,43 @@ function AnimalCard({ report }) {
             <img src={report.reportDetails.picture.url} className="card-img-top pet-card-img" alt="..." />
 
             <div className="card-body">
-                <h5 className="card-title">{report.reporterDetails.fullName}</h5>
-                <h5 className="card-title">{report.reportDetails.details}</h5>
-                <h5 className="card-title">{report.location.place}</h5>
-                <h5 className="card-title">{report.reportDetails.time.date}</h5>
-                <h5 className="card-title">{report.reportDetails.time.hour}</h5>
+                <div className='card-body-details'>
+                    <p className="card-title" dir='rtl'>שם מדווח: {report.reporterDetails.fullName}</p>
+                    <p className="card-title" dir='rtl'>תיאור: {report.reportDetails.details}</p>
+                    <p className="card-title" dir='rtl'>מיקום:{report.location.place}</p>
+                </div>
+                <div className='card-body-datetime'>
+                    <p className="card-title" dir='rtl'>{report.reportDetails.time.date}</p>
+                    <p className="card-title" dir='rtl'>{report.reportDetails.time.hour}</p>
+                </div>
                 <div className='card-body-btn-container'>
+
                     <Modal addOverflow={true} className='animal-modal' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
-                        <div dir='rtl'>סטאטוס: {report.status}</div>
+                          <div className='card-body-btn-container-status' dir='rtl'>
+                            <h6 dir='rtl'>סטאטוס:</h6>
+                            <p>{report.status}</p>
+                        </div>
                         <div className='animal-modal-img'>
                             <div className='animal-modal-img-container'>
                                 <img className='animal-modal-img-container-image' src={report.reportDetails.picture.url} alt="" />
                                 {/* <Image cloudName="diggwedxe" publicId={user.avatar.public_id} className="img-thumbnail"/> */}
                             </div>
                         </div>
+                        <div className='modal-container-details'>
+                            <div dir='rtl'>שם מדווח: {report.reporterDetails.fullName}</div>
+                            <div dir='rtl'>תיאור: {report.reportDetails.details}</div>
+                            <div dir='rtl'>מיקום: {report.location.place}</div>
+                            <div dir='rtl'>אלים: {report.dogDetails.violent}</div>
+                            <div dir='rtl'>גודל: {report.dogDetails.size}</div>
+                            <div dir='rtl'>צבע: {report.dogDetails.color}</div>
+                            <div dir='rtl'>טלפון: {report.reporterDetails.phone}</div>
+                        </div>
+                        <br></br>
+                        <div className='modal-container-datetime'>
+                            <p className="card-title">{report.reportDetails.time.date}</p>
+                            <p className="card-title">{report.reportDetails.time.hour}</p>
+                        </div>
 
-                        <div dir='rtl'>שם מדווח: {report.reporterDetails.fullName}</div>
-                        <div dir='rtl'>תיאור: {report.reportDetails.details}</div>
-                        <div dir='rtl'>מיקום: {report.location.place}</div>
-                        <div dir='rtl'>אלים: {report.dogDetails.violent}</div>
-                        <div dir='rtl'>גודל: {report.dogDetails.size}</div>
-                        <div dir='rtl'>צבע: {report.dogDetails.color}</div>
-                        <div dir='rtl'>טלפון: {report.reporterDetails.phone}</div>
-                        <span>
-                            <h5 className="card-title">{report.reportDetails.time.date}</h5>
-                            <h5 className="card-title">{report.reportDetails.time.hour}</h5>
-                        </span>
 
                     </Modal>
 

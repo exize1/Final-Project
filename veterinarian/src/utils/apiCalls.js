@@ -91,6 +91,26 @@ export const approveAdotion = (dispatch, dog) => {
 
 }
 
+export const RemoveFromAdoption = (dispatch, dog) => {
+    const updates = {
+        removeFromAdoption: true,
+        forAdopting: false,
+        dates: {
+            initialDate: dog.dates.initialDate,
+            addForAdoptingDate: {
+                date: "",
+                hour: ""
+            },
+            AdoptedDate: dog.dates.AdoptedDate
+        }
+    }
+    publicRequest.put(`/api/dogs/${dog._id}`, updates)
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getDogs(dispatch);
+        })
+}
+
 export const updateDogProfile = (dispatch, value, dog) => {
     const updates = {}
 
