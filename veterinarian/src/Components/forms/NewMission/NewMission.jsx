@@ -15,8 +15,8 @@ const NewMission = ({className}) => {
     // let windoWidth = window.innerWidth;
 
     // const [alert, setAlert] = useState(true)
-    const [alertType] = useState("")
-    const [alertMessage] = useState("")
+    const [alertType, setAlertType] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
     const dispatch = useDispatch()
     const handleSubmition = (values) => {
 
