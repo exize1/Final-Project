@@ -1,4 +1,4 @@
-.animalCard {
+.animal-card {
   height: 23rem;
   width: 16rem;
 }
@@ -9,17 +9,18 @@
   object-fit: cover;
 }
 
-.animalModal-img {
+.animal-modal-img {
   display: flex;
   justify-content: center;
 }
-.animalModal-img-container {
+
+.animal-modal-img-container {
   max-width: 300px;
   min-width: 300px;
   border-radius: 15px;
 }
 
-.animalModal-img-container-image {
+.animal-modal-img-container-image {
   border-radius: 15px;
   object-fit: cover;
   max-height: 200px;
@@ -62,7 +63,7 @@
   justify-content: space-between;
 }
 
-.dropdown-item.deteleReport {
+.detele-report {
   color: red;
 }
 
@@ -87,3 +88,4 @@
   display: flex;
   justify-content: center;
 }
+

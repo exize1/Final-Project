@@ -1,35 +1,14 @@
-import { useState } from 'react'
 import './animalCard.css'
 import { IoMdMore } from 'react-icons/io'
 import Modal from '../modal/Modal';
-import { publicRequest } from '../../requestMethods';
+import { useDispatch } from 'react-redux';
+import { deleteStatus, updateStatus } from '../../utils/apiCalls';
 
 function AnimalCard({ report }) {
-    const [petStatus, SetPetStatus] = useState("")
 
-
-    const updateStatus = (value, report) => {
-        const updates = {}
-
-        updates.status = value
-
-        publicRequest.put(`/api/reports/${report._id}`, updates)
-            .then((res) => {
-                res.data && console.log(res.data);
-            })
-    }
-    const deleteStatus = (value, report) => {
-        const updates = {}
-
-        updates.status = value
-
-        publicRequest.delete(`/api/reports/${report._id}`, updates)
-            .then((res) => {
-                res.data && console.log(res.data);
-            })
-    }
+    const dispatch = useDispatch()
     return (
-        <div className="card mt-4 animalCard">
+        <div className="card mt-4 animal-card">
             <img src={report.reportDetails.picture.url} className="card-img-top pet-card-img" alt="..." />
 
             <div className="card-body">
@@ -43,16 +22,15 @@ function AnimalCard({ report }) {
                     <p className="card-title" dir='rtl'>{report.reportDetails.time.hour}</p>
                 </div>
                 <div className='card-body-btn-container'>
-                    <Modal addOverflow={true} className='animalModal' dir="rtl" report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
-                        <div className='card-body-btn-container-status' dir='rtl'>
+
+                    <Modal addOverflow={true} className='animal-modal' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
+                          <div className='card-body-btn-container-status' dir='rtl'>
                             <h6 dir='rtl'>סטאטוס:</h6>
-                            <p>
-                                {report.status}
-                            </p>
+                            <p>{report.status}</p>
                         </div>
-                        <div className='animalModal-img'>
-                            <div className='animalModal-img-container'>
-                                <img className='animalModal-img-container-image' src={report.reportDetails.picture.url} alt="image" />
+                        <div className='animal-modal-img'>
+                            <div className='animal-modal-img-container'>
+                                <img className='animal-modal-img-container-image' src={report.reportDetails.picture.url} alt="image" />
                                 {/* <Image cloudName="diggwedxe" publicId={user.avatar.public_id} className="img-thumbnail"/> */}
                             </div>
                         </div>
@@ -80,17 +58,17 @@ function AnimalCard({ report }) {
                                 <IoMdMore />
                             </div>
                             <div className='popper'>
-                                <p>More options</p>
+                                <p>עדכון סטאטוס</p>
                             </div>
                         </button>
                         <ul className="dropdown-menu" dir='rtl'>
-                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("לא נמצא", report)}>לא נמצא</a></li>
-                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("טופל בשטח ושוחרר", report)}>טופל בשטח ושוחרר</a></li>
-                            {/* <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("טופל בשטח והועבר לוטרינריה", report)}>טופל בשטח והועבר לוטרינריה</a></li> */}
-                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("הועבר לוטרינירה", report)}>הועבר לוטרינריה</a></li>
-                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus("החיה נמצאה מתה בשטח", report)}>החיה נמצאה מתה בשטח</a></li>
-                            {/* <li><hr className="dropdown-divider" /></li> */}
-                            <li><a className="dropdown-item deteleReport " dir='rtl' onClick={() => deleteStatus("מחיקת דיווח", report)}>מחיקת דיווח</a></li>
+                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "לא נמצא", report)}>לא נמצא</a></li>
+                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "טופל בשטח ושוחרר", report)}>טופל בשטח ושוחרר</a></li>
+                            {/* <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "טופל בשטח והועבר לוטרינריה", report)}>טופל בשטח והועבר לוטרינריה</a></li> */}
+                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "הועבר לוטרינירה", report)}>הועבר לוטרינריה</a></li>
+                            <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "החיה נמצאה מתה בשטח", report)}>החיה נמצאה מתה בשטח</a></li>
+                            <li><hr className="dropdown-divider" /></li>
+                            <li><a className="dropdown-item detele-report " dir='rtl' onClick={() => deleteStatus(dispatch, "מחיקת דיווח", report)}>מחיקת דיווח</a></li>
                         </ul>
                     </div>
                 </div>

@@ -24,7 +24,6 @@
 .top-list-container{
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-top: 0;
-
 }
 
 .add-overflow{
@@ -49,6 +48,6 @@
     margin: 0;
 }
 
-.dropdown-menu{
+/* .dropdown-menu{
     max-height: 180px;
-}
+} */

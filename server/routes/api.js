@@ -349,15 +349,15 @@ router.post('/reports', async (req, res, next) => {
 
   const { reporterDetails, dogDetails, location, reportDetails } = req.body;
 
-  // const result = await cloudinary.uploader.upload(req.body.reportDetails.picture);
-  // if (result) {
-  // reportDetails.picture = result
+  const result = await cloudinary.uploader.upload(req.body.reportDetails.picture);
+  if (result) {
+  reportDetails.picture = result
   const report = {
     reporterDetails,
     dogDetails,
     location,
     reportDetails,
-    // picture: result,
+    picture: result,
   }
   if (req.body.lost) report.lost = req.body.lost
   Report.create(report)
@@ -377,9 +377,9 @@ router.post('/reports', async (req, res, next) => {
 
       })
     })
-  // } else {
-  //   res.json({ error: `this input is empty -> ${req.body}` })
-  // }
+  } else {
+    res.json({ error: `this input is empty -> ${req.body}` })
+  }
 
 })
 
@@ -421,11 +421,14 @@ router.patch('/animals/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/animals/:id', (req, res, next) => {
-  console.log("delete");
-  Report.findOneAndDelete({ _id: req.params.id })
-    .then((data) => res.json(data))
-    .catch(next)
+router.delete('/reports/', ( req,res,next) => {
+    console.log("delete");
+    Report.find({})
+        .then((data) => data.map( report => {
+          Report.findOneAndDelete({_id: report._id})
+          .then(data => console.log("delete"))
+        }))
+        .catch(next)
 })
 
 ///////////assigmnents
@@ -447,38 +450,55 @@ router.delete("/assigmnents/:id", async (req, res) => {
 
 })
 
-router.post('/assigmnents', async (req, res, next) => {
 
-  const { dogHandlerName, dogHandlerID, dateUpload, dateToEnd, details, complited, dogNumber } = req.body;
+router.post('/assigmnents', async (req,res,next) => {
 
-  const report = {
-    dogHandlerName,
-    dogHandlerID,
-    dateUpload,
-    dateToEnd,
-    details,
-    complited,
-    dogNumber,
-    WhoComplited: ""
+  const { dogHandlerID, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
+      const User = await DogHandler.findOne({_id:dogHandlerID})
+      .then((data)=>{
+        const dogHandlerName = data.firstName
+      const report = {
+        dogHandlerName,
+        dogHandlerID,
+        dateUpload,
+        dateToEnd,
+        details,
+        complited,
+        dogNumber,
+        WhoComplited:""
 
-  }
-  Assigmnent.create(report)
-    .then(() => {
-      res.json({
-        "error": false,
-        "message": "המשימה נשלחה בהצלחה"
-      })
-    }).catch(err => {
-      res.json({
-        "error": true,
-        "message": "לא היה ניתן לשלוח את המשימה",
-        "m": err
-
+      } 
+      
+      Assigmnent.create(report)
+      .then(() =>{ 
+        res.json({
+          "error" : false,
+          "message": "המשימה נשלחה בהצלחה"
+        })
+        console.log(report);
+      }).catch(err =>{
+        res.json({
+          "error" : true,
+          "message": "לא היה ניתן לשלוח את המשימה",
+          "m":err
       })
     })
-
-
+  })
 })
+
+router.put('/oldassigmnents/:id', (req, res, next) => {
+  const id = req.params.id
+  Assigmnent.find({ dogHandlerID: id })
+  .then( data => {
+    data.map(assignment => {
+      Assigmnent.findOneAndUpdate({ _id: assignment._id }, { $set: {isNewAssignment: false} }, { new: true })
+        .then((data) => console.log(data))
+        .catch(next)
+    })
+    res.json("done")
+  })
+})
+
 
 router.patch('/assigmnents/:id', (req, res, next) => {
   const id = req.params.id
@@ -498,6 +518,18 @@ router.patch('/assigmnents/:id', (req, res, next) => {
     )
     .catch(next)
 })
+//////delete all assignment 
+router.delete('/assigmnents', ( req,res,next) => {
+  console.log("delete");
+  Assigmnent.find({})
+      .then((data) => data.map( assigmnent => {
+        Assigmnent.findOneAndDelete({_id: assigmnent._id})
+        .then(data => console.log("delete"))
+      }))
+      .catch(next)
+})
+
+
 
 router.get('/volunteering', (req, res, next) => {
   Volunteering.find({})

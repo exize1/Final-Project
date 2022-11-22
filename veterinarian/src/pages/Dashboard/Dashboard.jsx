@@ -5,12 +5,47 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import ReportSection from "../../Components/ReportsSection/ReportsSection/ReportSection";
 
+import Assigment from "../../Components/assignmentsSection/assignments/Assigment";
+import AssigmentSection from "../../Components/assignmentsSection/AssignmentSection/AssignmentSection";
+import AssignmentSection from "../../Components/assignmentsSection/AssignmentSection/AssignmentSection";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAssignments } from "../../Redux/slicer/Assignments";
+import { useState } from "react";
+import { selectUser } from "../../Redux/slicer/UserSlice";
+import { useEffect } from "react";
+import { gotTheAlert } from "../../utils/apiCalls";
+
 const Dashboard =()=> {
+
+  const [newAssignment, setNewAssignment] = useState(false)
+  const myAssignments = useSelector(selectAssignments)
+  const userData = useSelector(selectUser)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const findNewAssignment = () => {
+      myAssignments.forEach(item => {
+        item.dogHandlerID === userData._id && item.isNewAssignment && setNewAssignment(true)
+      })
+    }
+
+    findNewAssignment()
+  }, [userData._id, myAssignments])
+
   return (
     <div className='dashboard-container '>
       <div className='logo-container'>
-        <h1 className="main-title">כלביית דימונה</h1>
-        <div className='logo'/>
+        <div className="assignment-alert-container"> 
+          {/* <Link className="remove-underline"  to= {"/assignments"}> */}
+            <div onClick={() => gotTheAlert(dispatch, userData, setNewAssignment)} className={`alert alert-warning assignment-alert right-to-left `} role="alert" hidden={!newAssignment}>
+               שים לב! קיבלת משימה חדשה
+            </div>
+          {/* </Link> */}
+        </div>
+        <div className="logo-title-container">
+          <h1 className="main-title">כלביית דימונה</h1>
+          <div className='logo'/>
+        </div>
       </div>
         <div className="calendar-container">
           <div className="calendar">
@@ -69,8 +104,8 @@ const Dashboard =()=> {
       <div className="reports-in-realtime-container">
         <ReportSection />
         <div className="assighments-container">
-          <h5>צריך שיוחלף במשימות</h5>
-          <ReportSection />
+          <h1></h1>
+          <AssignmentSection/>
         </div>
       </div>
     </div>

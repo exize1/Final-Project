@@ -27,7 +27,7 @@
 
 .volunteering-details{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 70%;
 }
 
@@ -39,18 +39,36 @@
     height: 8vh;
 }
 
+.hours-activity-container{
+    width: 25%;
+}
+
 .hours{
-    margin-top: 10vh;
+}
+
+.delete-btn-container{
+    display: flex;
+    justify-content: space-between;
 }
 
 .delete-btn{
     font-weight: 700;
-    height: -moz-fit-content;
-    height: fit-content;
     background-color: transparent;
     border: none;
     display: flex;
-    width: fit-content;
-    width: fit-content;
+    justify-content: flex-end;
     text-decoration: underline;
+}
+
+.delete-icon{
+    font-size: 40px;
+    color: tomato;
+}
+
+.delete-btn:hover .delete-icon{
+    color: rgb(207, 74, 51);
+}
+
+.hours-and-days{
+    display: flex;
 }

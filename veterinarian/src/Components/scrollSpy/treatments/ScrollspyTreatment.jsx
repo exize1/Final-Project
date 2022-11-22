@@ -63,12 +63,9 @@ const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
                 <h2 className="text-start">הטיפולים שלי</h2>
                 <p className="mb-0 me-2">מס' טיפולים: {dog.treatments.length}</p>
             </div>
-            <div className="text-end bg-light top-list-container px-2" tabIndex="0" >
-                <div dir="rtl" className="row ps-4">
-                    <div className="col">
-                        <p className="m-0">מס"ד</p>
-                    </div>    
-                    <div className="col">
+            <div className="text-end bg-light top-list-container px-3" tabIndex="0" >
+                <div dir="rtl" className="row ps-3">
+                    <div className="col-2">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">סוג טיפול</a>
                         <ul className={addOverflow ? 'dropdown-menu add-overflow' : "dropdown-menu"}>
                         <li><button className="dropdown-item" onClick={() => setType("תרופתי")} >תרופתי</button></li>
@@ -78,7 +75,7 @@ const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
                             <li><button className="dropdown-item" onClick={() => setType("")} >הכל</button></li>
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col-2">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">שם</a>
                         <ul className={addOverflow ? 'dropdown-menu add-overflow' : "dropdown-menu"}>
                         {removeNameDuplicate().map((treatment, index) => {
@@ -88,13 +85,13 @@ const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
                         )}
                         </ul>
                     </div>
-                    <div className="col">
+                    <div className="col-1">
                         <p className="m-0">כמות</p>
                     </div>   
-                    <div className="col">
+                    <div className="col-5">
                         <p className="m-0">פירוט</p>
                     </div>                        
-                    <div className="col">
+                    <div className="col-2">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">תאריך</a>
                         <ul className="dropdown-menu">
                         {removeDateDuplicate().map((treatment, index) => {
@@ -112,22 +109,19 @@ const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
                     return(
                         // <Link to={dog._id} className="remove-underline">
                             <div className="row bid-details-container">
-                                <div className="col">
-                                    <p className="bid-details">{serial}.</p>
+                                <div className="col-2">
+                                    <p className="bid-details" id={treatment.type}>{serial}{". "}{treatment.type}</p>
                                 </div>            
-                                <div className="col">
-                                    <p className="bid-details" id={treatment.type}>{treatment.type}</p>
-                                </div>            
-                                <div className="col">
+                                <div className="col-2">
                                     <p className="bid-details" id={treatment.treatmentName}>{treatment.treatmentName}</p>
                                 </div>
-                                <div className="col">
+                                <div className="col-1">
                                     <p className="bid-details" id={treatment.amount}>{treatment.amount}</p>
                                 </div>            
-                                <div className="col">
+                                <div className="col-5">
                                     <p className="bid-details" id={treatment.description}>{treatment.description }</p>
                                 </div>            
-                                <div className="col">
+                                <div className="col-2">
                                     <p className="bid-details" id={treatment.treatmentDate.date}>{treatment.treatmentDate.date }</p>
                                 </div>            
                             </div>

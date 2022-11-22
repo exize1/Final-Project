@@ -13,7 +13,7 @@ import UpdateEvent from "./Components/calendar/UpdateEvent";
 import DogPage from './pages/DogPage/DogPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDog } from './Redux/slicer/DogSlice';
-import { getAssignments, getDogRequests, getDogs, getUsers, getVolunteers } from './utils/apiCalls';
+import { getAssignments, getDogRequests, getDogs, getReports, getUsers, getVolunteers } from './utils/apiCalls';
 
 import io from 'socket.io-client'
 import ReportsPannel from './pages/Reports/ReportsPanel';
@@ -35,6 +35,7 @@ function App() {
     getAssignments(dispatch)
     getUsers(dispatch)
     getDogRequests(dispatch)
+    getReports(dispatch)
     
     if (room!=="") {
       socket.emit("join_room","1")
@@ -80,8 +81,8 @@ const dogs = useSelector(selectDog)
 
           <div className='padding-all-components'>
             <Routes>
-            <Route path='/' element={<Dashboard/>} />
                   <Route path='/*' element={<Login/>} />
+            {/* <Route path='/' element={<Dashboard/>} />
                   <Route path='/login' element={<Login/>} />
                   <Route path='/register' element={<RegisterInspector/>} />
         
@@ -99,7 +100,7 @@ const dogs = useSelector(selectDog)
                   <Route path="/volunteering" element={<VolunteerPannel/>}/>
                   <Route path="/reports" element={<ReportsPannel/>}/>
                   <Route path="/register" element={<RegisterInspector/>}/>
-                  <Route path="/assignments" element={<Assignments/>}/>
+                  <Route path="/assignments" element={<Assignments/>}/> */}
             </Routes>
           </div>
       </>

@@ -57,17 +57,22 @@ const DogPage = ({ dog }) => {
                         }
                     </div>
                     <div dir="rtl" className="col dates-container">
-                        <p className="dog-details" dir="rtl"><b>תאריך פתיחת תיק: </b><span>{dog.dates.initialDate.date}</span></p>
-                        <p className="dog-details" dir="rtl"><b>תאריך העלאה לאימוץ: </b><span>{dog.dates.addForAdoptingDate ? dog.dates.addForAdoptingDate.date : "-"}</span></p>
-                        <p className="dog-details" dir="rtl"><b>תאריך אימוץ: </b><span>{dog.dates.AdoptedDate ? dog.dates.AdoptedDate.date : "-"}</span></p>
+                        <div>
+                            <p className="dog-details" dir="rtl"><b>תאריך פתיחת תיק: </b><span>{dog.dates.initialDate.date}</span></p>
+                            <p className="dog-details" dir="rtl"><b>תאריך העלאה לאימוץ: </b><span>{dog.dates.addForAdoptingDate ? dog.dates.addForAdoptingDate.date : "-"}</span></p>
+                            <p className="dog-details" dir="rtl"><b>תאריך אימוץ: </b><span>{dog.dates.AdoptedDate ? dog.dates.AdoptedDate.date : "-"}</span></p>
+                        </div>
+                        <div className="mb-1">
+                            <button onClick={() => setDisplayTreatments(true)} className={`btn btn-${displayTreatments ?  "" : "outline-"}secondary ms-2`}>טיפולים</button>
+                            <button onClick={() => setDisplayTreatments(false)} className={`btn btn-${displayTreatments ?  "outline-" : ""}secondary`}>בקשות אימוץ</button>
+                        </div>
                     </div>
                     <div className="col-3 dog-avatar-container">
                         <Avatar src={dog.details.src}/>
                     </div>
                 </div>
-                    <button onClick={() => setDisplayTreatments(false)} className="col-1">בקשות אימוץ</button>
-                    <button onClick={() => setDisplayTreatments(true)} className="col-1">טיפולים</button>
                 <div className="row">
+                  
                     <div className="treatment-scrollspy-container col">
                         {displayTreatments ? <ScrollSpyTreatment dog={dog}/> : <ScrollSpyAdoption dog={dog}/>}
                     </div>
