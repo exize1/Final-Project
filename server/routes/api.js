@@ -23,42 +23,49 @@ router.get('/dogs/', (req, res, next) => {
 
 router.post('/dogs/', async (req, res, next) => {
   const { details, treatment, dates } = req.body;
-
-  const result = await cloudinary.uploader.upload(req.body.details.src);
-  if (result) {
-    details.src = result
-    const dog = {
-      details,
-      treatment,
-      dates,
-    }
-    Dog.create(dog)
-      .then((data) => {
-        // res.json({
-        //   "error": false,
-        //   "message": "תיק כלב נוצר בהצלחה"
-        // })
-        DogRequest.find( {isInDB: false} )
-        .then((datas) => {
-            datas.map(dogReq => {
-                data.details.size === dogReq.details.size &&
-                data.details.gender === dogReq.details.gender && 
-                data.details.age === dogReq.details.age && console.log(dogReq);
-
-
-            })
-        }).catch(next)
-      }).catch(err => {
-        res.json({
-          "error": true,
-          "message": "לא היה ניתן לפתוח תיק כלב חדש",
-          "m": err
-
-        })
-      })
-  } else {
-    res.json({ error: `this input is empty -> ${req.body}` })
+  let result = null
+  if (req.body.details.src){
+    result = await cloudinary.uploader.upload(req.body.details.src);
   }
+    if (result) {
+      details.src = result
+      const dog = {
+        details,
+        treatment,
+        dates,
+      }
+      Dog.create(dog)
+        .then((data) => {
+          DogRequest.find( {isInDB: false} )
+          .then((datas) => {
+              datas.map(dogReq => {
+                  data.details.size === dogReq.details.size &&
+                  data.details.gender === dogReq.details.gender && 
+                  data.details.age === dogReq.details.age && console.log(dogReq);
+
+
+              })
+          }).catch(next)
+          res.json({
+            "error": true,
+            "message": "תיק כלב נוצר בהצלחה",
+            "alertType": "success"
+          })
+        }).catch(err => {
+          res.json({
+            "error": true,
+            "message": "לא כל השדות מלאים",
+            "alertType": "danger",
+            "err": err
+          })
+        })
+    } else {
+      res.json({
+        "error": true,
+        "message": "אנא הכניסו קובץ תמונה",
+        "alertType": "danger",
+      })
+    }
 })
 
 router.delete('/dogs/:id', (req, res, next) => {
@@ -508,106 +515,47 @@ router.delete("/assigmnents/:id", async (req, res) => {
 
 })
 
-router.post('/assigmnents', async (req, res, next) => {
+router.post('/assigmnents', async (req,res,next) => {
 
-  const { dogHandlerName, dogHandlerID, dateUpload, dateToEnd, details, dogNumber } = req.body;
+  const { dogHandlerID, dateUpload, dateToEnd, details, complited, dogNumber} = req.body;
+  console.log(dogHandlerID);
+  dogHandlerID ? await DogHandler.findOne({ _id: dogHandlerID })
+      .then((data)=>{
+        console.log(data);
+        // const dogHandlerName = data.firstName
+        const report = {
+          // dogHandlerName,
+          dogHandlerID,
+          dateUpload,
+          dateToEnd,
+          details,
+          complited,
+          dogNumber,
+          WhoComplited:""
+        } 
 
-  const report = {
-    dogHandlerName,
-    dogHandlerID,
-    dateUpload,
-    dateToEnd,
-    details,
-    dogNumber,
-    WhoComplited: ""
-  }
-
-  dogHandlerName && dogHandlerID && dateUpload && dateToEnd && details && dogNumber ?
-
-    Assigmnent.create(report)
-      .then(() => {
+      Assigmnent.create(report)
+      .then(() =>{ 
         res.json({
-          "error": false,
+          "error" : true,
           "message": "המשימה נשלחה בהצלחה",
-          "alertType": "success"
+          "alertType": "success",
         })
-      }).catch(err => {
+      }).catch(err =>{
         res.json({
-          "error": true,
-          "message": "לא היה ניתן לשלוח את המשימה, נא למלא את כל השדות",
+          "error" : true,
+          "message": "לא היה ניתן לשלוח את המשימה",
           "alertType": "danger",
-          "m": err
-
-        })
+          "m":err
       })
-    :
-    (() => {
-      if (!details)
-        res.json({
-          "error": true,
-          "message": "נא להוסיף תיאור המשימה",
-          "alertType": "danger"
-        })
-      else if (!dateToEnd)
-        res.json({
-          "error": true,
-          "message": "נא להוסיף תאריך סיום המשימה",
-          "alertType": "danger"
-        })
-      else if (!dogHandlerName)
-        res.json({
-          "error": true,
-          "message": "נא להוסיף שם עובד",
-          "alertType": "danger"
-        })
-      else if (!dogNumber)
-        res.json({
-          "error": true,
-          "message": "נא להוסיף את שם הכלב",
-          "alertType": "danger"
-        })
-    })()
-
+    }).catch(next)
+  }):         
+  res.json({
+    "error" : true,
+    "message": "אנא בחרו כלבן",
+    "alertType": "danger",
+  })
 })
-
-// // delete below after using it
-// router.post('/reports', async (req, res, next) => {
-
-//   const { reporterDetails, dogDetails, location, reportDetails } = req.body;
-
-//   const result = await cloudinary.uploader.upload(req.body.reportDetails.picture);
-//   if (result) {
-//     reportDetails.picture = result
-//     const report = {
-//       reporterDetails,
-//       dogDetails,
-//       location,
-//       reportDetails,
-//       picture: result,
-//     }
-//     if (req.body.lost) report.lost = req.body.lost
-//     Report.create(report)
-//       .then(() => {
-//         res.json({
-//           "error": true,
-//           "message": "הדיווח נשלח בהצלחה",
-//           "alertType": "success"
-//         })
-
-//       }).catch(err => {
-//         res.json({
-//           "error": true,
-//           "message": "לא היה ניתן לשלוח את הדיווח",
-//           "alertType": "danger",
-//           "m": err
-
-//         })
-//       })
-//   } else {
-//     res.json({ error: `this input is empty -> ${req.body}` })
-//   }
-
-// })
 
 router.put('/oldassigmnents/:id', (req, res, next) => {
   const id = req.params.id

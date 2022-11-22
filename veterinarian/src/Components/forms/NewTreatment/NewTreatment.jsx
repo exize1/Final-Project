@@ -39,6 +39,10 @@ const NewTreatment = ({ dog }) => {
     const dispatch = useDispatch()
 
     return (
+        <>
+        <Alert alert={alert} setAlert={setAlert} alertType={alertType}>
+            {alertMessage}
+        </Alert>
         <Modal title={`הוספת תיעוד טיפולי ל${dog.details.dogName}`} addOverflow={true} modalButtonName={"הוספת טיפול"} inheritedOpen={inheritedOpen}>
             <Formik
                 initialValues={{
@@ -92,6 +96,7 @@ const NewTreatment = ({ dog }) => {
                 )}
             </Formik>
         </Modal>
+        </>
     )
 }
 
