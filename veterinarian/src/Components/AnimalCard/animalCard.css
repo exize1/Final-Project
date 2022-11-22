@@ -1,11 +1,11 @@
 .animal-card {
-  height: 25rem;
+  height: 23rem;
   width: 16rem;
 }
 
 .pet-card-img {
-  max-height: 180px;
-  min-height: 180px;
+  max-height: 200px;
+  min-height: 200px;
   object-fit: cover;
 }
 
@@ -158,17 +158,3 @@
   display: flex;
   justify-content: center;
 }
-
-.modal-container-details-text {
-  display: flex;
-  justify-content: right;
-}
-
-.modal-container-details-text-title {
-  font-weight: bold;
-}
-
-.card-body-btn-container-status-title {
-  font-weight: bold;
-}
-
