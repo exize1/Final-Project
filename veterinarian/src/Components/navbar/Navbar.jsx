@@ -1,30 +1,23 @@
 import "./navbar.css"
-// import { useNavigate } from 'react-router-dom';
-// import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { HiBellAlert, HiOutlineBell } from 'react-icons/hi2'
+import { HiBellAlert, HiOutlineBell, HiOutlineHome } from 'react-icons/hi2'
 import { BiLogOut } from 'react-icons/bi'
-// import { publicRequest } from "../../requestMethods";
+import { MdOutlineVolunteerActivism } from 'react-icons/md'
+import { GrTask } from 'react-icons/gr'
+import { SiWolframlanguage } from 'react-icons/si'
+import { TbReportMedical } from 'react-icons/tb'
+import { BsCalendarEvent } from 'react-icons/bs'
 import { updateUserData } from "../../Redux/slicer/UserSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../App";
+import { selectDog } from "../../Redux/slicer/DogSlice";
 
 const NewNavbar = () =>{
 
 
-    const [dogs, setDogs] = useState([])
-    // useEffect(()=>{
-    //     // const getDogs = () => {
-    //     //     publicRequest.get(`/api/dogs`)
-    //     //         .then((res) => {
-    //     //             // res.data && dispatch(updateDogData(res.data))
-    //     //             res.data && setDogs(res.data)
-    //     //         })
-    //     //         .catch((err) => console.log(err));
-    //     // }
-    //     // getDogs()
-    // },[])
+    const dogs = useSelector(selectDog)
+
     const [haveNewReport, setHaveNewReport] = useState(false);
     const [counterNotfiction, setCounterNotfiction] = useState(0);
 
@@ -115,7 +108,9 @@ const NewNavbar = () =>{
                                 })}
                             </ul>
                         </form>
-                        <button  className="navbar-button" type="button" onClick={() => setOpen(!open)}><span class="navbar-toggler-icon"></span></button>
+                        <div className="nav-btn-container">
+                            <button  className="navbar-button decreas-size" type="button" onClick={() => setOpen(!open)}><span class="navbar-toggler-icon"></span></button>
+                        </div>
                     </>}
                 </div>
                 {windoWidth > 992 && 
@@ -132,38 +127,67 @@ const NewNavbar = () =>{
                         </div>
                     }
                     <button className=" me-3 remove-borders" 
-                    onClick={() => {
-                        navigate("/login")
-                        dispatch(updateUserData({}))}
-                        }
+                      onClick={() => {
+                            navigate("/login")
+                            dispatch(updateUserData({}))}
+                          }
                         >
-                            <div className='logout-icon-container'>
-                                <BiLogOut/>
-                            </div>
-                            <div className='popper mt-1'>
-                                <p>התנתקות</p>
-                            </div>
-                        </button>
+                        <div className='logout-icon-container'>
+                            <BiLogOut/>
+                        </div>
+                        <div className='popper mt-1'>
+                            <p>התנתקות</p>
+                        </div>
+                    </button>
                 </div>
                 </>
                 }
             </div>
-        {open && 
-            <ul className="navbar-nav navbar-nav-open">
-                {routes.map((route, index) => {
-                                return(
-                                <li key={index} className="nav-item ">
-                                    <Link className="remove-underline" to={`/${route[1]}`}>
-                                        <span className="nav-link" onClick={() => setOpen(false)}>{route[0]}</span>
-                                    </Link>
-                                </li>
-                                )
-                            })}
-                {/* <li className="nav-item logout-add-product-container"> */}
-                    {/* <FontAwesomeIcon icon="fa-right-from-bracket" className="logout-btn" onClick={() => dispatch(updateUserData({}))}/> */}
-                {/* </li> */}
-            </ul>
-        }
+            {open && 
+            <div dir="rtl" className="emojy-btns-nav-links-container">
+                <ul className="navbar-nav navbar-nav-open">
+                    <div>
+                    {routes.map((route, index) => {
+                                    return(
+                                    <li key={index} className="nav-item ">
+                                        <div className="emoji-container">
+                                            <Link className="remove-underline" to={`/${route[1]}`}>
+                                                <div className="rounded">
+                                                    {index === 0 && <HiOutlineHome className="emoji" onClick={() => setOpen(false)}/>}
+                                                    {index === 1 && <SiWolframlanguage className="emoji" onClick={() => setOpen(false)}/>}
+                                                    {index === 2 && <GrTask className="emoji" onClick={() => setOpen(false)}/>}
+                                                    {index === 3 && <TbReportMedical className="emoji" onClick={() => setOpen(false)}/>}
+                                                    {index === 4 && <MdOutlineVolunteerActivism className="emoji" onClick={() => setOpen(false)}/>}
+                                                    {index === 5 && <BsCalendarEvent className="emoji" onClick={() => setOpen(false)}/>}
+                                                </div>
+                                            </Link>
+                                            {index === 0 && <span className="explain">{route[0]}</span>}
+                                            {index === 1 && <span className="explain">{route[0]}</span>}
+                                            {index === 2 && <span className="explain">{route[0]}</span>}
+                                            {index === 3 && <span className="explain">{route[0]}</span>}
+                                            {index === 4 && <span className="explain">{route[0]}</span>}
+                                            {index === 5 && <span className="explain">{route[0]}</span>}
+                                        </div>
+                                    </li>
+                                    )
+                                })}
+                    </div>
+                    <button className=" me-3 remove-borders logout-btn-open" 
+                        onClick={() => {
+                                navigate("/login")
+                                dispatch(updateUserData({}))}
+                            }
+                            >
+                            <div className='logout-icon-container'>
+                                <BiLogOut className="logout-rounded"/>
+                            </div>
+                            <div className='popper mt-1'>
+                                <p>התנתקות</p>
+                            </div>
+                    </button>
+                </ul>
+            </div>
+            }
         </nav>
         </>
     )
