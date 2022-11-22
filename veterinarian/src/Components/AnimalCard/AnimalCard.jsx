@@ -32,7 +32,6 @@ function AnimalCard({ report }) {
                     <h5 className="card-title" dir='rtl'>{report.reportDetails.time.hour}</h5>
                 </div>
                 <div className='card-body-btn-container'>
-
                     <Modal addOverflow={true} className='animal-modal' dir='rtl' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
                         <div className='card-body-btn-container-status' dir='rtl'>
                             <p dir='rtl' className='card-body-btn-container-status-title'>סטאטוס:</p>

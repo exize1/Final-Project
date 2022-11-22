@@ -1,16 +1,16 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import './areaDropdown.css'
 import neighborhoods from './Area.js';
-function AreaDropdown({ setFilterKey, filterKey }) {
-  const [filteredList, setFilteredList] = useState(neighborhoods);
 
-  const filterBySearch = (e) => {
-    const query = e.target.value;
-    let updatedList = [...neighborhoods];
-    updatedList = updatedList.filter((item) =>
-      item.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1)
-    setFilteredList(updatedList)
-  }
+function AreaDropdown({ setFilterKey, filterKey }) {
+  // const [filteredList, setFilteredList] = useState(neighborhoods);
+  // const filterBySearch = (e) => {
+  //   const query = e.target.value;
+  //   let updatedList = [...neighborhoods];
+  //   updatedList = updatedList.filter((item) =>
+  //     item.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1)
+  //   setFilteredList(updatedList)
+  // }
   return (
     <div className="dropdown">
       <div className="input-group mb-3">
@@ -19,9 +19,8 @@ function AreaDropdown({ setFilterKey, filterKey }) {
         <ul className="dropdown-menu scrollable-menu">
           <li><a href='choose-place' class="dropdown-item" dir='rtl' >בחר/י שכונה...</a></li>
           <li><hr class="dropdown-divider" /></li>
-          {filteredList.map((area, index) =>
+          {neighborhoods.map((area, index) =>
             <li key={index}><a href='#set' className="dropdown-item" dir='rtl' onClick={() => area === "הכל" ? setFilterKey("") : setFilterKey(area)}>{area}</a></li>
-
           )}
         </ul>
       </div>
