@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { updateDogProfile } from "../../../utils/apiCalls";
 import Modal from "../../modal/Modal";
+import Alert from "../../alert/Alert";
 
 
-const EditDogProfile = ({dog}) => {
+const EditDogProfile = ({ dog }) => {
 
     let windoWidth = window.innerWidth;
 
@@ -19,54 +20,54 @@ const EditDogProfile = ({dog}) => {
     const handleSubmition = (values) => {
         const value = {};
         let counter = 0
-        if(values.chipNumber) {
+        if (values.chipNumber) {
             value.chipNumber = values.chipNumber;
             counter += 1
         }
         else value.chipNumber = dog.details.chipNumber
 
-        if(values.dogName) {
+        if (values.dogName) {
             value.dogName = values.dogName;
             counter += 1
         }
         else value.dogName = dog.details.dogName
 
-        if(values.weight) {
+        if (values.weight) {
             value.weight = values.weight;
             counter += 1
         }
         else value.weight = dog.details.weight
 
-        if(values.age) {
+        if (values.age) {
             value.age = values.age;
             counter += 1
         }
         else value.age = dog.details.age
 
-        if(dogSize) {
+        if (dogSize) {
             value.size = dogSize;
             counter += 1
         }
         else value.size = dog.details.size
 
-        if(values.gender) {
+        if (values.gender) {
             value.gender = values.gender;
             counter += 1
         }
         else value.gender = dog.details.gender
-        
+
         value.src = dog.details.src
         value.description = dog.details.description
-        counter !== 0 && updateDogProfile(dispatch, value, dog)
+        counter !== 0 && updateDogProfile(dispatch, value, dog, setAlert, setAlertMessage, setAlertType)
         counter !== 0 && setInheritedOpen(!inheritedOpen)
 
-  }
+    }
 
 
     const dispatch = useDispatch()
 
-    return(
-        <Modal title={`עריכת הפרופיל של ${dog.details.dogName}`}  modalButtonName={"עריכת פרופיל כלב"} inheritedOpen={inheritedOpen} >
+    return (
+        <Modal title={`עריכת הפרופיל של ${dog.details.dogName}`} modalButtonName={"עריכת פרופיל כלב"} inheritedOpen={inheritedOpen} >
             <Formik
                 initialValues={{
                     dogName: "",
@@ -87,12 +88,9 @@ const EditDogProfile = ({dog}) => {
                     touched,
                 }) => (
                     <form dir='rtl' onSubmit={handleSubmit} noValidate>
-                        {/* <Alert alertType={"success"} alert={success}>
-                            הטופס נשלח הצלחה
+                        <Alert alertType={alertType} alert={alert} setAlert={setAlert} >
+                            {alertMessage}
                         </Alert>
-                        <Alert alertType={"danger"} alert={fail}>
-                            שגיאה בשליחת הטופס
-                        </Alert> */}
                         <div className='form-container-page1'>
                             <div className='form-container-page1-first row'>
                                 <div className="form-floating col-sm">
@@ -113,10 +111,10 @@ const EditDogProfile = ({dog}) => {
                             </div>
                             <div className="form-floating">
                                 <input name="chipNumber" type="text" className="form-control" id="floatingInput" placeholder="מספר שבב" onChange={handleChange} value={values.chipNumber} onBlur={handleBlur} />
-                                <label dir='rtl' for="floatingInput" className="form-label"> מספר שבב</label>                            
+                                <label dir='rtl' for="floatingInput" className="form-label"> מספר שבב</label>
                                 <p className="error-message">{errors.treatment && touched.treatment && errors.treatment}</p>
                             </div>
-                            
+
                             <div className='form-container-page1-fourth row'>
                                 <div className="form-floating col-sm">
                                     <input name="gender" type="text" className="form-control" id="floatingInput" placeholder="מין החיה" onChange={handleChange} value={values.gender} onBlur={handleBlur} />
@@ -145,8 +143,8 @@ const EditDogProfile = ({dog}) => {
                         </div>
                     </form>
                 )}
-            </Formik>   
-        </Modal>       
+            </Formik>
+        </Modal>
     )
 }
 

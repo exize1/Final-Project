@@ -23,19 +23,22 @@ export const getAssignments = (dispatch) => {
         .catch((err) => console.log(err));
 }
 
-export const addAssignment = (newAssignment) => {
-    publicRequest.post(`/api/assigmnents`,newAssignment)
+export const addAssignment = (newAssignment, setAlert, setAlertMessage, setAlertType) => {
+    publicRequest.post(`/api/assigmnents`, newAssignment)
         .then((res) => {
             res.data && console.log(res.data);
+            res.data && setAlert(res.data.error)
+            res.data && setAlertMessage(res.data.message)
+            res.data && setAlertType(res.data.alertType)
         })
         .catch((err) => console.log(err));
 }
 export const finishAssignment = (dispatch, id, whoComplited) => {
-    const report={
-        whoComplited:whoComplited,
-        status:true
+    const report = {
+        whoComplited: whoComplited,
+        status: true
     }
-    publicRequest.patch(`/api/assigmnents/${id}`,report)
+    publicRequest.patch(`/api/assigmnents/${id}`, report)
         .then((res) => {
             getAssignments(dispatch);
         })
@@ -91,7 +94,7 @@ export const approveAdotion = (dispatch, dog) => {
 
 }
 
-export const updateDogProfile = (dispatch, value, dog) => {
+export const updateDogProfile = (dispatch, value, dog, setAlert, setAlertMessage, setAlertType) => {
     const updates = {}
 
     if (Object.values(value).length !== 0) updates.details = value
@@ -100,6 +103,9 @@ export const updateDogProfile = (dispatch, value, dog) => {
         .then((res) => {
             res.data && console.log("updated");
             res.data && getDogs(dispatch);
+            res.data && setAlert(res.data.error)
+            res.data && setAlertMessage(res.data.message)
+            res.data && setAlertType(res.data.alertType)
         })
 }
 
@@ -124,9 +130,20 @@ export const addDogTreatment = (dispatch, values, dog, treatment) => {
     }
     publicRequest.put(`/api/dogs/${dog._id}`, updates)
         .then((res) => {
-            res.data && console.log("updated");
+            res.data && console.log(res.data);
             res.data && getDogs(dispatch);
         })
+
+    // const postReport = (report) => {
+    //     axios.post(`${process.env.REACT_APP_SERVER_URL}/api/reports`, report)
+    //         .then((res) => {
+    //             res.data && setAlert(res.data.error)
+    //             res.data && setAlertMessage(res.data.message)
+    //             res.data && setAlertType(res.data.alertType)
+    //             console.log(report);
+    //             sendM(report, room);
+    //         })
+    // }
 }
 
 export const deleteDog = (dispatch, dog) => {
@@ -134,13 +151,13 @@ export const deleteDog = (dispatch, dog) => {
         display: false
     }
     publicRequest.put(`/api/dogs/${dog._id}`, updates)
-    .then((res) => {
-        res.data && console.log("updated");
-        res.data && getDogs(dispatch);
-    })
-}    
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getDogs(dispatch);
+        })
+}
 
-export const getVolunteers = (dispatch) =>{
+export const getVolunteers = (dispatch) => {
 
     publicRequest.get(`/api/volunteering`)
         .then((res) => {
@@ -148,27 +165,27 @@ export const getVolunteers = (dispatch) =>{
         })
         .catch((err) => console.log(err));
 
-    
-    }
+
+}
 
 
-export const createNewVolunteer = (dispatch, body, handleAlerts) =>{
-        publicRequest.post(`/api/volunteering`, body)
-            .then((res) => {
-                res.data && getVolunteers(dispatch)
-                res.data && console.log(res.data);
-                handleAlerts(res.data)
-            })
-            .catch((err) => console.log(err))
-    }
+export const createNewVolunteer = (dispatch, body, handleAlerts) => {
+    publicRequest.post(`/api/volunteering`, body)
+        .then((res) => {
+            res.data && getVolunteers(dispatch)
+            res.data && console.log(res.data);
+            handleAlerts(res.data)
+        })
+        .catch((err) => console.log(err))
+}
 
-    export const deleteVolunteer = (dispatch, volunteer) => {
-        publicRequest.delete(`/api/volunteering/${volunteer._id}`)
+export const deleteVolunteer = (dispatch, volunteer) => {
+    publicRequest.delete(`/api/volunteering/${volunteer._id}`)
         .then((res) => {
             res.data && console.log("updated");
             res.data && getVolunteers(dispatch);
         })
-    }   
+}
 
 export const getDogRequests = (dispatch) => {
     publicRequest.get(`/api/dogRequests`)
@@ -177,17 +194,17 @@ export const getDogRequests = (dispatch) => {
         })
         .catch((err) => console.log(err));
 }
-    
-    
+
+
 export const updateOldReqDog = (dispatch, dog) => {
     const updates = {
         newReq: false
     }
     publicRequest.put(`/api/dogRequests/${dog._id}`, updates)
-    .then((res) => {
-        res.data && console.log("updated");
-        res.data && getDogRequests(dispatch);
-    })
+        .then((res) => {
+            res.data && console.log("updated");
+            res.data && getDogRequests(dispatch);
+        })
 }
 
 export const getReports = (dispatch) => {
@@ -219,8 +236,8 @@ export const deleteStatus = (dispatch, value, report) => {
 
 export const gotTheAlert = (dispatch, userData, setNewAssignment) => {
     publicRequest.put(`/api/oldassigmnents/${userData._id}`)
-    .then((res) => {
-        res.data && getAssignments(dispatch);
-        res.data && setNewAssignment(false);
-    })
+        .then((res) => {
+            res.data && getAssignments(dispatch);
+            res.data && setNewAssignment(false);
+        })
 }
