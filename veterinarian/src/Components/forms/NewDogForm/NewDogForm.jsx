@@ -6,7 +6,7 @@ import './newDogForm.css'
 import Alert from '../../alert/Alert';
 import { publicRequest } from '../../../requestMethods';
 import { useDispatch } from 'react-redux';
-import { addEventWhenAddDog, getDogs } from '../../../utils/apiCalls';
+import { addEventWhenAddDog, createDog, getDogs } from '../../../utils/apiCalls';
 import { addEventApi } from "../../../Redux/actions";
 
 
