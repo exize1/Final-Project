@@ -112,45 +112,7 @@ router.put('/dogs/:id', (req, res, next) => {
     updates.display = req.body.display
   }
   Dog.findOneAndUpdate({ _id: req.params.id }, { $set: updates }, { new: true })
-    .then((data) => {
-      if (req.body.forAdopting) {
-        res.json({
-          "error": true,
-          "message": "הדיווח נשלח בהצלחה",
-          "alertType": "success"
-        })
-      }
-      if (req.body.adopted) {
-        res.json({
-          "error": true,
-          "message": "הדיווח נשלח בהצלחה",
-          "alertType": "success"
-        })
-      }
-      if (req.body.details) {
-        res.json({
-          "error": true,
-          "message": "הדיווח נשלח בהצלחה",
-          "alertType": "success"
-        })
-      }
-
-      if (req.body.treatments) {
-        res.json({
-          "error": true,
-          "message": "הדיווח נשלח בהצלחה",
-          "alertType": "success"
-        })
-      }
-
-      if (!req.body.display) {
-        res.json({
-          "error": true,
-          "message": "הדיווח נשלח בהצלחה",
-          "alertType": "success"
-        })
-      }
-    })
+    .then((data) => res.json(data))
     .catch(next)
 })
 
@@ -414,32 +376,32 @@ router.post('/reports', async (req, res, next) => {
 
   const result = await cloudinary.uploader.upload(req.body.reportDetails.picture);
   if (result) {
-    reportDetails.picture = result
-    const report = {
-      reporterDetails,
-      dogDetails,
-      location,
-      reportDetails,
-      picture: result,
-    }
-    if (req.body.lost) report.lost = req.body.lost
-    Report.create(report)
-      .then(() => {
-        res.json({
-          "error": true,
-          "message": "הדיווח נשלח בהצלחה",
-          "alertType": "success"
-        })
-
-      }).catch(err => {
-        res.json({
-          "error": true,
-          "message": "לא היה ניתן לשלוח את הדיווח",
-          "alertType": "danger",
-          "m": err
-
-        })
+  reportDetails.picture = result
+  const report = {
+    reporterDetails,
+    dogDetails,
+    location,
+    reportDetails,
+    picture: result,
+  }
+  if (req.body.lost) report.lost = req.body.lost
+  Report.create(report)
+    .then(() => {
+      res.json({
+        "error": true,
+        "message": "הדיווח נשלח בהצלחה",
+        "alertType": "success"
       })
+
+    }).catch(err => {
+      res.json({
+        "error": true,
+        "message": "לא היה ניתן לשלוח את הדיווח",
+        "alertType": "danger",
+        "m": err
+
+      })
+    })
   } else {
     res.json({ error: `this input is empty -> ${req.body}` })
   }
@@ -484,16 +446,14 @@ router.patch('/animals/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/reports/', (req, res, next) => {
-  console.log("delete");
-  Report.find({})
-    .then((data) => data.map(report => {
-      Report.findOneAndDelete({ _id: report._id })
-        .then(data => console.log("delete"))
-    }))
-    .catch(next)
-
-
+router.delete('/reports/', ( req,res,next) => {
+    console.log("delete");
+    Report.find({})
+        .then((data) => data.map( report => {
+          Report.findOneAndDelete({_id: report._id})
+          .then(data => console.log("delete"))
+        }))
+        .catch(next)
 })
 
 ///////////assigmnents
@@ -517,57 +477,50 @@ router.delete("/assigmnents/:id", async (req, res) => {
 
 router.post('/assigmnents', async (req,res,next) => {
 
-  const { dogHandlerID, dateUpload, dateToEnd, details, complited, dogNumber} = req.body;
-  console.log(dogHandlerID);
-  dogHandlerID ? await DogHandler.findOne({ _id: dogHandlerID })
+  const { dogHandlerID, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
+      const User = await DogHandler.findOne({_id:dogHandlerID})
       .then((data)=>{
-        console.log(data);
-        // const dogHandlerName = data.firstName
-        const report = {
-          // dogHandlerName,
-          dogHandlerID,
-          dateUpload,
-          dateToEnd,
-          details,
-          complited,
-          dogNumber,
-          WhoComplited:""
-        } 
+        const dogHandlerName = data.firstName
+      const report = {
+        dogHandlerName,
+        dogHandlerID,
+        dateUpload,
+        dateToEnd,
+        details,
+        complited,
+        dogNumber,
+        WhoComplited:""
 
+      } 
+      
       Assigmnent.create(report)
       .then(() =>{ 
         res.json({
-          "error" : true,
-          "message": "המשימה נשלחה בהצלחה",
-          "alertType": "success",
+          "error" : false,
+          "message": "המשימה נשלחה בהצלחה"
         })
+        console.log(report);
       }).catch(err =>{
         res.json({
           "error" : true,
           "message": "לא היה ניתן לשלוח את המשימה",
-          "alertType": "danger",
           "m":err
       })
-    }).catch(next)
-  }):         
-  res.json({
-    "error" : true,
-    "message": "אנא בחרו כלבן",
-    "alertType": "danger",
+    })
   })
 })
 
 router.put('/oldassigmnents/:id', (req, res, next) => {
   const id = req.params.id
   Assigmnent.find({ dogHandlerID: id })
-    .then(data => {
-      data.map(assignment => {
-        Assigmnent.findOneAndUpdate({ _id: assignment._id }, { $set: { isNewAssignment: false } }, { new: true })
-          .then((data) => console.log(data))
-          .catch(next)
-      })
-      res.json("done")
+  .then( data => {
+    data.map(assignment => {
+      Assigmnent.findOneAndUpdate({ _id: assignment._id }, { $set: {isNewAssignment: false} }, { new: true })
+        .then((data) => console.log(data))
+        .catch(next)
     })
+    res.json("done")
+  })
 })
 
 
