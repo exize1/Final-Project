@@ -1,38 +1,10 @@
-/* .lostForm-footer-container {
-  background-color: #dbe0ed; */
-
-/* display: flex;
-  flex-direction: row;
-  background-color: brown;
-  background: brown; /* fallback for old browsers */
-/* background: -webkit-linear-gradient(
-    to right,
-    brown,
-    brown  */
-/* ); Chrome 10-25, Safari 5.1-6 */
-/* background: linear-gradient(
-    to right,
-    brown,
-    brown
-  ); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-/* width: 100vw; */
-/* } */
-
 .footer-container-without-mt {
   display: flex;
   flex-direction: row;
-  background-color: #6fa1ea;
-  background: #56ccf2; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #2f80ed,
-    #56ccf2
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #2f80ed,
-    #56ccf2
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: wheat;
+  background: wheat;
+  background: -webkit-linear-gradient(to right, wheat, wheat);
+  background: linear-gradient(to right, wheat, wheat);
   width: 100vw;
   height: 87vh;
 }
@@ -66,15 +38,44 @@
 
 .input-title-container p {
   color: black;
-  text-align: right;
 }
 
 .must-asterisk {
   color: red;
 }
 
+.radio-btns-container p {
+  color: black;
+}
+
+.form-container-page1-third-dogSize {
+  color: black;
+}
+
 .scrollable-menu {
   height: auto;
   max-height: 250px;
   overflow-x: hidden;
+}
+
+.form-container-page1 {
+  margin: 3%;
+}
+.form-container-page2 {
+  margin: 3%;
+}
+
+.dropdown-size {
+  display: flex;
+}
+
+@media only screen and (max-width: 850px) {
+  .dropdown-size {
+    margin-top: 1rem;
+    flex-direction: column;
+  }
+
+  .form-container-page1 {
+    margin: 6%;
+  }
 }
