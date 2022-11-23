@@ -15,7 +15,7 @@ const AllPagesBtns = ( ) => {
     </div>
     <div className='new-dog'>
         <Modal addOverflow={true} modalButtonName={"כלב חדש "}  className="add-new-dog-btn" footer={true} size="large" title="הוספת כלב חדש למאגר העירוני">
-            <NewDogForm></NewDogForm>
+            <NewDogForm/>
         </Modal>
     </div>
 

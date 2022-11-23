@@ -3,34 +3,34 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from 'react';
 import './newDogForm.css'
-// import Alert from '../../alert/Alert';
+import Alert from '../../alert/Alert';
 import { publicRequest } from '../../../requestMethods';
 import { useDispatch } from 'react-redux';
-import { addEventWhenAddDog, getDogs } from '../../../utils/apiCalls';
+import { addEventWhenAddDog, createDog, getDogs } from '../../../utils/apiCalls';
 import { addEventApi } from "../../../Redux/actions";
 
 
 
-export default function NewDogForm({addEventApivs}) {
+export default function NewDogForm() {
     const [dogSize, setDogSize] = useState("")
     const [dogImage, setDogImage] = useState("")
     const [dogSex, setDogSex] = useState("")
+    const [dogAge, setDogAge] = useState("")
     const [drug, setDrug] = useState(false)
+
     const [vaccine, setVaccine] = useState(false)
-    const [success, setSuccess] = useState(false)
-    const [fail, serFail] = useState(false)
+
+    const [alert, setAlert] = useState(false)
+    const [alertType, setAlertType] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
 
     const [rerender, setRerender] = useState(false);
 
-    // const [submited, setSubmited] = useState(false)
-    // let windowWidth = window.innerWidth;
     const schema = Yup.object().shape({
         dogName: Yup.string()
             .required("נא להכניס את שם הכלב"),
         dogWeight: Yup.string()
             .required("נא להכניס את משקל הכלב"),
-        dogAge: Yup.string()
-            .required("נא לכניס את גיל הכלב"),
     });
 
     const handleSubmition = (values) => {
@@ -79,7 +79,7 @@ export default function NewDogForm({addEventApivs}) {
             details: {
                 dogName: values.dogName,
                 weight: values.dogWeight,
-                age: values.dogAge,
+                age: dogAge,
                 gender: dogSex,
                 size: dogSize,
                 chipNumber: values.chipNumber,
@@ -94,7 +94,7 @@ export default function NewDogForm({addEventApivs}) {
             treatment: treatment
         };
         addNewEvent(values)
-        createDog(value);
+        createDog(dispatch, value, setAlert, setAlertType, setAlertMessage);
     }
     const addNewEvent = (values) =>{
         let date = new Date();
@@ -115,6 +115,7 @@ export default function NewDogForm({addEventApivs}) {
         console.log(newEvent);
         addEventWhenAddDog(dispatch,newEvent)
     }
+
     const handleProductImageUpload = (e) => {
         const file = e.target.files[0]
         transformFile(file)
@@ -133,13 +134,7 @@ export default function NewDogForm({addEventApivs}) {
         }
     }
 
-    const createDog = (body) => {
-        publicRequest.post(`/api/dogs/`, body)
-            .then((res) => {
-                res.data && getDogs(dispatch);
-            })
 
-    }
 
     const dispatch = useDispatch()
     return (
@@ -150,7 +145,6 @@ export default function NewDogForm({addEventApivs}) {
                         initialValues={{
                             dogName: "",
                             dogWeight: "",
-                            dogAge: "",
                             gender: "",
                             treatment: "",
                             dogSize: "",
@@ -190,11 +184,6 @@ export default function NewDogForm({addEventApivs}) {
                                             <input name="dogWeight" type="text" className="form-control" id="floatingInput" placeholder="משקל הכלב" onChange={handleChange} value={values.dogWeight} onBlur={handleBlur} />
                                             <label dir='rtl' for="floatingInput" className="form-label" >משקל הכלב*</label>
                                             <p className="error-message">{errors.dogWeight && touched.dogWeight && errors.dogWeight}</p>
-                                        </div>
-                                        <div className="form-floating col-sm">
-                                            <input name="dogAge" type="text" className="form-control" id="floatingInput" placeholder="גיל הכלב" onChange={handleChange} value={values.dogAge} onBlur={handleBlur} />
-                                            <label dir='rtl' for="floatingInput" className="form-label"> גיל הכלב*</label>
-                                            <p className="error-message">{errors.dogAge && touched.dogAge && errors.dogAge}</p>
                                         </div>
                                     </div>
                                     <div className="form-floating">
@@ -251,28 +240,38 @@ export default function NewDogForm({addEventApivs}) {
                                                 </ul>
                                             </div>
                                         </div>
+                                        <div className="dropdown col-sm">
+                                            <div className="input-group mb-3 me-5">
+                                                <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogAge ? dogAge : "גיל הכלב"}</button>
+                                                <ul className="dropdown-menu scrollable-menu">
+                                                    <li><a class="dropdown-item" dir='rtl' >בחר/י גיל...</a></li>
+                                                    <li><hr class="dropdown-divider" /></li>
 
-                                    </div>
-                                    <div className='form-container-page1-fifth row'>
-                                        <div className="input-group mb-3 col-sm-3 ">
-                                            <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
-                                                // onSelectfile(e)
-                                                handleProductImageUpload(e)
-                                            }}
-                                                value={values.picture} 
-                                                onBlur={handleBlur}
-                                            />
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogAge("מעל שנה")}>{"מעל שנה"}</a></li>
+                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogAge("עד שנה")}>{"עד שנה"}</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
-                                </div>
-                                <button onClick={() => setSuccess(!success)}>הצלחה</button>
-                                <button onClick={() => serFail(!fail)}>כשלון</button>
-                            </form>
-                        )}
-                    </Formik>
-                </div>
-            </div>
-        </div >
+
+                        </div>
+                        <div className='form-container-page1-fifth row'>
+                            <div className="input-group mb-3 col-sm-3 ">
+                                <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
+                                    // onSelectfile(e)
+                                    handleProductImageUpload(e)
+                                }}
+                                    value={values.picture} 
+                                    onBlur={handleBlur}
+                                />
+                            </div>
+                        </div>
+                        <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
+                    </div>
+                </form>
+            )}
+        </Formik>
+        </div>
+    </div>
+</div >
     )
 }
