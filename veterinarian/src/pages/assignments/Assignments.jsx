@@ -5,12 +5,11 @@ import './Assignments.css'
 
 const Assignments = () => {
     let windowWidth=window.innerWidth
+    
     return(
         <div className='general-body-container'>
             <GeneralBody panelTitle={"פאנל משימות"}>
-             
-            {windowWidth > 900 ? <ScrolSpyAssignments/> :<ResponsiveAccordion  />}
-           
+              {windowWidth > 900 ? <ScrolSpyAssignments/> :<ResponsiveAccordion  />}
             </GeneralBody>
         </div>
     )

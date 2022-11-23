@@ -1,7 +1,23 @@
 .add-product-btn{
     min-width: max-content;
 }
-
+@media only screen and (max-width: 900px){
+    .responsive-btn{
+        font-size: 0.8rem;
+        padding: 5px 9px;
+    }
+}
+@media only screen and (max-width: 750px){
+    .responsive-btn{
+        font-size: 0.7rem;
+        padding: 5px 9px;
+    }
+}
+@media only screen and (max-width: 500px){
+    .responsive-btn{
+        font-size: 0.6rem;
+    }
+}
 .modal-background{
     display: flex;
     justify-content: center;
@@ -127,6 +143,3 @@
     color: red;
 }
 
-.btn{
-    border-color: rgb(155, 147, 147);
-}

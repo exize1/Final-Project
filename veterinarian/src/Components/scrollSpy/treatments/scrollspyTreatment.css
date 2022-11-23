@@ -1,5 +1,5 @@
 
-.scrollspy-example{
+.scrollspy-dog{
     height: fit-content;
     min-height: 185px;
     max-height: 185px;
@@ -25,7 +25,6 @@
 .top-list-container{
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-top: 0;
-
 }
 
 .add-overflow{
@@ -53,3 +52,49 @@
 /* .dropdown-menu{
     max-height: 180px;
 } */
+
+@media only screen and (max-width: 700px){
+    .bid-details{
+        font-size: 0.7rem;
+        padding: 2px 0;
+    }
+    .scrollspy-title{
+        font-size: 1.1rem;
+    }
+    .scrollspy-sum{
+        font-size: 0.9rem;
+    }
+    .top-list-container{
+        font-size: 0.7rem;        
+    }
+    .scrollspy-dog{
+        min-height: 200px !important;
+        max-height: 200px !important;
+    }
+}
+@media only screen and (max-width: 600px){
+    .scrollspy-dog{
+        min-height: 160px !important;
+        max-height: 160px !important;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .bid-details{
+        font-size: 0.6rem;
+        padding: 2px 0;
+    }
+    .scrollspy-title{
+        font-size: 1rem;
+    }
+    .scrollspy-sum{
+        font-size: 0.8rem;
+    }
+    .top-list-container{
+        font-size: 0.6rem;        
+    }
+    .scrollspy-dog{
+        min-height: 200px !important;
+        max-height: 200px !important;
+    }
+}
