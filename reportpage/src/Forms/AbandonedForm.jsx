@@ -28,14 +28,13 @@ const AbandonedForm = ({ }) => {
     const schema = Yup.object().shape({
         fullName: Yup.string()
             .required("נא להכניס שם מלא"),
-        email: Yup.string().email(),
         phone: Yup.string()
             .required("נא להכניס מספר פלאפון")
-            .min(10, "Phone number should containe 10 numbers exactly")
-            .max(10, "Phone number should containe 10 numbers exactly")
-            .matches(/[0-9]/, "phone number can contain numbers only."),
+            .min(10, "מספר טלפון מכיל בדיוק 10 ספרות")
+            .max(10, "מספר טלפון מכיל בדיוק 10 ספרות")
+            .matches(/[0-9]/, "מספר פלאפון מכיל מספרים בלבד"),
         details: Yup.string()
-            .required("נא להכניס את פרטי הדיווח")
+            .required(" נא להכניס את פרטי הדיווח").max(105, 'דיווח עד 105 תווים')
     });
     const handleSubmition = (values) => {
         const currentDate = new Date()
@@ -176,7 +175,7 @@ const AbandonedForm = ({ }) => {
                                         <div className="form-floating col-sm">
                                             <input name="email" type="email" className="form-control" id="floatingInput" placeholder="כתובת אי-מייל" onChange={handleChange} value={values.email} onBlur={handleBlur} />
                                             <label dir='rtl' for="floatingInput" className="form-label" >כתובת אי-מייל</label>
-                                            {/* <p className="error-message">{errors.email && touched.email && errors.email}</p> */}
+
                                         </div>
                                         <div className="form-floating col-sm">
                                             <input name="phone" type="text" className="form-control" id="floatingInput" placeholder="מספר נייד" onChange={handleChange} value={values.phone} onBlur={handleBlur} />
@@ -196,19 +195,24 @@ const AbandonedForm = ({ }) => {
                                             {/* <p className="error-message">{errors.color && touched.color && errors.color}</p> */}
                                         </div>
 
-                                        <div className="form-container-page1-third-dogSize dropdown col-sm-2">
-                                            <div className="input-group mb-3 me-5">
-                                                <p>גודל הכלב</p>
-                                                <button dir='rtl' className="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSize ? dogSize : "בחירת גודל"}</button>
-                                                <ul className="dropdown-menu scrollable-menu">
-                                                    <li><a class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
-                                                    <li><hr class="dropdown-divider" /></li>
+                                        <div className="form-container-page1-third-dogSize dropdown col-sm-4">
+                                            <div className="input-group mb-3 dropdown-size">
+                                                <div className=' dropdown-size-title'>
+                                                    <p>גודל הכלב</p>
+                                                </div>
+                                                <div className=' dropdown-size-btn'>
 
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן")}>{"קטן"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני")}>{"בינוני"}</a></li>
-                                                    <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול")}>{"גדול"}</a></li>
-                                                    {/* how to catch the value of the the dropdown? should we use yup?*/}
-                                                </ul>
+                                                    <button dir='rtl' className="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSize ? dogSize : "בחירת גודל"}</button>
+                                                    <ul className="dropdown-menu scrollable-menu ">
+                                                        <li><a class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
+                                                        <li><hr class="dropdown-divider" /></li>
+
+                                                        <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן")}>{"קטן"}</a></li>
+                                                        <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני")}>{"בינוני"}</a></li>
+                                                        <li><a className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול")}>{"גדול"}</a></li>
+                                                        {/* how to catch the value of the the dropdown? should we use yup?*/}
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -236,7 +240,7 @@ const AbandonedForm = ({ }) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='input-title-container col-sm-3'>
+                                            <div className='input-title-container col-sm-4'>
                                                 {/* <p dir='rtl'> רחוב ומספר בית*</p> */}
                                                 <div className="form-floating col">
                                                     <input name="street" type="text" className="form-control" id="floatingInput" placeholder="מיקום" onChange={handleChange} value={values.street} onBlur={handleBlur} />
@@ -249,7 +253,7 @@ const AbandonedForm = ({ }) => {
                                                     <p dir='rtl'>חיה אלימה/תוקפנית</p>
                                                 </div>
 
-                                                <div className='radio-btns-container-btns ms-5'>
+                                                <div className='radio-btns-container-btns ms-6'>
                                                     <div className="form-check form-check-inline">
                                                         <input name="violent" className="form-check-input" type="radio" id="inlineRadio1" placeholder="לא" onChange={handleChange} onClick={() => setViolent(!violent)} value={"לא"} />
                                                         <label dir='rtl' className="form-check-label" for="inlineRadio1">לא</label>

@@ -1,6 +1,75 @@
+body {
+  font-size: small;
+}
+
 .animal-card {
-  height: 23rem;
+  height: 25rem;
   width: 16rem;
+}
+
+.pet-card-img {
+  max-height: 180px;
+  min-height: 180px;
+  object-fit: cover;
+}
+
+.animal-modal-img {
+  display: flex;
+  justify-content: center;
+}
+
+.animal-modal-img-container {
+  max-width: 300px;
+  min-width: 300px;
+  border-radius: 15px;
+}
+
+.animal-modal-img-container-image {
+  border-radius: 15px;
+  object-fit: cover;
+  max-height: 200px;
+  min-height: 200px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.more-options-icon-container {
+  font-size: 1.6rem;
+  color: rgba(0, 0, 0, 0.603);
+  margin-right: 4%;
+}
+
+.popper {
+  position: absolute;
+  height: 0px;
+  font-size: 0;
+}
+
+.remove-borders:hover .popper {
+  color: white;
+  display: block;
+  position: absolute;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.911);
+  border-radius: 8px;
+  height: 30px;
+  width: max-content;
+  padding: 3px 10px 0 10px;
+  right: -150%;
+  font-size: 1rem;
+}
+
+.more-options-icon-container {
+  font-size: 1.2rem;
+}
+
+.card-body-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detele-report {
+  color: red;
 }
 
 .pet-card-img {
@@ -89,3 +158,34 @@
   justify-content: center;
 }
 
+.modal-container-details-text {
+  display: flex;
+  justify-content: right;
+}
+
+.modal-container-details-text-title {
+  font-weight: bold;
+}
+
+.card-body-btn-container-status-title {
+  font-weight: bold;
+}
+
+.modal-container-details-text-title desc {
+  width: 1rem;
+}
+
+.card-body-btn-container-status-title {
+  margin-left: 3px;
+}
+.modal-container-details-text-title {
+  margin-left: 3px;
+}
+
+.card-title-time {
+  font-weight: bold;
+}
+
+.card-title-date {
+  font-weight: bold;
+}
