@@ -47,7 +47,7 @@ export const finishAssignment = (dispatch, id, whoComplited) => {
         whoComplited:whoComplited,
         status:true
     }
-    publicRequest.patch(`/api/assigmnents/${id}`,report)
+    publicRequest.put(`/api/assigmnents/${id}`,report)
         .then((res) => {
             getAssignments(dispatch);
         })
