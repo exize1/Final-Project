@@ -23,6 +23,7 @@ import { selectUser } from './Redux/slicer/UserSlice';
 import Assignments from './pages/assignments/Assignments';
 import Calendar from './pages/calender/Calender';
 
+
 export const socket = io.connect("http://localhost:3001")
 
 
@@ -50,7 +51,6 @@ const dogs = useSelector(selectDog)
     <div className="App">
       {user.loggedIn ? <>
         <NewNavbar/>
-
           <div className='padding-all-components'>
             <Routes>
                   <Route path='/' element={<Dashboard/>} />
