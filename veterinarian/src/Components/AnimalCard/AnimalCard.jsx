@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { deleteStatus, updateStatus } from '../../utils/apiCalls';
 
 function AnimalCard({ report }) {
-
+    let windowWidth = window.innerWidth
     const dispatch = useDispatch()
     return (
         <div className="card mt-4 animal-card">
@@ -13,20 +13,28 @@ function AnimalCard({ report }) {
 
             <div className="card-body">
                 <div className='card-body-details'>
-                    <p className="card-title" dir='rtl'>שם מדווח: {report.reporterDetails.fullName}</p>
-                    <p className="card-title" dir='rtl'>תיאור: {report.reportDetails.details}</p>
-                    <p className="card-title" dir='rtl'>מיקום:{report.location.place}</p>
+                    <div className='modal-container-details-text' dir='rtl'>
+                        <p dir='rtl' className='modal-container-details-text-title'>שם מדווח: </p>
+                        <p>{report.reporterDetails.fullName}</p>
+                    </div>
+                    <div className='modal-container-details-text desc' dir='rtl'>
+                        <p dir='rtl' className='modal-container-details-text-title'>תיאור:</p>
+                        <p>{report.reportDetails.details}</p>
+                    </div>
+                    <div className='modal-container-details-text' dir='rtl'>
+                        <p dir='rtl' className='modal-container-details-text-title'>שכונה:</p>
+                        <p>{report.location.neighborhood}</p>
+                    </div>
                 </div>
                 <div className='card-body-datetime'>
-                    <p className="card-title" dir='rtl'>{report.reportDetails.time.date}</p>
-                    <p className="card-title" dir='rtl'>{report.reportDetails.time.hour}</p>
+                    <h6 className="card-title-date" dir='rtl'>{report.reportDetails.time.date}</h6>
+                    <h6 className="card-title-time" dir='rtl'>{report.reportDetails.time.hour}</h6>
                 </div>
                 <div className='card-body-btn-container'>
-
-                    <Modal addOverflow={true} className='animal-modal' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >
-                          <div className='card-body-btn-container-status' dir='rtl'>
-                            <h6 dir='rtl'>סטאטוס:</h6>
-                            <p>{report.status}</p>
+                    <Modal addOverflow={true} className='animal-modal' dir='rtl' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} size={windowWidth > 500 ? "medium" : "large"} >
+                        <div className='card-body-btn-container-status' dir='rtl'>
+                            <p dir='rtl' className='card-body-btn-container-status-title'>סטאטוס: </p>
+                            <p> {report.status}</p>
                         </div>
                         <div className='animal-modal-img'>
                             <div className='animal-modal-img-container'>
@@ -35,18 +43,57 @@ function AnimalCard({ report }) {
                             </div>
                         </div>
                         <div className='modal-container-details'>
-                            <div dir='rtl'>שם מדווח: {report.reporterDetails.fullName}</div>
-                            <div dir='rtl'>תיאור: {report.reportDetails.details}</div>
-                            <div dir='rtl'>מיקום: {report.location.place}</div>
-                            <div dir='rtl'>אלים: {report.dogDetails.violent}</div>
-                            <div dir='rtl'>גודל: {report.dogDetails.size}</div>
-                            <div dir='rtl'>צבע: {report.dogDetails.color}</div>
-                            <div dir='rtl'>טלפון: {report.reporterDetails.phone}</div>
+                            <div className='modal-container-details-text' dir='rtl'>
+                                <p dir='rtl' className='modal-container-details-text-title'>שם מדווח: </p>
+                                <p>{report.reporterDetails.fullName}</p>
+                            </div>
+                            <div className='modal-container-details-text' dir='rtl'>
+                                <p dir='rtl' className='modal-container-details-text-title'>תיאור: </p>
+                                <p>{report.reportDetails.details}</p>
+                            </div>
+
+                            <div className='modal-container-details-short-inputs'>
+                                <div className='modal-container-details-short-inputs-upper row' dir='rtl'>
+
+                                    <div className='modal-container-details-text col-sm-4' dir='rtl'>
+                                        <p dir='rtl' className='modal-container-details-text-title'>טלפון: </p>
+                                        <p>{report.reporterDetails.phone}</p>
+                                    </div>
+                                    <div className='modal-container-details-text col-sm-4' dir='rtl'>
+                                        <p dir='rtl' className='modal-container-details-text-title'>שכונה: </p>
+                                        <p>{report.location.neighborhood}</p>
+                                    </div>
+
+                                    <div className='modal-container-details-text col-sm-4' dir='rtl'>
+                                        <p dir='rtl' className='modal-container-details-text-title'>רחוב: </p>
+                                        <p>{report.location.street}</p>
+                                    </div>
+
+
+                                </div>
+                                <div className='modal-container-details-short-inputs-lowe row' dir='rtl'>
+
+                                    <div className='modal-container-details-text col-sm-4' dir='rtl'>
+                                        <p dir='rtl' className='modal-container-details-text-title'>גודל: </p>
+                                        <p>{report.dogDetails.size}</p>
+                                    </div>
+
+                                    <div className='modal-container-details-text col-sm-4' dir='rtl'>
+                                        <p dir='rtl' className='modal-container-details-text-title'>צבע: </p>
+                                        <p>{report.dogDetails.color}</p>
+                                    </div>
+
+                                    <div className='modal-container-details-text col-sm-4' dir='rtl'>
+                                        <p dir='rtl' className='modal-container-details-text-title'>אלים: </p>
+                                        <p>{report.dogDetails.violent}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <br></br>
                         <div className='modal-container-datetime'>
-                            <p className="card-title">{report.reportDetails.time.date}</p>
-                            <p className="card-title">{report.reportDetails.time.hour}</p>
+                            <h5 className="card-title">{report.reportDetails.time.date}</h5>
+                            <h5 className="card-title">{report.reportDetails.time.hour}</h5>
                         </div>
 
 
@@ -66,7 +113,7 @@ function AnimalCard({ report }) {
                             <li><a href='#teart' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "טופל בשטח ושוחרר", report)}>טופל בשטח ושוחרר</a></li>
                             {/* <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "טופל בשטח והועבר לוטרינריה", report)}>טופל בשטח והועבר לוטרינריה</a></li> */}
                             <li><a href='#vet' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "הועבר לוטרינירה", report)}>הועבר לוטרינריה</a></li>
-                            <li><a href= '#dead'className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "החיה נמצאה מתה בשטח", report)}>החיה נמצאה מתה בשטח</a></li>
+                            <li><a href='#dead' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "החיה נמצאה מתה בשטח", report)}>החיה נמצאה מתה בשטח</a></li>
                             <li><hr className="dropdown-divider" /></li>
                             <li><a href='delete' className="dropdown-item detele-report " dir='rtl' onClick={() => deleteStatus(dispatch, "מחיקת דיווח", report)}>מחיקת דיווח</a></li>
                         </ul>

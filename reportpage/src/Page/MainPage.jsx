@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import LostForm from '../Forms/LostForm'
-import PetForm from '../Forms/AbandonedForm'
+import AbandonedForm from '../Forms/AbandonedForm'
 import ReportNavbar from '../reportNavbar/ReportNavbar'
 import './mainPage.css'
 
@@ -28,7 +28,7 @@ export default function MainPage() {
                 </div>
             </div>
             <div className='form-container'>
-                {petForm ? <PetForm /> : <LostForm />}
+                {petForm ? <AbandonedForm /> : <LostForm />}
             </div>
         </div>
     )

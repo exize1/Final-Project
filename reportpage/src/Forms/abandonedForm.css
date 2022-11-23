@@ -1,38 +1,10 @@
-/* .petform-footer-container {
-  background-color: #dbe0ed; */
-
-/* display: flex;
-  flex-direction: row;
-  background-color: wheat; */
-/* background: wheat; fallback for old browsers */
-/* background: -webkit-linear-gradient( */
-/* to right,
-    wheat,
-    wheat */
-/* ); Chrome 10-25, Safari 5.1-6 */
-/* background: linear-gradient( */
-/* to right,
-    wheat,
-    wheat */
-/* ); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-/* width: 100vw; */
-/* } */
-
 .footer-container-without-mt {
   display: flex;
   flex-direction: row;
   background-color: wheat;
-  background: wheat; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    wheat,
-    wheat
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    wheat,
-    wheat
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: wheat;
+  background: -webkit-linear-gradient(to right, wheat, wheat);
+  background: linear-gradient(to right, wheat, wheat);
   width: 100vw;
   height: 87vh;
 }
@@ -84,4 +56,26 @@
   height: auto;
   max-height: 250px;
   overflow-x: hidden;
+}
+
+.form-container-page1 {
+  margin: 3%;
+}
+.form-container-page2 {
+  margin: 3%;
+}
+
+.dropdown-size {
+  display: flex;
+}
+
+@media only screen and (max-width: 850px) {
+  .dropdown-size {
+    margin-top: 1rem;
+    flex-direction: column;
+  }
+
+  .form-container-page1 {
+    margin: 6%;
+  }
 }
