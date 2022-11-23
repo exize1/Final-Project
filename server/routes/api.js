@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Dog = require('../models/dogs')
-const Former = require('../models/formers')
 const DogRequest = require('../models/dogRequests')
-const Users = require('../models/User')
 const Assigmnent = require('../models/assignment')
 const UsersPostValidation = require('../middelewares/validation');
 const jwt = require('jsonwebtoken')
@@ -112,8 +110,21 @@ router.put('/dogs/:id', (req, res, next) => {
     updates.display = req.body.display
   }
   Dog.findOneAndUpdate({ _id: req.params.id }, { $set: updates }, { new: true })
-    .then((data) => res.json(data))
-    .catch(next)
+  .then((data) =>{
+    res.json({
+      "error": true,
+      "alertType": "success",
+      "message": " עודכן בהצלחה"
+    })
+  }).catch(err => {
+    res.json({
+      "error": true,
+      "alertType": "danger",
+      "message": "לא היה ניתן לשלוח את העדכון",
+      "m": err
+
+    })
+  })
 })
 
 
@@ -190,7 +201,6 @@ router.post('/login', async function (req, res, next) {
     const result = await bcrypt.compare(password, user.password)
     if (result) {
       const accessToken = generateAccessToken(user)
-      // const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
       console.log(user);
       res.json({
         "error": false,
@@ -212,7 +222,6 @@ router.post('/login', async function (req, res, next) {
 
 function generateAccessToken(user) {
   return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET)
-  // return jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
 }
 router.get('/users', (req, res, next) => {
   DogHandler.find({})
@@ -232,7 +241,8 @@ router.post('/registerDogHandler', UsersPostValidation, async function (req, res
       lastName,
       password,
       email,
-      phone
+      phone,
+      role: "regular"
     }
     DogHandler.create(user).then(async (newUser) => {
       const accessToken = generateAccessToken(newUser)
@@ -295,10 +305,21 @@ router.post("/events/calendar", async (req, res) => {
       if (err) {
         handleError(err, res)
       } else {
-        res.status(200).json(event)
+        res.status(200).json({
+          "error": true,
+          "alertType": "success",
+          "message": " נוסף בהצלחה"
+        })
       }
     })
   } catch (err) {
+    res.json({
+      "error": true,
+      "alertType": "danger",
+      "message": "לא היה ניתן להוסיף את האירוע",
+      "m": err
+
+    })
     handleError(err, res)
   }
 }
@@ -325,31 +346,6 @@ router.put("/events/calendar/:id/update", async (req, res) => {
     console.log(err)
     handleError(err, res)
   }
-
-
-
-
-  //   const result = await Event.findOneAndUpdate(req.params.id,
-  //         {
-  //         $set: req.body,
-  //     }
-  //     , {new: true, runValidators: true}).clone()
-
-  //     try{
-  //         res.status(200).json(result)
-  //     }catch(err){
-  //         // res.status(500).json(Object.keys(result.errors)[0])
-  //         console.log(err)
-  //         res.status(400).json(err)
-  //     }
-  // .then((docs, err)=>{
-  //     if(docs){
-  //         res.status(200).json(docs)
-  //     }else{
-  //         console.log(err.errors.path)
-  //         handleError(err, res)
-  //     }
-  // })
 })
 
 router.delete("/events/calendar/:id/delete", async (req, res) => {
@@ -373,8 +369,10 @@ router.get('/reports', (req, res, next) => {
 router.post('/reports', async (req, res, next) => {
 
   const { reporterDetails, dogDetails, location, reportDetails } = req.body;
-
-  const result = await cloudinary.uploader.upload(req.body.reportDetails.picture);
+  let result = null
+  if (req.body.reportDetails.picture){
+    result = await cloudinary.uploader.upload(req.body.reportDetails.picture);
+  }
   if (result) {
   reportDetails.picture = result
   const report = {
@@ -415,16 +413,42 @@ router.put('/reports/:id', (req, res, next) => {
   if (status) updates.status = req.body.status
 
   Report.findOneAndUpdate({ _id: id }, { $set: updates }, { new: true })
-    .then((data) => res.json(data))
-    .catch(next)
+  .then((data) => {
+    res.json({
+      "error": true,
+      "alertType": "success",
+      "message": "הסטטוס התעדכן בהצלחה"
+    })
+  })
+  .catch((err)=>{
+    res.json({
+      "error": true,
+    "alertType": "danger",
+    "message": "לא היה ניתן לשלוח את הסטטוס החדש",
+    "m": err
+  })
+  })
 })
 
 
 router.delete('/reports/:id', (req, res, next) => {
   console.log("delete");
   Report.findOneAndDelete({ _id: req.params.id })
-    .then((data) => res.json(data))
-    .catch(next)
+  .then((data) => {
+    res.json({
+      "error": true,
+      "alertType": "success",
+      "message": "הדיווח נמחק בהצלחה"
+    })
+  })
+  .catch((err)=>{
+    res.json({
+      "error": true,
+    "alertType": "danger",
+    "message": "לא היה ניתן למחוק את הדיווח",
+    "m": err
+  })
+  })
 })
 
 router.delete('/reports/', ( req,res,next) => {
@@ -459,7 +483,7 @@ router.delete("/assigmnents/:id", async (req, res) => {
 router.post('/assigmnents', async (req,res,next) => {
 
   const { dogHandlerID, dateUpload, dateToEnd, details,complited,dogNumber} = req.body;
-      const User = await DogHandler.findOne({_id:dogHandlerID})
+  dogHandlerID ? await DogHandler.findOne({_id: dogHandlerID})
       .then((data)=>{
         const dogHandlerName = data.firstName
       const report = {
@@ -477,18 +501,25 @@ router.post('/assigmnents', async (req,res,next) => {
       Assigmnent.create(report)
       .then(() =>{ 
         res.json({
-          "error" : false,
-          "message": "המשימה נשלחה בהצלחה"
+          "error": true,
+          "alertType": "success",
+          "message": "המשימה נוספה בהצלחה"
         })
         console.log(report);
       }).catch(err =>{
         res.json({
-          "error" : true,
-          "message": "לא היה ניתן לשלוח את המשימה",
-          "m":err
+          "error": true,
+          "alertType": "danger",
+          "message": "לא כל השדות מלאים",
+          "m": err
       })
     })
-  })
+  }):        
+  res.json({
+    "error": true,
+    "alertType": "danger",
+    "message": "נא להכניס שם כלבן",
+})
 })
 
 router.put('/oldassigmnents/:id', (req, res, next) => {

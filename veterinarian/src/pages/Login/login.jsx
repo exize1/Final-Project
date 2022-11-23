@@ -7,11 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginFailure, loginStart, selectFetching, updateUserData } from "../../Redux/slicer/UserSlice";
 import { publicRequest } from "../../requestMethods";
+import Alert from "../../Components/alert/Alert";
 
 
 const Login = () => {
-    let windoWidth = window.innerWidth;
-
     const schema = Yup.object().shape({
         email: Yup.string().email().required("Please enter your email"),
         password: Yup.string()
@@ -49,7 +48,7 @@ const Login = () => {
                   }, 2000);
                 setMessage(data.message)
                 if(!data.error){
-                    const { email, firstName, lastName, password, _id, } = data.userData
+                    const { email, firstName, lastName, password, _id, role } = data.userData
                     const accessToken = data.accessToken
                     const values = {
                         email,
@@ -58,6 +57,7 @@ const Login = () => {
                         password,
                         _id,
                         accessToken,
+                        role,
                         loggedIn: true
                     }
                     console.log(values);
@@ -78,13 +78,12 @@ const Login = () => {
 
     return (
         <>
-        {/* <div className="home-background"/> */}
+        {error && (
+            <Alert alertType={"danger"}  alert={error}>
+                {message}
+            </Alert>
+        )}
         <div className="login-page-container">
-            {/* {error && (
-                <Alert alertType={"danger"}  alert={error}>
-                    {message}
-                </Alert>
-            )} */}
             <div className="row">
                 <div className="right-side-container">
                     <div className="login-container">
@@ -102,7 +101,7 @@ const Login = () => {
                                 {({ handleSubmit, handleChange, handleBlur, values, errors, touched }) => (
                                     <form onSubmit={handleSubmit} noValidate>
                                         <div className="form-floating mb-3">
-                                            <input name="email" type="text" className="form-control" id="floatingInput" placeholder="username, email, or mobile" onChange={handleChange} value={values.email} onBlur={handleBlur} />
+                                            <input  name="email" type="text" className="form-control" id="floatingInput" placeholder="username, email, or mobile" onChange={handleChange} value={values.email} onBlur={handleBlur} />
                                            <label htmlFor="floatingInput">שם משתמש , אימייל ,פלאפון</label>
                                             <p className="error-message">{errors.email && touched.email && errors.email}</p>
                                         </div>
@@ -116,9 +115,7 @@ const Login = () => {
                                             <p className="error-message">{errors.password && touched.password && errors.password}</p>
                                         <button type="submit" disabled={isFetching} className="btn btn-primary mb-3">כניסה</button>
                                         <div className="forgot-password-contianer">
-                                            <p className="mb-0">שכחתי סיסמה </p>
                                        </div>
-                                          
                                     </form>
                                 )}
                             </Formik>

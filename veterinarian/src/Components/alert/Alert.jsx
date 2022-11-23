@@ -7,7 +7,7 @@ const Alert  = ({ alert, alertType, setAlert, children }) => {
         setTimeout(() => {
             setAlert(false);
           }, 2000);
-    }, [alert])
+    }, [alert, setAlert])
 
     return(
         <div className="alert-container"> 

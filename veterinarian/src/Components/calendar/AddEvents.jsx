@@ -7,7 +7,7 @@ import { addEventApi } from "../../../src/Redux/actions";
 import { connect } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
-// import { set } from "date-fns";
+import Alert from "../alert/Alert";
 
 //schema to validate event inputs 
 const schema = yup.object({
@@ -24,7 +24,9 @@ const AddEvents = ({addEventApi, error}) => {
      const [dbError, setError] = useState(false)
      const [firstRender, setFirstRender] = useState(true)
      
- 
+     const [alert, setAlert] = useState(true)
+     const [alertType,setAlertType] = useState("")
+     const [alertMessage, setAlertMessage] = useState("")
 
      useEffect( ()=>{
       if(error && !firstRender){
@@ -42,17 +44,21 @@ const AddEvents = ({addEventApi, error}) => {
    
      const onSubmit = async(values)=>{
       setFirstRender(false)
-        addEventApi(values)
+        addEventApi(values, handleAlerts)
         .then(()=>{
         setRerender(!rerender)
     
         })
         
        }
-
+    const handleAlerts = (data) => {
+      setAlert(data.error)
+      setAlertType(data.alertType)
+      setAlertMessage(data.message)
+    } 
 
   return (
-    //this form is in bootstrab
+    <>
     <form onSubmit={handleSubmit(onSubmit)} className=" align-content-center m-5">
     <div className="mb-4">
       <label htmlFor="title" className="form-label">כותרת</label>
@@ -115,6 +121,10 @@ const AddEvents = ({addEventApi, error}) => {
     </div>
     <button type="submit" className="btn btn-success">צור</button>
   </form>
+  <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
+    {alertMessage}
+  </Alert>
+  </>
   )
 }
 

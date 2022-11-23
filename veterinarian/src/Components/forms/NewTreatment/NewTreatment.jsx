@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addDogTreatment } from "../../../utils/apiCalls";
 import Modal from "../../modal/Modal";
 import * as Yup from "yup";
+import Alert from "../../alert/Alert";
 
 
 const NewTreatment = ({dog}) => {
@@ -23,7 +24,7 @@ const NewTreatment = ({dog}) => {
     }
     const handleSubmition = (values) => {
         setInheritedOpen(!inheritedOpen)
-        addDogTreatment(dispatch, values, dog, treatment)
+        addDogTreatment(dispatch, values, dog, treatment,handleAlerts)
   }
 
   const schema = Yup.object().shape({
@@ -33,10 +34,16 @@ const NewTreatment = ({dog}) => {
         .required("נא להכניס פירוט קצר"),
 });
 
+const handleAlerts = (data) => {
+    setAlert(data.error)
+    setAlertType(data.alertType)
+    setAlertMessage(data.message)
+}
 
 const dispatch = useDispatch()
 
     return(
+        <>
         <Modal title={`הוספת תיעוד טיפולי ל${dog.details.dogName}`} addOverflow={true} modalButtonName={"הוספת טיפול"} inheritedOpen={inheritedOpen}>
             <Formik
                 initialValues={{
@@ -93,7 +100,11 @@ const dispatch = useDispatch()
                 </form>
                 )}
             </Formik>   
-        </Modal>       
+            </Modal>
+        <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
+            {alertMessage}
+        </Alert>
+    </>         
     )
 }
 
