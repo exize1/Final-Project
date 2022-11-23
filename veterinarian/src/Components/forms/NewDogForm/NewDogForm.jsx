@@ -31,6 +31,10 @@ export default function NewDogForm() {
             .required("נא להכניס את שם הכלב"),
         dogWeight: Yup.string()
             .required("נא להכניס את משקל הכלב"),
+        chipNumber: Yup.string()
+            .required("נא להכניס את מספר הצ׳יפ "),
+        treatment: Yup.string()
+            .required("נא להכניס את הטיפול לכלב "),
     });
 
     const handleSubmition = (values) => {
@@ -66,13 +70,13 @@ export default function NewDogForm() {
             amount: values.drugAmount,
             description: values.drugDescription
         }
-        if(values.treatment){
+        if (values.treatment) {
             treatment.push(treatmentData)
         }
-        if(vaccine) {
+        if (vaccine) {
             treatment.push(vaccineData)
         }
-        if(drug) {
+        if (drug) {
             treatment.push(drugData)
         }
         const value = {
@@ -96,24 +100,24 @@ export default function NewDogForm() {
         addNewEvent(values)
         createDog(dispatch, value, setAlert, setAlertType, setAlertMessage);
     }
-    const addNewEvent = (values) =>{
+    const addNewEvent = (values) => {
         let date = new Date();
         date.setDate(date.getDate() + 14);
-        
+
         const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr);
-       const nowTime=`${date.getFullYear()}-${padL(date.getMonth()+1)}-${padL(date.getDate())}T${padL(date.getHours())}:${padL(date.getMinutes())}:${padL(date.getSeconds())}.000Z`
+        const nowTime = `${date.getFullYear()}-${padL(date.getMonth() + 1)}-${padL(date.getDate())}T${padL(date.getHours())}:${padL(date.getMinutes())}:${padL(date.getSeconds())}.000Z`
 
 
-       const endTime=`${date.getFullYear()}-${padL(date.getMonth()+1)}-${padL(date.getDate())}T${padL(date.getHours()+1)}:${padL(date.getMinutes())}:${padL(date.getSeconds())}.000Z`
+        const endTime = `${date.getFullYear()}-${padL(date.getMonth() + 1)}-${padL(date.getDate())}T${padL(date.getHours() + 1)}:${padL(date.getMinutes())}:${padL(date.getSeconds())}.000Z`
 
-        const newEvent={
-            title:`${values.chipNumber} :מספר שבב  ${values.dogName}להוציא את `,
-            start:nowTime,
-            end:endTime,
-            describe:""
+        const newEvent = {
+            title: `${values.chipNumber} :מספר שבב  ${values.dogName}להוציא את `,
+            start: nowTime,
+            end: endTime,
+            describe: ""
         }
         console.log(newEvent);
-        addEventWhenAddDog(dispatch,newEvent)
+        addEventWhenAddDog(dispatch, newEvent)
     }
 
     const handleProductImageUpload = (e) => {
@@ -178,7 +182,7 @@ export default function NewDogForm() {
                                         <div className="form-floating col-sm">
                                             <input name="chipNumber" type="text" className="form-control" id="floatingInput" placeholder="שם הכלב" onChange={handleChange} value={values.chipNumber} onBlur={handleBlur} />
                                             <label dir='rtl' htmlFor="floatingInput" className="form-label">מספר צ׳יפ*</label>
-                                            {/* <p className="error-message">{errors.chipNumber && touched.chipNumber && errors.chipNumber}</p> */}
+                                            <p className="error-message">{errors.chipNumber && touched.chipNumber && errors.chipNumber}</p>
                                         </div>
                                         <div className="form-floating col-sm">
                                             <input name="dogWeight" type="text" className="form-control" id="floatingInput" placeholder="משקל הכלב" onChange={handleChange} value={values.dogWeight} onBlur={handleBlur} />
@@ -195,22 +199,22 @@ export default function NewDogForm() {
                                         <div className='checkbox-container col-sm-6 ps-0'>
                                             <input className="form-check-input mt-0 " type="checkbox" value="" aria-label="Checkbox for following text input" onClick={() => setDrug(!drug)} />
                                             <p dir='rtl' className='mb-1 me-1 opened-input'>קיבל תרופה?</p>
-                                            <input name="drugName" type="text" className="form-control " placeholder="שם תרופה" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!drug} />
+                                            <input name="drugName" type="text" className="form-control " placeholder="שם תרופה" aria-label="Example text with button addon" onChange={handleChange} aria-describedby="button-addon1" hidden={!drug} />
                                         </div>
                                         <div className='checkbox-container col-sm-6 ps-0'>
                                             <input className="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" onClick={() => setVaccine(!vaccine)} />
                                             <p dir='rtl' className='mb-1 me-1 opened-input'>קיבל חיסון?</p>
-                                            <input name="vaccineName" type="text" id="floatingInput" className="form-control " placeholder="שם חיסון" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!vaccine} />
+                                            <input name="vaccineName" type="text" id="floatingInput" className="form-control " placeholder="שם חיסון" aria-label="Example text with button addon" onChange={handleChange} aria-describedby="button-addon1" hidden={!vaccine} />
                                         </div>
                                     </div>
                                     <div className='form-container-page1-third row mt-4 mb-4 ms-4' >
                                         <div className='checkbox-container col-sm-6 ps-0'>
-                                            <input name="drugAmount" type="text" className="form-control ms-3" placeholder="כמות" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!drug} />
-                                            <input name="drugDescription" type="text" className="form-control " placeholder="פירוט" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!drug} />
+                                            <input name="drugAmount" type="text" className="form-control ms-3" placeholder="כמות" aria-label="Example text with button addon" onChange={handleChange} aria-describedby="button-addon1" hidden={!drug} />
+                                            <input name="drugDescription" type="text" className="form-control " placeholder="פירוט" aria-label="Example text with button addon" onChange={handleChange} aria-describedby="button-addon1" hidden={!drug} />
                                         </div>
                                         <div className='checkbox-container col-sm-6 ps-0'>
-                                            <input name="vaccineAmount" type="text" className="form-control ms-3" placeholder="כמות" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!vaccine} />
-                                            <input name="vaccineDescription" type="text" className="form-control " placeholder="פירוט" aria-label="Example text with button addon" onChange={handleChange}  aria-describedby="button-addon1" hidden={!vaccine} />
+                                            <input name="vaccineAmount" type="text" className="form-control ms-3" placeholder="כמות" aria-label="Example text with button addon" onChange={handleChange} aria-describedby="button-addon1" hidden={!vaccine} />
+                                            <input name="vaccineDescription" type="text" className="form-control " placeholder="פירוט" aria-label="Example text with button addon" onChange={handleChange} aria-describedby="button-addon1" hidden={!vaccine} />
                                         </div>
                                     </div>
                                     <div className='form-container-page1-fourth row'>
@@ -234,7 +238,7 @@ export default function NewDogForm() {
                                                     <li><a href='size' class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
                                                     <li><hr class="dropdown-divider" /></li>
 
-                                                    <li><a href="small "className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
+                                                    <li><a href="small " className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
                                                     <li><a href='medium' className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני/ת")}>{"בינוני/ת"}</a></li>
                                                     <li><a href='large' className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול/ה")}>{"גדול/ה"}</a></li>
                                                 </ul>
@@ -253,25 +257,25 @@ export default function NewDogForm() {
                                             </div>
                                         </div>
 
-                        </div>
-                        <div className='form-container-page1-fifth row'>
-                            <div className="input-group mb-3 col-sm-3 ">
-                                <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
-                                    // onSelectfile(e)
-                                    handleProductImageUpload(e)
-                                }}
-                                    value={values.picture} 
-                                    onBlur={handleBlur}
-                                />
-                            </div>
-                        </div>
-                        <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
-                    </div>
-                </form>
-            )}
-        </Formik>
-        </div>
-    </div>
-</div >
+                                    </div>
+                                    <div className='form-container-page1-fifth row'>
+                                        <div className="input-group mb-3 col-sm-3 ">
+                                            <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
+                                                // onSelectfile(e)
+                                                handleProductImageUpload(e)
+                                            }}
+                                                value={values.picture}
+                                                onBlur={handleBlur}
+                                            />
+                                        </div>
+                                    </div>
+                                    <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
+                                </div>
+                            </form>
+                        )}
+                    </Formik>
+                </div>
+            </div>
+        </div >
     )
 }
