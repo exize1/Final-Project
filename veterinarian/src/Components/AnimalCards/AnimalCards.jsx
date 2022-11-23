@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import AnimalCard from '../AnimalCard/AnimalCard'
 import './animalCards.css'
 import { useSelector } from 'react-redux'
