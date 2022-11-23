@@ -48,14 +48,14 @@ router.post('/dogs/', async (req, res, next) => {
           }).catch(next)
           res.json({
             "error": true,
-            "message": "תיק כלב נוצר בהצלחה",
-            "alertType": "success"
+            "alertType": "success",
+            "message": "תיק כלב נוצר בהצלחה"
           })
         }).catch(err => {
           res.json({
             "error": true,
-            "message": "לא כל השדות מלאים",
             "alertType": "danger",
+            "message": "לא כל השדות מלאים",
             "err": err
           })
         })
@@ -112,7 +112,25 @@ router.put('/dogs/:id', (req, res, next) => {
     updates.display = req.body.display
   }
   Dog.findOneAndUpdate({ _id: req.params.id }, { $set: updates }, { new: true })
-    .then((data) => res.json(data))
+    .then((data) =>{
+      res.json({
+        "error": true,
+        "alertType": "success",
+        "message": " עודכן בהצלחה"
+      })
+    }).catch(err => {
+      res.json({
+        "error": true,
+        "alertType": "danger",
+        "message": "לא היה ניתן לשלוח את העדכון",
+        "m": err
+
+      })
+    } 
+    
+    
+    
+    )
     .catch(next)
 })
 
@@ -295,10 +313,21 @@ router.post("/events/calendar", async (req, res) => {
       if (err) {
         handleError(err, res)
       } else {
-        res.status(200).json(event)
+        res.status(200).json({
+          "error": true,
+          "alertType": "success",
+          "message": " נוסף בהצלחה"
+        })
       }
     })
   } catch (err) {
+    res.json({
+      "error": true,
+      "alertType": "danger",
+      "message": "לא היה ניתן להוסיף את האירוע",
+      "m": err
+
+    })
     handleError(err, res)
   }
 }
@@ -415,16 +444,42 @@ router.put('/reports/:id', (req, res, next) => {
   if (status) updates.status = req.body.status
 
   Report.findOneAndUpdate({ _id: id }, { $set: updates }, { new: true })
-    .then((data) => res.json(data))
-    .catch(next)
+    .then((data) => {
+      res.json({
+        "error": true,
+        "alertType": "success",
+        "message": "הסטטוס התעדכן בהצלחה"
+      })
+    })
+    .catch((err)=>{
+      res.json({
+        "error": true,
+      "alertType": "danger",
+      "message": "לא היה ניתן לשלוח את הסטטוס החדש",
+      "m": err
+    })
+    })
 })
 
 
 router.delete('/reports/:id', (req, res, next) => {
   console.log("delete");
   Report.findOneAndDelete({ _id: req.params.id })
-    .then((data) => res.json(data))
-    .catch(next)
+    .then((data) => {
+      res.json({
+        "error": true,
+        "alertType": "success",
+        "message": "הדיווח נמחק בהצלחה"
+      })
+    })
+    .catch((err)=>{
+      res.json({
+        "error": true,
+      "alertType": "danger",
+      "message": "לא היה ניתן למחוק את הדיווח",
+      "m": err
+    })
+    })
 })
 
 
@@ -496,15 +551,16 @@ router.post('/assigmnents', async (req,res,next) => {
       Assigmnent.create(report)
       .then(() =>{ 
         res.json({
-          "error" : false,
-          "message": "המשימה נשלחה בהצלחה"
+          "error": true,
+          "alertType": "success",
+          "message": "המשימה נוספה בהצלחה"
         })
-        console.log(report);
       }).catch(err =>{
         res.json({
-          "error" : true,
-          "message": "לא היה ניתן לשלוח את המשימה",
-          "m":err
+          "error": true,
+        "alertType": "danger",
+        "message": "לא היה ניתן לשלוח את המשימה",
+        "m": err
       })
     })
   })
