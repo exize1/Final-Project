@@ -5,6 +5,7 @@ import { addAssignment } from '../../../utils/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUsers } from '../../../Redux/slicer/Users';
 import { selectDog } from '../../../Redux/slicer/DogSlice';
+import Alert from '../../alert/Alert';
 
 
 const NewMission = ({className}) => {
@@ -32,10 +33,16 @@ const NewMission = ({className}) => {
             dogNumber: values.dogNumber,
             
         };
-        addAssignment(value, dispatch, setAlert, setAlertMessage, setAlertType)
-  }
+        addAssignment(value, dispatch, handleAlerts)
+    }     
+    const handleAlerts = (data) => {
+      setAlert(data.error)
+      setAlertType(data.alertType)
+      setAlertMessage(data.message)
+    }
 
     return(
+        <>
         <Formik
             initialValues={{
             dogHandlerName:"aa",
@@ -68,8 +75,8 @@ const NewMission = ({className}) => {
                     <input name="dateToEnd" type="date" className="form-control" id="floatingInput" placeholder="תאריך סיום המשימה" onChange={handleChange} value={values.dateToEnd} onBlur={handleBlur}/>
                     <label htmlFor="floatingInput">תאריך סיום המשימה</label>
                 </div>
-                <div className="input-group">
-                    <select name="dogHandlerID" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.dogHandlerID} onBlur={handleBlur}>
+                <div dir='ltr' className="input-group">
+                    <select dir='rtl' name="dogHandlerID" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.dogHandlerID} onBlur={handleBlur}>
                         <option defaultValue>כולם</option>
                         {users.map((user,index) => {
                                 return(
@@ -81,13 +88,13 @@ const NewMission = ({className}) => {
                     </select>
                     <label className="input-group-text" htmlFor="inputGroupSelect02"> כלבן</label>
                 </div>
-                <div className="input-group">
-                    <select name="dogNumber" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.category} onBlur={handleBlur}>
+                <div dir='ltr' className="input-group">
+                    <select dir='rtl' name="dogNumber" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.category} onBlur={handleBlur}>
                     {dogs.map((dog, index) => {
                             if (dog.display) return(
-                                
                                 <option key={index} value={`${dog.details.chipNumber}`}>{dog.details.chipNumber} {dog.details.dogName}</option>
-                        )
+                            ) 
+                            else return null
                     })}
                     </select>
                     <label className="input-group-text" htmlFor="inputGroupSelect02">בחר כלב</label>
@@ -99,7 +106,11 @@ const NewMission = ({className}) => {
                 </div>
             </form>
             )}
-        </Formik>          
+        </Formik> 
+        <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
+            {alertMessage}
+        </Alert>
+    </>                
     )
 }
 

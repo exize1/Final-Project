@@ -17,13 +17,11 @@ export const getDogs = (dispatch) => {
         .catch((err) => console.log(err));
 }
 
-export const createDog = (dispatch, body, setAlert, setAlertType, setAlertMessage) => {
+export const createDog = (dispatch, body, handleAlerts) => {
     publicRequest.post(`/api/dogs/`, body)
         .then((res) => {
             res.data && getDogs(dispatch);
-            res.data && setAlert(res.data.error)
-            res.data && setAlertMessage(res.data.message)
-            res.data && setAlertType(res.data.alertType)
+            handleAlerts(res.data)
         })
 }
 
@@ -35,10 +33,11 @@ export const getAssignments = (dispatch) => {
         .catch((err) => console.log(err));
 }
 
-export const addAssignment = (newAssignment,dispatch) => {
+export const addAssignment = (newAssignment, dispatch, handleAlerts) => {
     publicRequest.post(`/api/assigmnents`,newAssignment)
         .then((res) => {
             res.data && getAssignments(dispatch);
+            handleAlerts(res.data)
         })
         .catch((err) => console.log(err));
 }
@@ -123,7 +122,7 @@ export const RemoveFromAdoption = (dispatch, dog) => {
         })
 }
 
-export const updateDogProfile = (dispatch, value, dog) => {
+export const updateDogProfile = (dispatch, value, dog, handleAlerts) => {
     const updates = {}
 
     if (Object.values(value).length !== 0) updates.details = value
@@ -132,10 +131,11 @@ export const updateDogProfile = (dispatch, value, dog) => {
         .then((res) => {
             res.data && console.log("updated");
             res.data && getDogs(dispatch);
+            handleAlerts(res.data)
         })
 }
 
-export const addDogTreatment = (dispatch, values, dog, treatment, setAlertMessage, setAlert, setAlertType) => {
+export const addDogTreatment = (dispatch, values, dog, treatment, handleAlerts) => {
     const dogTreatments = dog.treatments
     const newDogTreatments = [...dogTreatments]
 
@@ -158,9 +158,7 @@ export const addDogTreatment = (dispatch, values, dog, treatment, setAlertMessag
         .then((res) => {
             res.data && console.log("updated");
             res.data && getDogs(dispatch);
-            res.data && setAlert(res.data.error);
-            res.data && setAlertMessage(res.data.message);
-            res.data && setAlertType(res.data.alertType);
+            handleAlerts(res.data)
         })
 }
 
@@ -232,22 +230,24 @@ export const getReports = (dispatch) => {
         })
 }
 
-export const updateStatus = (dispatch, value, report) => {
+export const updateStatus = (dispatch, value, report, handleAlerts) => {
     const updates = {}
     updates.status = value
 
     publicRequest.put(`/api/reports/${report._id}`, updates)
         .then((res) => {
             res.data && getReports(dispatch);
+            handleAlerts(res.data)
         })
 }
-export const deleteStatus = (dispatch, value, report) => {
+export const deleteStatus = (dispatch, value, report, handleAlerts) => {
     const updates = {}
     updates.status = value
 
     publicRequest.delete(`/api/reports/${report._id}`, updates)
         .then((res) => {
             res.data && getReports(dispatch);
+            handleAlerts(res.data)
         })
 }
 
@@ -268,7 +268,7 @@ const addEvent = (newEvent)=>{
 }
 
 export const addEventWhenAddDog =async (dispatch,values) =>{
-    const result = await publicRequest.post("api/events/calendar", {
+    await publicRequest.post("api/events/calendar", {
         title: values.title,
         start: values.start,
         end: values.end,

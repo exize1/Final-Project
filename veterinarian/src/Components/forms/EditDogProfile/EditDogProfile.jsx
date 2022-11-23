@@ -3,15 +3,14 @@ import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { updateDogProfile } from "../../../utils/apiCalls";
 import Modal from "../../modal/Modal";
+import Alert from "../../alert/Alert";
 
 
 const EditDogProfile = ({dog}) => {
 
-    // let windoWidth = window.innerWidth;
-
-    // const [alert, setAlert] = useState(true)
-    // const [alertType, setAlertType] = useState("")
-    // const [alertMessage, setAlertMessage] = useState("")
+    const [alert, setAlert] = useState(true)
+    const [alertType, setAlertType] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
     const [dogSize, setDogSize] = useState("")
     const [inheritedOpen, setInheritedOpen] = useState(false)
 
@@ -57,15 +56,20 @@ const EditDogProfile = ({dog}) => {
         
         value.src = dog.details.src
         value.description = dog.details.description
-        counter !== 0 && updateDogProfile(dispatch, value, dog)
+        counter !== 0 && updateDogProfile(dispatch, value, dog, handleAlerts)
         counter !== 0 && setInheritedOpen(!inheritedOpen)
 
   }
-
+  const handleAlerts = (data) => {
+    setAlert(data.error)
+    setAlertType(data.alertType)
+    setAlertMessage(data.message)
+    }
 
     const dispatch = useDispatch()
 
     return(
+        <>
         <Modal title={`עריכת הפרופיל של ${dog.details.dogName}`}  modalButtonName={"עריכת פרופיל כלב"} inheritedOpen={inheritedOpen} >
             <Formik
                 initialValues={{
@@ -133,9 +137,6 @@ const EditDogProfile = ({dog}) => {
                                             <li><a href="#small" className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן")}>{"קטן"}</a></li>
                                             <li><a href="#medium" className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני")}>{"בינוני"}</a></li>
                                             <li><a href="#big" className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול")}>{"גדול"}</a></li>
-                                            {/* how to catch the value of the the dropdown? should we use yup?*/}
-                                            {/* how to set dropdown going down instead of up> */}
-                                            {/* to implement the fixxed dropdonw in the 2 other forms */}
                                         </ul>
                                     </div>
                                 </div>
@@ -146,7 +147,11 @@ const EditDogProfile = ({dog}) => {
                     </form>
                 )}
             </Formik>   
-        </Modal>       
+        </Modal>  
+        <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
+         {alertMessage}
+        </Alert>
+    </>         
     )
 }
 

@@ -25,6 +25,10 @@ const DogHandlerSchema = mongoose.Schema({
     loggedIn: {
         type: Boolean,
         default: false
+    },
+    role: {
+        type : String,
+        required : true  
     }
 })
 

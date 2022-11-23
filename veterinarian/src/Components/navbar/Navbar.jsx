@@ -8,7 +8,7 @@ import { GrTask } from 'react-icons/gr'
 import { SiWolframlanguage } from 'react-icons/si'
 import { TbReportMedical } from 'react-icons/tb'
 import { BsCalendarEvent } from 'react-icons/bs'
-import { updateUserData } from "../../Redux/slicer/UserSlice";
+import { selectUser, updateUserData } from "../../Redux/slicer/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../App";
 import { selectDog } from "../../Redux/slicer/DogSlice";
@@ -17,6 +17,8 @@ const NewNavbar = () =>{
 
 
     const dogs = useSelector(selectDog)
+    const user = useSelector(selectUser)
+    console.log(user);
 
     const [haveNewReport, setHaveNewReport] = useState(false);
     const [counterNotfiction, setCounterNotfiction] = useState(0);
@@ -61,7 +63,6 @@ const NewNavbar = () =>{
         <nav className="navbar navbar-contianer">
             <div className="navabr-fluid">
                 <div className={windoWidth < 992 ? "title-button" : "title-links-search"}>
-                {/* <Link className="remove-underline" to="/"><a className="navbar-brand navbar-title" href="#home" onClick={() => setOpen(false)}>BidMe</a></Link> */}
                     {windoWidth > 992 && 
                     <div className="link-and-search-container">
                         <ul className="navbar-nav navbar-nav-close">
@@ -76,7 +77,7 @@ const NewNavbar = () =>{
                             })}
                         </ul>
                         <form dir="rtl" className="d-flex dropdown search-input-container" role="search">
-                            <input className="form-control me-2 search-input" data-bs-toggle="dropdown"  onChange={(e) => {setSearchTerm(e.target.value)}} type="search" placeholder="Search" aria-label="Search"/>
+                            <input className="form-control me-2 search-input" data-bs-toggle="dropdown"  onChange={(e) => {setSearchTerm(e.target.value)}} type="search" placeholder="חיפוש כלבים..." aria-label="Search"/>
                             <ul className="dropdown-menu search-dropdown-list">
                                 {filterSearchDogs(searchTerm).length === 0 ? 
                                 <li key="unfoundDogs"><p className="unfound-dropdown-item">לא נמצאו התאמות</p></li>
@@ -114,9 +115,17 @@ const NewNavbar = () =>{
                     </>}
                 </div>
                 {windoWidth > 992 && 
-                <>
+                <>                        
                 <div dir="rtl" className="right-side">
-                    {haveNewReport ? 
+                    {user.role === "admin" && 
+                    <ul className="navbar-nav navbar-nav-close">
+                        <li className="nav-item ">
+                            <Link className="remove-underline" to={`/register`}>
+                                <span className="nav-link add-width-register" onClick={() => setOpen(false)}>הרשמת משתמשים</span>
+                            </Link>
+                        </li>
+                    </ul>}
+                     {haveNewReport ? 
                         <div className="badge-container">
                             <span className="my-badge">{counterNotfiction}</span>
                             <HiBellAlert onClick={() => clearNotfiction()} style={{fontSize: "1.4rem"}}/>

@@ -2,15 +2,12 @@ import { Formik } from "formik";
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import Modal from "../../modal/Modal";
-// import * as Yup from "yup";
 import ActivityHours from "./ActivityHours";
 import {createNewVolunteer} from '../../../utils/apiCalls'
 import "./newVolunteer.css"
 import Alert from "../../alert/Alert";
 
 const NewVolunteering = ({dog}) => {
-
-    // let windoWidth = window.innerWidth;
 
     const [alert, setAlert] = useState(true)
     const [alertType, setAlertType] = useState("")
@@ -47,7 +44,6 @@ const NewVolunteering = ({dog}) => {
     const [toDay6, setToDay6] = useState("")
     const [fromDay7, setFromDay7] = useState("")
     const [toDay7, setToDay7] = useState("")
-    // const [addedActivityHours, setAddedActivityHours] = useState([])
 
     const handleAlerts = (data) => {
         setAlert(data.error)
@@ -55,8 +51,6 @@ const NewVolunteering = ({dog}) => {
         setAlertMessage(data.message)
         console.log(alert, alertType, alertMessage );
     }
-
-
 
     const handleSubmition = (values) => {
         setInheritedOpen(!inheritedOpen)
@@ -85,19 +79,11 @@ const NewVolunteering = ({dog}) => {
             },
             contactNum: values.contactNum
             }
-            // console.log(value);
             createNewVolunteer(dispatch,value, handleAlerts)
   }
 
-//   const schema = Yup.object().shape({
-//     treatmentName: Yup.string()
-//         .required("נא להכניס את שם הטיפול"),
-//     description: Yup.string()
-//         .required("נא להכניס פירוט קצר"),
-// });
 
 const dispatch = useDispatch()
-// console.log(counter);
     return(
         <>
         <Modal  modalButtonName="הוספת התנדבות חדשה" btnType="success"  size={"medium"} title="הוספת התנדבות חדשה" addOverflow={true} inheritedOpen={inheritedOpen}>
@@ -161,9 +147,6 @@ const dispatch = useDispatch()
                 )}
             </Formik>   
         </Modal>   
-        {/* <div className={`alert alert-${alertType} popup-alert mb-4`} role="alert" hidden={!alert}>
-            {alertMessage}
-        </div>  */}
         <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
             {alertMessage}
         </Alert>
