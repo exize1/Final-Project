@@ -2,7 +2,6 @@ import { Formik } from "formik";
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import Modal from "../../modal/Modal";
-// import * as Yup from "yup";
 import ActivityHours from "./ActivityHours";
 import {createNewVolunteer} from '../../../utils/apiCalls'
 import "./newVolunteer.css"
@@ -10,7 +9,6 @@ import Alert from "../../alert/Alert";
 
 const NewVolunteering = ({dog}) => {
 
-    // let windoWidth = window.innerWidth;
 
     const [alert, setAlert] = useState(true)
     const [alertType, setAlertType] = useState("")

@@ -96,7 +96,7 @@ const addEvent = (newEvent)=>{
 }
 
 
-export const addEventApi = (values) => async dispatch =>{
+export const addEventApi = (values,handleAlerts) => async dispatch =>{
     console.log(values);
     const result = await event.post("/calendar", {
          title: values.title,
@@ -110,7 +110,7 @@ export const addEventApi = (values) => async dispatch =>{
             console.log("event from the api going to the reducer: ", res.data)
             dispatch(addEvent(res.data)) 
             dispatch(removeError())
-            
+            handleAlerts(res.data)
             return  "success";
         }
        })

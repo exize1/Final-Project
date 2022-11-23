@@ -5,6 +5,7 @@ import { addAssignment } from '../../../utils/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUsers } from '../../../Redux/slicer/Users';
 import { selectDog } from '../../../Redux/slicer/DogSlice';
+import Alert from '../../alert/Alert';
 
 
 const NewMission = ({className}) => {
@@ -32,10 +33,16 @@ const NewMission = ({className}) => {
             dogNumber: values.dogNumber,
             
         };
-        addAssignment(value, dispatch, setAlert, setAlertMessage, setAlertType)
-  }
-
+        addAssignment(value, dispatch,handleAlerts)
+  }     
+  const handleAlerts = (data) => {
+    setAlert(data.error)
+    setAlertType(data.alertType)
+    setAlertMessage(data.message)
+    console.log(alert, alertType, alertMessage );
+}
     return(
+        <>
         <Formik
             initialValues={{
             dogHandlerName:"aa",
@@ -99,7 +106,11 @@ const NewMission = ({className}) => {
                 </div>
             </form>
             )}
-        </Formik>          
+        </Formik> 
+        <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
+        {alertMessage}
+    </Alert>
+    </>          
     )
 }
 

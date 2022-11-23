@@ -3,11 +3,23 @@ import { IoMdMore } from 'react-icons/io'
 import Modal from '../modal/Modal';
 import { useDispatch } from 'react-redux';
 import { deleteStatus, updateStatus } from '../../utils/apiCalls';
+import { useState } from 'react';
+import Alert from '../alert/Alert';
 
 function AnimalCard({ report }) {
+    const [alert, setAlert] = useState(true)
+    const [alertType, setAlertType] = useState("")
+    const [alertMessage, setAlertMessage] = useState("")
 
     const dispatch = useDispatch()
+    const handleAlerts = (data) => {
+        setAlert(data.error)
+        setAlertType(data.alertType)
+        setAlertMessage(data.message)
+        console.log(alert, alertType, alertMessage );
+    }
     return (
+        <>
         <div className="card mt-4 animal-card">
             <img src={report.reportDetails.picture.url} className="card-img-top pet-card-img" alt="..." />
 
@@ -62,18 +74,22 @@ function AnimalCard({ report }) {
                             </div>
                         </button>
                         <ul className="dropdown-menu" dir='rtl'>
-                            <li><a href='#notfound' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "לא נמצא", report)}>לא נמצא</a></li>
-                            <li><a href='#teart' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "טופל בשטח ושוחרר", report)}>טופל בשטח ושוחרר</a></li>
+                            <li><a href='#notfound' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "לא נמצא", report,handleAlerts)}>לא נמצא</a></li>
+                            <li><a href='#teart' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "טופל בשטח ושוחרר", report,handleAlerts)}>טופל בשטח ושוחרר</a></li>
                             {/* <li><a className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "טופל בשטח והועבר לוטרינריה", report)}>טופל בשטח והועבר לוטרינריה</a></li> */}
-                            <li><a href='#vet' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "הועבר לוטרינירה", report)}>הועבר לוטרינריה</a></li>
-                            <li><a href= '#dead'className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "החיה נמצאה מתה בשטח", report)}>החיה נמצאה מתה בשטח</a></li>
+                            <li><a href='#vet' className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "הועבר לוטרינירה", report,handleAlerts)}>הועבר לוטרינריה</a></li>
+                            <li><a href= '#dead'className="dropdown-item" dir='rtl' onClick={() => updateStatus(dispatch, "החיה נמצאה מתה בשטח", report,handleAlerts)}>החיה נמצאה מתה בשטח</a></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><a href='delete' className="dropdown-item detele-report " dir='rtl' onClick={() => deleteStatus(dispatch, "מחיקת דיווח", report)}>מחיקת דיווח</a></li>
+                            <li><a href='#delete' className="dropdown-item detele-report " dir='rtl' onClick={() => deleteStatus(dispatch, "מחיקת דיווח", report,handleAlerts)}>מחיקת דיווח</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div >
+        <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
+        {alertMessage}
+    </Alert>
+    </>
     );
 }
 

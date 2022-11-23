@@ -17,7 +17,7 @@ export default function NewDogForm() {
     const [dogSex, setDogSex] = useState("")
     const [dogAge, setDogAge] = useState("")
     const [drug, setDrug] = useState(false)
-
+    
     const [vaccine, setVaccine] = useState(false)
 
     const [alert, setAlert] = useState(false)
@@ -94,7 +94,13 @@ export default function NewDogForm() {
             treatment: treatment
         };
         addNewEvent(values)
-        createDog(dispatch, value, setAlert, setAlertType, setAlertMessage);
+        createDog(dispatch, value, handleAlerts);
+    }
+    const handleAlerts = (data) => {
+        setAlert(data.error)
+        setAlertType(data.alertType)
+        setAlertMessage(data.message)
+        console.log(alert, alertType, alertMessage );
     }
     const addNewEvent = (values) =>{
         let date = new Date();
@@ -138,6 +144,7 @@ export default function NewDogForm() {
 
     const dispatch = useDispatch()
     return (
+        <>
         <div className='petform-footer-container'>
             <div className='form-contact-container'>
                 <div className="form-container">
@@ -161,6 +168,7 @@ export default function NewDogForm() {
                             errors,
                             touched,
                         }) => (
+                            
                             <form dir='rtl' onSubmit={handleSubmit} noValidate>
                                 {/* <Alert alertType={"success"} alert={success}>
                                     הטופס נשלח הצלחה
@@ -218,11 +226,11 @@ export default function NewDogForm() {
                                             <div className="input-group mb-3 me-5">
                                                 <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSex ? dogSex : "מין החיה"}</button>
                                                 <ul className="dropdown-menu scrollable-menu">
-                                                    <li><a href='sex' class="dropdown-item" dir='rtl' >בחר/י מין...</a></li>
+                                                    <li><a href='#sex' class="dropdown-item" dir='rtl' >בחר/י מין...</a></li>
                                                     <li><hr class="dropdown-divider" /></li>
 
-                                                    <li><a href='male' className="dropdown-item" dir='rtl' onClick={() => setDogSex("זכר")}>{"זכר"}</a></li>
-                                                    <li><a href='female' className="dropdown-item" dir='rtl' onClick={() => setDogSex("נקבה")}>{"נקבה"}</a></li>
+                                                    <li><a href='#male' className="dropdown-item" dir='rtl' onClick={() => setDogSex("זכר")}>{"זכר"}</a></li>
+                                                    <li><a href='#female' className="dropdown-item" dir='rtl' onClick={() => setDogSex("נקבה")}>{"נקבה"}</a></li>
                                                     {/* how to catch the value of the the dropdown? should we use yup?*/}
                                                 </ul>
                                             </div>
@@ -231,12 +239,12 @@ export default function NewDogForm() {
                                             <div className="input-group mb-3 me-5">
                                                 <button dir='rtl' className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{dogSize ? dogSize : "גודל הכלב"}</button>
                                                 <ul className="dropdown-menu scrollable-menu">
-                                                    <li><a href='size' class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
+                                                    <li><a href='#size' class="dropdown-item" dir='rtl' >בחר/י גודל...</a></li>
                                                     <li><hr class="dropdown-divider" /></li>
 
-                                                    <li><a href="small "className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
-                                                    <li><a href='medium' className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני/ת")}>{"בינוני/ת"}</a></li>
-                                                    <li><a href='large' className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול/ה")}>{"גדול/ה"}</a></li>
+                                                    <li><a href="#small "className="dropdown-item" dir='rtl' onClick={() => setDogSize("קטן/ה")}>{"קטן/ה"}</a></li>
+                                                    <li><a href='#medium' className="dropdown-item" dir='rtl' onClick={() => setDogSize("בינוני/ת")}>{"בינוני/ת"}</a></li>
+                                                    <li><a href='#large' className="dropdown-item" dir='rtl' onClick={() => setDogSize("גדול/ה")}>{"גדול/ה"}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -273,5 +281,9 @@ export default function NewDogForm() {
         </div>
     </div>
 </div >
+<Alert alertType={alertType} alert={alert} setAlert={setAlert}>
+        {alertMessage}
+    </Alert>
+    </>
     )
 }

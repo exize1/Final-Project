@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addDogTreatment } from "../../../utils/apiCalls";
 import Modal from "../../modal/Modal";
 import * as Yup from "yup";
+import Alert from "../../alert/Alert";
 
 
 const NewTreatment = ({dog}) => {
@@ -23,7 +24,7 @@ const NewTreatment = ({dog}) => {
     }
     const handleSubmition = (values) => {
         setInheritedOpen(!inheritedOpen)
-        addDogTreatment(dispatch, values, dog, treatment)
+        addDogTreatment(dispatch, values, dog, treatment,handleAlerts)
   }
 
   const schema = Yup.object().shape({
@@ -33,10 +34,17 @@ const NewTreatment = ({dog}) => {
         .required("נא להכניס פירוט קצר"),
 });
 
+const handleAlerts = (data) => {
+    setAlert(data.error)
+    setAlertType(data.alertType)
+    setAlertMessage(data.message)
+    console.log(alert, alertType, alertMessage );
+}
 
 const dispatch = useDispatch()
 
     return(
+        <>
         <Modal title={`הוספת תיעוד טיפולי ל${dog.details.dogName}`} addOverflow={true} modalButtonName={"הוספת טיפול"} inheritedOpen={inheritedOpen}>
             <Formik
                 initialValues={{
@@ -66,9 +74,9 @@ const dispatch = useDispatch()
                                 <li><a href="choose-treatment" class="dropdown-item" dir='rtl' >בחר/י סוג טיפול...</a></li>
                                 <li><hr class="dropdown-divider" /></li>
 
-                                <li><a href="drag" className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("תרופה", true )}}>{"תרופה"}</a></li>
-                                <li><a href="vaccine" className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("חיסון", true)}}>{"חיסון"}</a></li>
-                                <li><a  href =" other"className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("אחר")}}>{"אחר"}</a></li>
+                                <li><a href="#drag" className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("תרופה", true )}}>{"תרופה"}</a></li>
+                                <li><a href="#vaccine" className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("חיסון", true)}}>{"חיסון"}</a></li>
+                                <li><a  href ="#other"className="dropdown-item" dir='rtl' onClick={() => {handleDropdown("אחר")}}>{"אחר"}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -93,7 +101,11 @@ const dispatch = useDispatch()
                 </form>
                 )}
             </Formik>   
-        </Modal>       
+        </Modal>
+        <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
+        {alertMessage}
+    </Alert>
+    </>       
     )
 }
 
