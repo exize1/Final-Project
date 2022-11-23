@@ -162,7 +162,7 @@ const AbandonedForm = ({ }) => {
                         }) => (
                             <form dir='rtl' onSubmit={handleSubmit} noValidate>
                                 {/* page 1 */}
-                                <Alert alertType={alertType} alert={alert} >
+                                <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
                                     {alertMessage}
                                 </Alert>
                                 {page === 0 ? <div className='form-container-page1'>
