@@ -516,13 +516,17 @@ router.put('/oldassigmnents/:id', (req, res, next) => {
 })
 
 
-router.patch('/assigmnents/:id', (req, res, next) => {
+router.patch('/assigmnents/:id', async (req, res, next) => {
   const id = req.params.id
   const status = req.body.status
   const WhoComplited = req.body.WhoComplited
-  assigmnents = Report.findOne({ _id: id })
+  const User =await DogHandler.findOne({_id:WhoComplited})
+  .then((data)=>{
+    const name=data.firstName
+    console.log(data.dogHandlerName);
+    assigmnents = Report.findOne({ _id: id })
     .then((data) => {
-      Assigmnent.findOneAndUpdate({ _id: id }, { complited: status, WhoComplited: WhoComplited }, { returnDocument: 'after' }, function (err, doc) {
+      Assigmnent.findOneAndUpdate({ _id: id }, { complited: status, WhoComplited:name }, { returnDocument: 'after' }, function (err, doc) {
         res.json(data)
         if (err) {
           console.log("Something wrong when updating data!");
@@ -533,6 +537,9 @@ router.patch('/assigmnents/:id', (req, res, next) => {
     }
     )
     .catch(next)
+
+  })
+  
 })
 //////delete all assignment 
 router.delete('/assigmnents', ( req,res,next) => {
