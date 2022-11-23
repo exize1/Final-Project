@@ -15,7 +15,7 @@ const Modal = ({ footer, dir, checkbox, title, size, addOverflow, btnType, modal
     }, [inheritedOpen])
     return(
         <div className='modal-container'>
-            {checkbox ? <AiOutlineClose onClick={() => {handleOpen()}} style={{color: "red"}}/> :<button type="button" className={`btn btn-${btnType} ${className}`} onClick={() => {handleOpen()}}>{modalButtonName}</button>}
+            {checkbox ? <AiOutlineClose onClick={() => {handleOpen()}} style={{color: "red"}}/> : <button type="button" className={`btn btn-${btnType} ${className} responsive-btn`} onClick={() => {handleOpen()}}>{modalButtonName}</button>}
         { open &&
             <div className='modal-background'>
                 <div className={`modal-fade-container ${size}`}>

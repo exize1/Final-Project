@@ -1,3 +1,11 @@
+
+.dog-page-details-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 99%;
+}
+
 .are-you-sure-btn-container{
     width: 100%;
     display: flex;
@@ -55,4 +63,62 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: start;
+}
+
+@media only screen and (max-width: 700px){
+    .dog-details-container{
+        margin-top: 0px;
+        margin-right: 0px;
+        text-align: start;
+    }
+    .dog-details{
+        font-size: 0.7rem;
+    }
+    .adopted-dog-icon-container{
+        margin-left: 10px;
+    }
+    .adopted-dog-icon{
+        font-size: 1.8rem;
+    }
+    .adopted-dog{
+        font-size: 0.8rem;
+    }
+    .adoption-btn{
+        margin-left: 0px;
+        padding-right: 0 !important;
+    }
+    .names-btns{
+        font-size: 0.7rem;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .delete-dog-button-container{
+        align-items: flex-start;
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .dog-details-container{
+        margin-top: 0px;
+        margin-right: 0px;
+        text-align: start;
+    }
+    .dog-details{
+        font-size: 0.6rem;
+    }
+    .adopted-dog-icon{
+        font-size: 1.5rem;
+    }
+    .adopted-dog{
+        font-size: 0.7rem;
+    }
+    .adoption-btn{
+        margin-left: 0px;
+        padding-right: 0 !important;
+    }
+}
+.danger-btn{
+    color: red;
 }

@@ -18,7 +18,7 @@
     /* color: white; */
 }
 
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 900px){
     .navbar-contianer{
         padding: 0;
         background-color: transparent;
@@ -265,7 +265,7 @@
     width: 70px;
     padding: 0 8px;
     border-radius: 17px;
-    background-color: rgba(136, 136, 136, 0.247);
+    background-color: rgba(202, 202, 202, 0.877);
     margin: 16px 6px 0 0;
 }
 

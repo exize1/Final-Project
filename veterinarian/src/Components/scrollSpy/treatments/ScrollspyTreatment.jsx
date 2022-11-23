@@ -6,6 +6,7 @@ import { useState } from "react"
 
 
 const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
+    let windoWidth = window.innerWidth
 
     const dogs = useSelector(selectDog)
     const [type, setType] = useState("")
@@ -60,10 +61,10 @@ const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
     return( 
         <div className="">
             <div dir="rtl" className="title-list-container px-3 pt-3" tabindex="0" >
-                <h2 className="text-start">הטיפולים שלי</h2>
-                <p className="mb-0 me-2">מס' טיפולים: {dog.treatments.length}</p>
+                <h2 className="text-start scrollspy-title">הטיפולים שלי</h2>
+                <p className="mb-0 me-2 scrollspy-sum">מס' טיפולים: {dog.treatments.length}</p>
             </div>
-            <div className="text-end bg-light top-list-container px-3" tabIndex="0" >
+            <div className={`text-end bg-light top-list-container ${windoWidth > 500 ? 'px-3': 'px-1'}`} tabIndex="0" >
                 <div dir="rtl" className="row ps-3">
                     <div className="col-2">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">סוג טיפול</a>
@@ -103,29 +104,27 @@ const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
                     </div>
                 </div>
             </div>
-            <div dir="rtl" className="text-start list-container scrollspy-example bg-light px-3 mt-0" tabindex="0" >
+            <div dir="rtl" className={`text-start list-container scrollspy-example scrollspy-dog bg-light ${windoWidth > 500 ? 'px-3': 'px-1'} mt-0`} tabindex="0" >
                 {filtered(type).map((treatment, index) => {
                     serial -= 1
                     return(
-                        // <Link to={dog._id} className="remove-underline">
-                            <div className="row bid-details-container">
-                                <div className="col-2">
-                                    <p className="bid-details" id={treatment.type}>{serial}{". "}{treatment.type}</p>
-                                </div>            
-                                <div className="col-2">
-                                    <p className="bid-details" id={treatment.treatmentName}>{treatment.treatmentName}</p>
-                                </div>
-                                <div className="col-1">
-                                    <p className="bid-details" id={treatment.amount}>{treatment.amount}</p>
-                                </div>            
-                                <div className="col-5">
-                                    <p className="bid-details" id={treatment.description}>{treatment.description }</p>
-                                </div>            
-                                <div className="col-2">
-                                    <p className="bid-details" id={treatment.treatmentDate.date}>{treatment.treatmentDate.date }</p>
-                                </div>            
+                        <div className="row bid-details-container">
+                            <div className={windoWidth > 500 ? "col-2": "col-2"}>
+                                <p className="bid-details" id={treatment.type}>{serial}{". "}{treatment.type}</p>
+                            </div>            
+                            <div className={windoWidth > 500 ? "col-2" : "col-2"}>
+                                <p className="bid-details" id={treatment.treatmentName}>{treatment.treatmentName}</p>
                             </div>
-                        // </Link>
+                            <div className={windoWidth > 500 ? "col-1": "col-1"}>
+                                <p className="bid-details" id={treatment.amount}>{treatment.amount}</p>
+                            </div>            
+                            <div className={windoWidth > 500 ? "col-5": "col-4"}>
+                                <p className="bid-details" id={treatment.description}>{treatment.description }</p>
+                            </div>            
+                            <div className={windoWidth > 500 ? "col-2": "col-3"}>
+                                <p className="bid-details" id={treatment.treatmentDate.date}>{treatment.treatmentDate.date }</p>
+                            </div>            
+                        </div>
                     )}
                 )}
             </div>

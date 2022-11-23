@@ -10,6 +10,35 @@
     margin-top: 70px;
 }
 
+@media only screen and (max-width: 900px){
+    .general-body{
+        flex-direction: column-reverse;
+        margin-top: 35px;
+        height: 90%;
+    }
+
+    .children-container{
+        width: 97.5% !important;
+        height: 97.5% !important;
+    }
+
+    .movebar-container{
+        width: 95% !important;
+    }
+
+    .movebar{
+        justify-content: center !important;
+        /* flex-direction: row-reverse !important; */
+    }
+
+    .actions-container{
+        /* flex-direction: row !important; */
+        height: 88.5%;
+    }
+
+
+}
+
 .children-container{
     display: flex;
     align-items: center;
@@ -29,8 +58,6 @@
 .add-overflow{
     overflow-y: auto;
 }
-
-
 
 .movebar-container{
     width: 19%;
@@ -71,4 +98,75 @@
     color: rgb(104, 133, 97);
 }
 
+.fixed-div{
+    position: fixed;
+    z-index: 10;
+    bottom: 2%;
+    right: 2%;
+}
+
+.action-btns-container{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+}
+
+.open-action-btn{
+    align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50% !important;
+    margin: 10px 8px 0 0;
+    box-shadow: rgb(4 17 29 / 25%) 1px 1px 4px 0px;
+}
+
+.action-btns{
+    width: max-content;
+}
+.action-btn{
+    text-align: start;
+    width: max-content;
+}
+
+.action-bg{
+    font-size: 0.5rem !important;
+    height: fit-content;
+    padding: 0 8px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: rgb(4 17 29 / 25%) 0.5px 0.5px 4px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin: 16px 6px 0 0;
+}
+
+.fixed-btns{
+    position: fixed;
+    bottom: 2%;
+    right: 15%;
+}
+
+.general-btns-container{
+    display: flex;
+}
+
+.animation{
+    animation: rotate  0.3s ease-out ;
+}
+.animation-backward{
+    animation: rotateBackward  0.3s ease-out ;
+}
+
+@keyframes rotate {
+    from {transform: rotate(170deg);}
+    to {transform: rotate(360deg);}
+  }
+
+@keyframes rotateBackward {
+from {transform: rotate(360deg);}
+to {transform: rotate(170deg);}
+}
 

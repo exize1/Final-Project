@@ -6,8 +6,7 @@ const Assignments = () => {
     return(
         <div className='general-body-container'>
             <GeneralBody panelTitle={"פאנל משימות"}>
-             
-            <ScrolSpyAssignments></ScrolSpyAssignments>
+                <ScrolSpyAssignments/>
             </GeneralBody>
         </div>
     )
