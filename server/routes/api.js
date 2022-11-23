@@ -427,25 +427,6 @@ router.delete('/reports/:id', (req, res, next) => {
     .catch(next)
 })
 
-
-router.patch('/animals/:id', (req, res, next) => {
-  const id = req.params.id
-  const status = req.body.status
-  animal = Report.findOne({ _id: id })
-    .then((data) => {
-      Report.findOneAndUpdate({ _id: id }, { status: status }, { returnDocument: 'after' }, function (err, doc) {
-        res.json(data)
-        if (err) {
-          console.log("Something wrong when updating data!");
-        }
-        console.log(doc);
-      })
-
-    }
-    )
-    .catch(next)
-})
-
 router.delete('/reports/', ( req,res,next) => {
     console.log("delete");
     Report.find({})
@@ -524,13 +505,13 @@ router.put('/oldassigmnents/:id', (req, res, next) => {
 })
 
 
-router.patch('/assigmnents/:id', (req, res, next) => {
+router.put('/assigmnents/:id', (req, res, next) => {
   const id = req.params.id
   const status = req.body.status
   const WhoComplited = req.body.WhoComplited
-  assigmnents = Report.findOne({ _id: id })
+  Report.findOne({ _id: id })
     .then((data) => {
-      Assigmnent.findOneAndUpdate({ _id: id }, { complited: status, WhoComplited: WhoComplited }, { returnDocument: 'after' }, function (err, doc) {
+      Assigmnent.findOneAndUpdate({ _id: id }, { $set: {complited: status, WhoComplited: WhoComplited} }, { returnDocument: 'after' }, function (err, doc) {
         res.json(data)
         if (err) {
           console.log("Something wrong when updating data!");

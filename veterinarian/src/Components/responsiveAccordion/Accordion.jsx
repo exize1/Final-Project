@@ -21,14 +21,13 @@ const Accordion =(props) =>{
             </h2>
             {open &&
             <div id={`#anelsStayOpen${props.index}`} class="accordion-collapse collapse show" aria-labelledby={props.id}>
-            <div class="accordion-body">
-                <strong> <a>שם העובד:  </a>{props.name}<br/> 
-                <a>מספר שיבוב : </a>{props.title}</strong><br/>
-                <a>תאריך  : </a> {props.dateUpload} <br/>
-                <a>תאריך יעד : </a> {props.dateToEnd} <br/>
-                <a>תיאור משימה :</a>{props.descreption}<br/>{props.complited} 
-                
-            </div>
+                <div class="accordion-body">
+                    <strong> <a>שם העובד:  </a>{props.name}<br/> 
+                    <a>מספר שיבוב : </a>{props.title}</strong><br/>
+                    <a>תאריך  : </a> {props.dateUpload} <br/>
+                    <a>תאריך יעד : </a> {props.dateToEnd} <br/>
+                    <a>תיאור משימה :</a>{props.descreption}<br/>{props.complited} 
+                </div>
             </div>
             
             }  

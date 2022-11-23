@@ -162,7 +162,7 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                                              setComplitedOpenId(assignment._id)
                                             }}/>
                                         {
-                                    complitedOpen && assignment._id===complitedOpenId?
+                                    complitedOpen && assignment._id === complitedOpenId?
                                     <div>בוצע ע"י: {assignment.WhoComplited}</div>
                                     :console.log() 
                                         }
