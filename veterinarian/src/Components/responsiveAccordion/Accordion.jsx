@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {useSelector} from 'react-redux'
 import { selectAssignments } from '../../Redux/slicer/Assignments'
 import {  AiOutlineCheck } from "react-icons/ai"
-import css from './accordion.css'
+import './accordion.css'
 
 
 

@@ -22,7 +22,7 @@ import Login from './pages/Login/login';
 import { selectUser } from './Redux/slicer/UserSlice';
 import Assignments from './pages/assignments/Assignments';
 import Calendar from './pages/calender/Calender';
-import Accordion from './Components/responsiveAccordion/Accordion'
+
 
 export const socket = io.connect("http://localhost:3001")
 
@@ -51,11 +51,8 @@ const dogs = useSelector(selectDog)
     <div className="App">
       {user.loggedIn ? <>
         <NewNavbar/>
-       
           <div className='padding-all-components'>
-          {/* < Accordion/> */}
             <Routes>
-              
                   <Route path='/' element={<Dashboard/>} />
                   <Route path='/login' element={<Login/>} />
                   <Route path='/register' element={<RegisterInspector/>} />
