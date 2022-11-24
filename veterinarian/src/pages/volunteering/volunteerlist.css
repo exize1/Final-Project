@@ -49,6 +49,7 @@
 .delete-btn-container{
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 .delete-btn{
@@ -72,3 +73,36 @@
 .hours-and-days{
     display: flex;
 }
+
+@media only screen and (max-width: 850px) {
+    .volunteering-details-container {
+      flex-direction: column;
+      width: fit-content;
+    }
+  
+    .volunteering-details {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .hand-logo {
+      height: 16vh;
+    }
+  
+    .volunteering-descriptopn {
+      width: 100%;
+    }
+  
+    .vulonteertitle {
+      color: #336ec3;
+      font-size: xx-large;
+    }
+    .delete-btn-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .hours-activity-container {
+      width: 100%;
+    }
+  }

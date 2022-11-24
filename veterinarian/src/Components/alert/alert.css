@@ -18,3 +18,10 @@
     top: 8%;
     animation: example 0.4s linear alternate;
 }
+
+
+.alert-container-unwidth {
+    display: flex;
+    justify-content: center;
+    transition: width 10s;
+  }

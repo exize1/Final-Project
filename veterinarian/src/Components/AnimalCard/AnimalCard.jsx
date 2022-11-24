@@ -135,7 +135,7 @@ function AnimalCard({ report }) {
                 </div>
             </div>
         </div>
-        <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
+        <Alert alertType={alertType} alert={alert} setAlert={setAlert} unwidth={true}>
             {alertMessage}
         </Alert>
         </>

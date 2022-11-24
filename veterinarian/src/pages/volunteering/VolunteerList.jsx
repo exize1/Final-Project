@@ -22,11 +22,14 @@ const Volunteering = () => {
                         <ul>
                             <div className="volunteering-details-container">
                                 <div className="volunteering-details">
-                                    <img className="hand-logo"src={hand} alt="icon"/>
-                                  
+                                    <div className="logo-hand-container">
+                                        <img className="hand-logo"src={hand} alt="icon"/>
+                                    </div>
                                     <div>
-                                        <h3 className="volunteering-title">{item.titleName}</h3>
-                                        <p className="volunteering-descriptopn">{item.description}</p>
+                                        <div className="title-description-container">
+                                            <h3 className="volunteering-title">{item.titleName}</h3>
+                                            <p className="volunteering-descriptopn">{item.description}</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="hours-activity-container">
