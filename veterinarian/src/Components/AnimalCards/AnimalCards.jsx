@@ -21,7 +21,7 @@ export default function AnimalCards({ filterKey }) {
 
     return (
         <div className='cards-container'>
-            {filtered(filterKey).map((report) => {
+            {filtered(filterKey).reverse().map((report) => {
                 return (
                     <AnimalCard report={report}></AnimalCard>
                 )

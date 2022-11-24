@@ -20,7 +20,7 @@ router.get('/dogs/', (req, res, next) => {
 })
 
 router.post('/dogs/', async (req, res, next) => {
-  const { details, treatment, dates } = req.body;
+  const { details, treatments, dates } = req.body;
   let result = null
   if (req.body.details.src){
     result = await cloudinary.uploader.upload(req.body.details.src);
@@ -29,7 +29,7 @@ router.post('/dogs/', async (req, res, next) => {
       details.src = result
       const dog = {
         details,
-        treatment,
+        treatments,
         dates,
       }
       Dog.create(dog)

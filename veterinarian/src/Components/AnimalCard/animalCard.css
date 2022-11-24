@@ -2,6 +2,13 @@ body {
   font-size: small;
 }
 
+.limited-lines {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 .animal-card {
   height: 25rem;
   width: 16rem;

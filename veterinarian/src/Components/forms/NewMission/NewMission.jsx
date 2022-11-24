@@ -6,15 +6,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUsers } from '../../../Redux/slicer/Users';
 import { selectDog } from '../../../Redux/slicer/DogSlice';
 import Alert from '../../alert/Alert';
+import * as Yup from "yup";
 
 
-const NewMission = ({className}) => {
+const NewMission = () => {
     const users = useSelector(selectUsers)
     const dogs = useSelector(selectDog)
 
     const [alert, setAlert] = useState(true)
     const [alertType, setAlertType] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
+    
+    const schema = Yup.object().shape({
+        details: Yup.string()
+            .required("נא להכניס פרטי משימה"),
+        dateToEnd: Yup.string()
+            .required("נא להכניס תאריך סיום משימה")
+
+    });
+
     const dispatch = useDispatch()
     const handleSubmition = (values) => {
 
@@ -56,6 +66,7 @@ const NewMission = ({className}) => {
             onSubmit={(values) => {
                 handleSubmition(values)
             }}
+            validationSchema={schema}
         >
             {({
             handleSubmit,
@@ -70,10 +81,12 @@ const NewMission = ({className}) => {
                 <div className="form-floating mb-3">
                     <input name="details" type="text" className="form-control" id="floatingInput" placeholder="תיאור המשימה" onChange={handleChange} value={values.details}  onBlur={handleBlur}/>
                     <label htmlFor="floatingInput">תיאור המשימה</label>
+                    <p className="error-message">{errors.details && touched.details && errors.details}</p>
                 </div>
                 <div className="form-floating mb-3">
                     <input name="dateToEnd" type="date" className="form-control" id="floatingInput" placeholder="תאריך סיום המשימה" onChange={handleChange} value={values.dateToEnd} onBlur={handleBlur}/>
                     <label htmlFor="floatingInput">תאריך סיום המשימה</label>
+                    <p className="error-message">{errors.dateToEnd && touched.dateToEnd && errors.dateToEnd}</p>
                 </div>
                 <div dir='ltr' className="input-group">
                     <select dir='rtl' name="dogHandlerID" className="form-select" id="inputGroupSelect02" onChange={handleChange} value={values.dogHandlerID} onBlur={handleBlur}>

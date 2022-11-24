@@ -28,6 +28,10 @@ export default function NewDogForm() {
             .required("נא להכניס את שם הכלב"),
         dogWeight: Yup.string()
             .required("נא להכניס את משקל הכלב"),
+        chipNumber: Yup.string()
+            .required("נא להכניס את מספר הצ׳יפ "),
+        treatment: Yup.string()
+            .required("נא להכניס את טיפול הכלב "),
     });
 
     const handleSubmition = (values) => {
@@ -88,7 +92,7 @@ export default function NewDogForm() {
                     hour: `${currentDate.getHours()}:${currentDate.getMinutes()}`
                 }
             },
-            treatment: treatment
+            treatments: treatment
         };
         addNewEvent(values)
         createDog(dispatch, value, handleAlerts);
@@ -181,7 +185,7 @@ export default function NewDogForm() {
                                         <div className="form-floating col-sm">
                                             <input name="chipNumber" type="text" className="form-control" id="floatingInput" placeholder="שם הכלב" onChange={handleChange} value={values.chipNumber} onBlur={handleBlur} />
                                             <label dir='rtl' htmlFor="floatingInput" className="form-label">מספר צ׳יפ*</label>
-                                            {/* <p className="error-message">{errors.chipNumber && touched.chipNumber && errors.chipNumber}</p> */}
+                                            <p className="error-message">{errors.chipNumber && touched.chipNumber && errors.chipNumber}</p>
                                         </div>
                                         <div className="form-floating col-sm">
                                             <input name="dogWeight" type="text" className="form-control" id="floatingInput" placeholder="משקל הכלב" onChange={handleChange} value={values.dogWeight} onBlur={handleBlur} />
@@ -226,7 +230,6 @@ export default function NewDogForm() {
 
                                                     <li><a href='#male' className="dropdown-item" dir='rtl' onClick={() => setDogSex("זכר")}>{"זכר"}</a></li>
                                                     <li><a href='#female' className="dropdown-item" dir='rtl' onClick={() => setDogSex("נקבה")}>{"נקבה"}</a></li>
-                                                    {/* how to catch the value of the the dropdown? should we use yup?*/}
                                                 </ul>
                                             </div>
                                         </div>
@@ -256,25 +259,25 @@ export default function NewDogForm() {
                                             </div>
                                         </div>
 
+                                        </div>
+                                        <div className='form-container-page1-fifth row'>
+                                            <div className="input-group mb-3 col-sm-3 ">
+                                                <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
+                                                    // onSelectfile(e)
+                                                    handleProductImageUpload(e)
+                                                }}
+                                                    value={values.picture} 
+                                                    onBlur={handleBlur}
+                                                />
+                                            </div>
+                                        </div>
+                                        <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
+                                    </div>
+                                </form>
+                            )}
+                        </Formik>
                         </div>
-                        <div className='form-container-page1-fifth row'>
-                            <div className="input-group mb-3 col-sm-3 ">
-                                <input name="picture" type="file" className="form-control" id="inputGroupFile01" placeholder="העלאה" onChange={(e) => {
-                                    // onSelectfile(e)
-                                    handleProductImageUpload(e)
-                                }}
-                                    value={values.picture} 
-                                    onBlur={handleBlur}
-                                />
-                            </div>
-                        </div>
-                        <button type="submit" className="btn btn-primary ms-3 mb-4" >שליחה</button>
                     </div>
-                </form>
-            )}
-        </Formik>
-        </div>
-    </div>
         </div >
         <Alert alertType={alertType} alert={alert} setAlert={setAlert}>
             {alertMessage}
