@@ -30,6 +30,7 @@ const AdoptionPanel = () => {
                                     <DogCard key={index} dog={dog}/>
                                 </Link>
                         )
+                        return console.log();
                     })}
                 </div>
                 :

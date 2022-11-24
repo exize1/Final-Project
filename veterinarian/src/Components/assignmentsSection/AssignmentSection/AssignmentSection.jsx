@@ -57,10 +57,11 @@ export default function AssignmentSection() {
                 if(index <  5)
                   return(
                     <div className="report" >
-                      <Assigment userID={user._id} assignmentID={assignment._id} complited={assignment.complited} workerName={assignment.dogHandlerName} assignment={assignment.details} dateToFinish={assignment.dateToEnd}/>
+                      <Assigment key={index}userID={user._id} assignmentID={assignment._id} complited={assignment.complited} workerName={assignment.dogHandlerName} assignment={assignment.details} dateToFinish={assignment.dateToEnd}/>
                     </div>
                   )
-              }
+                }
+                return console.log();
         })
         }
       </div>

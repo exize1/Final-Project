@@ -3,7 +3,7 @@ import "./Report.css"
 export default function Report(props) {
   return (
     <div dir='rtl' className='complet-report'>
-      <div className='text-report'onClick={()=>window.open("https://maps.google.com?q="+`${props.placeNeber+" "+props.placeStreet}`)}>
+      <div className='text-report'onClick={()=>window.open(`https://maps.google.com?q=${props.placeNeber} ${props.placeStreet}`)}>
         <b>מיקום :</b>
           {props.placeNeber}-{props.placeStreet}
         <div >

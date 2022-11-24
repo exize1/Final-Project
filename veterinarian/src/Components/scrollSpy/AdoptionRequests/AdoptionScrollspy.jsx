@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux"
 // import { selectDog } from "../../../Redux/slicer/DogSlice"
-import { useState } from "react"
 import { selectAdoption } from "../../../Redux/slicer/DogReqSlice"
 
 
@@ -9,18 +8,7 @@ const ScrollSpyAdoption = ({ addOverflow, dog, displayTreatments }) =>{
 
     const dogRequests = useSelector(selectAdoption)
     // const dogs = useSelector(selectDog)
-    const [type, setType] = useState("")
-    const filtered = (filterKey) => {
-        return(
-            dog.treatments.filter((val) => {
-                if(filterKey === ""){
-                    return val;
-                }else if(val.type.includes(filterKey)){
-                    return val;
-                }else return null
-             })
-            )
-        }
+  
         
     const filteredReq = (filterKey) => {
         return(
@@ -36,40 +24,8 @@ const ScrollSpyAdoption = ({ addOverflow, dog, displayTreatments }) =>{
             )
         }
         
-    const removeDateDuplicate = () => {
-        let dogsWithoutDup = []
-        let isInclude = false
-        filtered(type).forEach((element) => {
-                dogsWithoutDup.length === 0 && dogsWithoutDup.push(element)
-                if (dogsWithoutDup.length !== 0){
-                    dogsWithoutDup.forEach(newElement => {
-                        if(newElement.treatmentDate.date.includes(element.treatmentDate.date)){
-                            isInclude = true
-                        }
-                    })
-                    !isInclude && dogsWithoutDup.push(element)  
-                    isInclude = false
-                }
-            });
-            return dogsWithoutDup
-    }
-    const removeNameDuplicate = () => {
-        let treatmentsWithoutDup = []
-        let isInclude = false
-        filtered(type).forEach((element) => {
-                treatmentsWithoutDup.length === 0 && treatmentsWithoutDup.push(element)
-                if (treatmentsWithoutDup.length !== 0){
-                    treatmentsWithoutDup.forEach(newElement => {
-                         if(newElement.treatmentName.includes(element.treatmentName)){
-                            isInclude = true
-                        }
-                    })
-                    !isInclude && treatmentsWithoutDup.push(element)  
-                    isInclude = false
-                }
-            });
-            return treatmentsWithoutDup
-    }
+  
+
 
     // let serial = dog.treatments.length + 1
     let dogReqSerial = filteredReq(dog._id).length + 1
