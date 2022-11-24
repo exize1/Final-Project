@@ -32,6 +32,12 @@
     height: 100%;
 }
 
+.move-under-nav {
+    padding-top: 0;
+}
+
+
+
 .hero-title{ 
     font-size: 5rem;
     margin-top: 10%;

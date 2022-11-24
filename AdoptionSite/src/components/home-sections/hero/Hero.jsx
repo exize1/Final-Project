@@ -1,14 +1,14 @@
 
 import "./hero.css"
-// import backgroundvideo from './dogvideobg2.mp4'
+import backgroundvideo from '../hero/dogvideobg2.mp4'
 import { Link } from "react-router-dom"
 
 const Hero = () => {
     return(
         <div className="hero-container">
-            {/* <video autoPlay loop muted id="background-video">
+            <video autoPlay loop muted id="background-video">
                 <source src={backgroundvideo}  type="video/mp4"/>
-            </video> */}
+            </video>
             <div className="home-page-hero-container">
                 <div className="home-page-hero">
                     <div className="hero-text">
