@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import './alert.css'
 
-const Alert  = ({ alert, alertType, setAlert, children }) => {
+const Alert  = ({ alert, alertType, setAlert, unwidth, children }) => {
 
     useEffect(() => {
         setTimeout(() => {
@@ -10,7 +10,7 @@ const Alert  = ({ alert, alertType, setAlert, children }) => {
     }, [alert, setAlert])
 
     return(
-        <div className="alert-container"> 
+        <div className={unwidth ? "alert-container-unwidth" : "alert-container"}> 
             <div className={`alert alert-${alertType} save-spot-alert right-to-left mb-4`} role="alert" hidden={!alert}>
                {children}
             </div>
