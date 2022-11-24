@@ -28,12 +28,12 @@ function AnimalCard({ report }) {
             <div className="card-body">
                 <div className='card-body-details'>
                     <div className='modal-container-details-text' dir='rtl'>
-                        <p dir='rtl' className='modal-container-details-text-title'>שם מדווח: </p>
-                        <p>{report.reporterDetails.fullName}</p>
+                        <p dir='rtl' className='modal-container-details-text-title mb-1'>שם מדווח: </p>
+                        <p className='mb-1'>{report.reporterDetails.fullName}</p>
                     </div>
                     <div className='modal-container-details-text desc' dir='rtl'>
-                        <p dir='rtl' className='modal-container-details-text-title'>תיאור:</p>
-                        <p>{report.reportDetails.details}</p>
+                        <p dir='rtl' className='modal-container-details-text-title mb-1'>תיאור:</p>
+                        <p className='limited-lines mb-1'>{report.reportDetails.details}</p>
                     </div>
                     <div className='modal-container-details-text' dir='rtl'>
                         <p dir='rtl' className='modal-container-details-text-title'>שכונה:</p>
@@ -62,10 +62,9 @@ function AnimalCard({ report }) {
                                 <p>{report.reporterDetails.fullName}</p>
                             </div>
                             <div className='modal-container-details-text' dir='rtl'>
-                                <p dir='rtl' className='modal-container-details-text-title'>תיאור: </p>
+                                <p dir='rtl' className='modal-container-details-text-title '>תיאור: </p>
                                 <p>{report.reportDetails.details}</p>
                             </div>
-
                             <div className='modal-container-details-short-inputs'>
                                 <div className='modal-container-details-short-inputs-upper row' dir='rtl'>
 

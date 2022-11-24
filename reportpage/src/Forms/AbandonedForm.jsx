@@ -33,8 +33,8 @@ const AbandonedForm = ({ }) => {
             .min(10, "מספר טלפון מכיל בדיוק 10 ספרות")
             .max(10, "מספר טלפון מכיל בדיוק 10 ספרות")
             .matches(/[0-9]/, "מספר פלאפון מכיל מספרים בלבד"),
-        details: Yup.string()
-            .required(" נא להכניס את פרטי הדיווח").max(105, 'דיווח עד 105 תווים')
+        // details: Yup.string()
+        //     .required(" נא להכניס את פרטי הדיווח").max(105, 'דיווח עד 105 תווים')
     });
     const handleSubmition = (values) => {
         const currentDate = new Date()
@@ -65,7 +65,6 @@ const AbandonedForm = ({ }) => {
             },
         };
         postReport(value)
-        // console.log(value);
     };
 
     const handleProductImageUpload = (e) => {
@@ -92,7 +91,6 @@ const AbandonedForm = ({ }) => {
         const imageArray = selectedFileArray.map((file) => {
             return URL.createObjectURL(file)
         })
-        // setSelectedImage(imageArray)
     }
 
     const postReport = (report) => {
@@ -102,39 +100,30 @@ const AbandonedForm = ({ }) => {
                 res.data && setAlertMessage(res.data.message)
                 res.data && setAlertType(res.data.alertType)
                 console.log(report);
-                sendM(report, room);
+                sendM(report, "1");
             })
     }
 
     ////////////socket
-
-    const [messageRecived, setMessageRecived] = useState("")
-    const [room, setRoom] = useState("1")
     const sendM = (message, room) => {
         socket.emit("send_msg", { message, room })
 
     }
     ////join room
     (() => {
-        if (room !== "") {
-            socket.emit("join_room", room)
+        if ("1" !== "") {
+            socket.emit("join_room", "1")
             console.log("connected");
         }
 
     })()
 
-    ///////////////////////
     useEffect(() => {
-        // joinRoom()
         if (submited !== false) {
             alert("הדיווח נשלח")
-            // sendM(state, room)
             setSubmited(true)
 
         }
-        //   socket.on("recive_msg",(data)=>{
-        //     setMessageRecived(data.message)
-        // })
     }, [])
     return (
         <div className='petform-footer-container'>
@@ -175,7 +164,6 @@ const AbandonedForm = ({ }) => {
                                         <div className="form-floating col-sm">
                                             <input name="email" type="email" className="form-control" id="floatingInput" placeholder="כתובת אי-מייל" onChange={handleChange} value={values.email} onBlur={handleBlur} />
                                             <label dir='rtl' for="floatingInput" className="form-label" >כתובת אי-מייל</label>
-
                                         </div>
                                         <div className="form-floating col-sm">
                                             <input name="phone" type="text" className="form-control" id="floatingInput" placeholder="מספר נייד" onChange={handleChange} value={values.phone} onBlur={handleBlur} />

@@ -44,7 +44,7 @@ const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
         let isInclude = false
         filtered(type).forEach((element) => {
                 treatmentsWithoutDup.length === 0 && treatmentsWithoutDup.push(element)
-                if (dogs.length !== 0){
+                if (dogs.length !== 0 && element.treatmentName){
                     treatmentsWithoutDup.forEach(newElement => {
                          if(newElement.treatmentName.includes(element.treatmentName)){
                             isInclude = true
@@ -81,7 +81,7 @@ const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
                         <ul className={addOverflow ? 'dropdown-menu add-overflow' : "dropdown-menu"}>
                         {removeNameDuplicate().map((treatment, index) => {
                             return(
-                                <li key={index}><a className="dropdown-item" href={"#" + treatment.treatmentName}>{treatment.treatmentName}</a></li>
+                                <li key={index}><a className="dropdown-item" href={"#" + treatment.treatmentName}>{treatment.treatmentName&& treatment.treatmentName}</a></li>
                             )}
                         )}
                         </ul>
@@ -110,19 +110,19 @@ const ScrollSpyTreatment = ({ addOverflow, dog }) =>{
                     return(
                         <div className="row bid-details-container">
                             <div className={windoWidth > 500 ? "col-2": "col-2"}>
-                                <p className="bid-details" id={treatment.type}>{serial}{". "}{treatment.type}</p>
+                                <p className="bid-details" id={treatment.type}>{serial}{". "}{treatment.type && treatment.type}</p>
                             </div>            
                             <div className={windoWidth > 500 ? "col-2" : "col-2"}>
-                                <p className="bid-details" id={treatment.treatmentName}>{treatment.treatmentName}</p>
+                                <p className="bid-details" id={treatment.treatmentName}>{treatment.treatmentName && treatment.treatmentName}</p>
                             </div>
                             <div className={windoWidth > 500 ? "col-1": "col-1"}>
-                                <p className="bid-details" id={treatment.amount}>{treatment.amount}</p>
+                                <p className="bid-details" id={treatment.amount}>{treatment.amount && treatment.amount}</p>
                             </div>            
                             <div className={windoWidth > 500 ? "col-5": "col-4"}>
-                                <p className="bid-details" id={treatment.description}>{treatment.description }</p>
+                                <p className="bid-details" id={treatment.description}>{treatment.description && treatment.description }</p>
                             </div>            
                             <div className={windoWidth > 500 ? "col-2": "col-3"}>
-                                <p className="bid-details" id={treatment.treatmentDate.date}>{treatment.treatmentDate.date }</p>
+                                <p className="bid-details" id={treatment.treatmentDate.date}>{treatment.treatmentDate.date && treatment.treatmentDate.date }</p>
                             </div>            
                         </div>
                     )}
