@@ -1,20 +1,28 @@
-.alert-container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    transition: width 10s;
+.alert-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition: width 10s;
 }
 
-
 @keyframes example {
-    from {top: 9%;}
-    to {top: 8%;}
+  from {
+    top: 9%;
   }
-  
-
-.save-spot-alert{
-    position: absolute;
-    z-index: 100 !important;
+  to {
     top: 8%;
-    animation: example 0.4s linear alternate;
+  }
+}
+
+.save-spot-alert {
+  position: absolute;
+  z-index: 100 !important;
+  top: 8%;
+  animation: example 0.4s linear alternate;
+}
+
+.alert-container-unwidth {
+  display: flex;
+  justify-content: center;
+  transition: width 10s;
 }
