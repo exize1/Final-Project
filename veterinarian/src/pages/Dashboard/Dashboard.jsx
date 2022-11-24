@@ -5,8 +5,6 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import ReportSection from "../../Components/ReportsSection/ReportsSection/ReportSection";
 
-import Assigment from "../../Components/assignmentsSection/assignments/Assigment";
-import AssigmentSection from "../../Components/assignmentsSection/AssignmentSection/AssignmentSection";
 import AssignmentSection from "../../Components/assignmentsSection/AssignmentSection/AssignmentSection";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAssignments } from "../../Redux/slicer/Assignments";
@@ -104,7 +102,7 @@ const Dashboard =()=> {
       <div className="reports-in-realtime-container">
         <ReportSection />
         <div className="assighments-container">
-          <h1></h1>
+          <br/>
           <AssignmentSection/>
         </div>
       </div>

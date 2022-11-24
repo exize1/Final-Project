@@ -2,15 +2,15 @@ import { useState } from 'react'
 import './areaDropdown.css'
 import neighborhoods from './Area.js';
 function AreaDropdown({setFilterKey, filterKey}) {
-  const [filteredList, setFilteredList] = useState(neighborhoods);
+  const [filteredList] = useState(neighborhoods);
 
-  const filterBySearch = (e) => {
-    const query = e.target.value;
-    let updatedList = [...neighborhoods];
-    updatedList = updatedList.filter((item) =>
-      item.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1)
-    setFilteredList(updatedList)
-  }
+  // const filterBySearch = (e) => {
+  //   const query = e.target.value;
+  //   let updatedList = [...neighborhoods];
+  //   updatedList = updatedList.filter((item) =>
+  //     item.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1)
+  //   setFilteredList(updatedList)
+  // }
   return (
     <div className="dropdown">
       <div className="input-group mb-3">

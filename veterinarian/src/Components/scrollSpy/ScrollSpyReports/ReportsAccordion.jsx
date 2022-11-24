@@ -11,7 +11,9 @@ const ReportAccordion =({ report, serial }) =>{
     const dispatch = useDispatch()
 
   return (
-    <div className="row bid-details-container" onClick={() => setOpen(!open)}>
+    <div className='bid-details-container'>
+        <div className="row "  onClick={() =>{ setOpen(!open)} }>
+
         <div className="col">
             <p className="bid-details" id={report.reporterDetails.fullName}><span className="ms-2">{serial}.</span>{report.reporterDetails.fullName}</p>
         </div>            
@@ -27,7 +29,7 @@ const ReportAccordion =({ report, serial }) =>{
             <p className="bid-details" id={report.reportDetails.time.hour}>{report.reportDetails.time.hour}</p>
         </div>            
         <div className="col" >
-            <p className="bid-details neighborhood pb-0" onClick={()=>window.open("https://maps.google.com?q="+`${report.location.neighborhood+" "+report.location.street} דימונה`)} id={report.location.neighborhood}>{report.location.neighborhood}</p>
+            <p className="bid-details neighborhood pb-0" onClick={()=>window.open(`https://maps.google.com?q=${report.location.neighborhood} ${report.location.street} דימונה`)} id={report.location.neighborhood}>{report.location.neighborhood}</p>
             <p><b>רח':</b>{" "}{report.location.street}</p>
         </div>            
         <div className="col-1">
@@ -50,11 +52,12 @@ const ReportAccordion =({ report, serial }) =>{
                 <li><a href='delete' className="dropdown-item detele-report " dir='rtl' onClick={() => deleteStatus(dispatch, "מחיקת דיווח", report)}>מחיקת דיווח</a></li>
             </ul> 
         </div>
+        </div>
         </div>   
         {open &&
-        <div className="accordion-body-container">
-            <div className="collaps-container-reports">
-                <p className="bid-details" id={report.reportDetails.details}>{report.reportDetails.details}</p>
+        <div className="accordion-body-container" >
+            <div className="collaps-container-reports" >
+                <p className="bid-details" id={report.reportDetails.details}><b>פרטים :</b>{report.reportDetails.details}</p>
             </div>
             <div className="mdal-and-opition">
                 <Modal addOverflow={true} className='animal-modal' report={report} title='פרטים נוספים:' modalButtonName='פרטים נוספים' time={report.time} >

@@ -1,19 +1,12 @@
-import { useDispatch, useSelector } from "react-redux"
+import {  useSelector } from "react-redux"
 import "./ScrollspyReports.css"
-import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai"
-import { useState } from "react"
 import { selectReport } from "../../../Redux/slicer/ReportsSlice"
-import Modal from "../../modal/Modal"
-import { IoMdMore } from "react-icons/io"
-import { deleteStatus, updateStatus } from "../../../utils/apiCalls"
 import ReportAccordion from "./ReportsAccordion"
 
 
 
 const ScrollSpyReports = ({ addOverflow }) =>{
-    const dispatch = useDispatch()
 
-    const [open, setOpen] = useState(false)
     const allReports = useSelector(selectReport)
     console.log(allReports);
 
@@ -124,7 +117,6 @@ const ScrollSpyReports = ({ addOverflow }) =>{
                         </ul>
                     </div>
                     <div className="col-1">
-                        <a dir="rtl" className="nav-link " data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false"></a>
                     </div>
                 </div>
             </div>

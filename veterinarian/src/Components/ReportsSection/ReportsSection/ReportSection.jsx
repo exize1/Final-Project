@@ -21,7 +21,7 @@ export default function ReportSection() {
       setReport(copyReports)
       console.log(report);
     })
-  },[report])
+  },[report,allReports])
   
   return (
     <div className='report-section'> 
@@ -38,6 +38,7 @@ export default function ReportSection() {
                 <Report placeNeber={report.location?.neighborhood} placeStreet={report.location?.street} problem={report.reportDetails?.details} phone={report.reporterDetails?.phone}/>
               </div>
             )
+            return console.log();
         })
         }
       </div>

@@ -34,7 +34,7 @@ const UpdateEvent = ({updateEventApi, event, error}) => {
         if(!error.start && !error.end && dbError !== false){
           setTimeout(navigate("/")) 
         }
-     }, [rerender])
+     }, [rerender,dbError,error,firstRender,navigate])
     //using form-hook to register event data
     const { register, handleSubmit, formState: {errors}, control } = useForm({
       resolver: yupResolver(schema),

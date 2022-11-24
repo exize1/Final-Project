@@ -29,16 +29,16 @@ const MyCalendar = ({events, padding, ShowEventApi, closeEvent, ShowEventsApi,ca
     const [open, setOpen] = useState(false);
     const [renderStatus, rerender] = useState(false);
 
-    useEffect(()=>{
-      ShowEventsApi()
-      console.log("i renderd because of refresh or start");
-    },[])
+    // useEffect(()=>{
+    //   ShowEventsApi()
+    //   console.log("i renderd because of refresh or start");
+    // },[])
 
 
     useEffect(()=>{
       ShowEventsApi()
       console.log("i renderd");
-    },[renderStatus])
+    },[renderStatus,ShowEventsApi])
    
 
     const openEventClick = (event)=>{

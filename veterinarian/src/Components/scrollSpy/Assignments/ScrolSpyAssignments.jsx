@@ -13,13 +13,11 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
     const user = useSelector(selectUser)
     console.log(user);
     console.log(assignments);
-    const [type, setType] = useState("")
+    const type=""
     // const [openCompite, setOpenCompite] = useState(false)
     const [inheritedOpen, setInheritedOpen] = useState(false)
     // const [assignmentSelectedId, setassignmentSelectedId] = useState("")
     // const [genderKey, setGenderKey] = useState("")
-    const [adoptedKey, setAdoptedrKey] = useState("")
-    const [forAdoptingKey, setForAdoptingKey] = useState("")
     const [complitedOpen, setComplitedOpen] = useState(false)
     const [complitedOpenId, setComplitedOpenId] = useState("")
     const dispatch = useDispatch()
@@ -35,23 +33,7 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
             )
         }
         
-        const removeDateDuplicate = () => {
-            let dogsWithoutDup = []
-            let isInclude = false
-            filtered(type).forEach((element) => {
-                    dogsWithoutDup.length === 0 && dogsWithoutDup.push(element)
-                    if (dogsWithoutDup.length !== 0){
-                        dogsWithoutDup.forEach(newElement => {
-                            if(newElement.treatmentDate.date.includes(element.treatmentDate.date)){
-                                isInclude = true
-                            }
-                        })
-                        !isInclude && dogsWithoutDup.push(element)  
-                        isInclude = false
-                    }
-                });
-                return dogsWithoutDup
-        }
+     
         const removeNameDuplicate = () => {
             let assignmentsWithoutDup = []
             let isInclude = false
@@ -111,10 +93,10 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                     <div className="col-2">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">תאריך יעד</a>
                         <ul className="dropdown-menu">
-                        <li><button className="dropdown-item" onClick={() => setForAdoptingKey(true)} >הכי קרוב</button></li>
-                            <li><button className="dropdown-item" onClick={() => setForAdoptingKey(false)} >הכי רחוק</button></li>
+                        <li><button className="dropdown-item" >הכי קרוב</button></li>
+                            <li><button className="dropdown-item" >הכי רחוק</button></li>
                             <li><hr class="dropdown-divider"/></li>
-                            <li><button className="dropdown-item" onClick={() => setForAdoptingKey("")} >הכל</button></li>
+                            <li><button className="dropdown-item" >הכל</button></li>
                         </ul>
                     </div>
                     <div className="col-2">
@@ -124,10 +106,10 @@ const ScrolSpyAssignments = ({ addOverflow }) =>{
                     <div className="col-1">
                         <a dir="rtl" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#BidDate" role="button" aria-expanded="false">בוצע </a>
                         <ul className="dropdown-menu">
-                        <li><button className="dropdown-item" onClick={() => setAdoptedrKey(true)} >בוצע</button></li>
-                            <li><button className="dropdown-item" onClick={() => setAdoptedrKey(false)} >לא בוצע</button></li>
+                        <li><button className="dropdown-item" >בוצע</button></li>
+                            <li><button className="dropdown-item"  >לא בוצע</button></li>
                             <li><hr class="dropdown-divider"/></li>
-                            <li><button className="dropdown-item" onClick={() => setAdoptedrKey("")} >הכל</button></li>
+                            <li><button className="dropdown-item" >הכל</button></li>
                         </ul>
                     </div>
                 </div>
