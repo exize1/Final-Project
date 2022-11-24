@@ -8,7 +8,7 @@ const Assignments = () => {
     
     return(
         <div className='general-body-container'>
-            <GeneralBody panelTitle={"פאנל משימות"}>
+            <GeneralBody panelTitle={"פאנל משימות"} addOverFlow={true}>
               {windowWidth > 900 ? <ScrolSpyAssignments/> :<ResponsiveAccordion  />}
             </GeneralBody>
         </div>

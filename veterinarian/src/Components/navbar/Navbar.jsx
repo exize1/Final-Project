@@ -18,7 +18,6 @@ const NewNavbar = () =>{
 
     const dogs = useSelector(selectDog)
     const user = useSelector(selectUser)
-    console.log(user);
 
     const [haveNewReport, setHaveNewReport] = useState(false);
     const [counterNotfiction, setCounterNotfiction] = useState(0);
@@ -48,11 +47,13 @@ const NewNavbar = () =>{
       const filterSearchDogs = (filterKey) => {
         return(
           dogs.filter((val) => {
+            if(val.display){
                 if(filterKey === ""){
                   return val;
                 }else if(val.details.dogName.toLowerCase().includes(filterKey.toLowerCase())){
                     return val;
                 }else return null
+            }
             })
             )
         }
