@@ -89,7 +89,7 @@ const DogPage = ({ dog }) => {
                             </div>
                         </div>
                         <div className="col-3 dog-avatar-container">
-                            <Avatar src={dog.details.src}/>
+                            <Avatar src={dog.details.src.url ? dog.details.src.url : dog.details.src}/>
                         </div>
                     </div>
                     <div className="row">

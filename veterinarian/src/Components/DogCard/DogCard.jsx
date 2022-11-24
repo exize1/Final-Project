@@ -27,7 +27,7 @@ const DogCard = ({ dog }) => {
         <div className="dog-card-container">
             <div className="card text-bg-dark dog-card">
                 {filteredReq(dog._id).length > 0 && <span className="my-dog-badge">בקשת אימוץ חדשה</span>}
-                <img src={dog.details.src} className="dog-card-image" alt="..."/>
+                <img src={dog.details.src.url ? dog.details.src.url : dog.details.src} className="dog-card-image" alt="..."/>
                 <div className="card-img-overlay dog-card-details-container ">
                     <div>
                         <h5 className="dog-card-title card-title">{dog.details.dogName}</h5>
