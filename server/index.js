@@ -16,7 +16,7 @@ const {Server}= require('socket.io')
 const server= http.createServer(app)
 const io =new Server(server, {
   cors:{
-      origin:[process.env.VETERINARIAN_SITE, process.env.REPORT_SITE, pit add .rocess.env.ADOPTDOG_SITE, "http://localhost:3000","http://localhost:3002","http://localhost:3003"],
+      origin:[process.env.VETERINARIAN_SITE, process.env.REPORT_SITE, process.env.ADOPTDOG_SITE, "http://localhost:3000","http://localhost:3002","http://localhost:3003"],
       methods:["GET","POST"]
   },
 })
