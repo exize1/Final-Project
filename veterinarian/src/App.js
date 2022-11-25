@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import './App.css';
 import Dashboard from './pages/Dashboard/Dashboard';
 import NewNavbar from './Components/navbar/Navbar';
 import AdoptionPanel from './pages/adoption/AdoptionPanel';
-// import AppointmentsPanel from './pages/appointments/AppointmentsPanel';
 import RegisterInspector from './pages/register/RegisterInspector';
-import { Route, Routes, Link} from "react-router-dom"
+import { Route, Routes} from "react-router-dom"
 import "./Components/calendar//style/global.scss"
 import AddEvents from "./Components/calendar/AddEvents";
 import UpdateEvent from "./Components/calendar/UpdateEvent";
@@ -28,8 +27,10 @@ export const socket = io.connect("http://localhost:3001")
 
 
 function App() {
-  const [room,setRoom]=useState("1")
+  const room = "1"
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
+
   useEffect(()=>{
     getVolunteers(dispatch);
     getDogs(dispatch)
@@ -43,8 +44,7 @@ function App() {
       console.log("connected");
     }
       
-},[])
-const dispatch = useDispatch()
+},[dispatch])
 const dogs = useSelector(selectDog)
 
   return (

@@ -45,17 +45,17 @@ const NewNavbar = () =>{
       
       const routes = [["בית", ""], ["כלבים", "adoption"], ["משימות", "assignments"], ["דיווחים", "reports"],  ["התנדבויות", "volunteering"], ["יומן", "calendar"] ]
       const filterSearchDogs = (filterKey) => {
-        return(
-          dogs.filter((val) => {
-            if(val.display){
-                if(filterKey === ""){
-                  return val;
-                }else if(val.details.dogName.toLowerCase().includes(filterKey.toLowerCase())){
+        if (dogs) return(
+            dogs.filter((val) => {
+                if(val.display){
+                    if(filterKey === ""){
                     return val;
-                }else return null
-            }
-            })
-            )
+                    }else if(val.details.dogName.toLowerCase().includes(filterKey.toLowerCase())){
+                        return val;
+                    }else return null
+                } else return null
+                })
+                )
         }
         const dispatch = useDispatch();
 
